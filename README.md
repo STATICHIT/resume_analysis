@@ -1,4 +1,4 @@
-# resume_analysis
+# resume_analysis简历分析平台
 
 ## Project setup
 ```

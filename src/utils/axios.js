@@ -13,6 +13,7 @@ let config = {
 const _axios = axios.create(config);
 
 // 接收请求拦截器，内部根据返回值，重新组装，统一管理。
+/*
 _axios.interceptors.response.use(res => {
   if (typeof res.data !== 'object') {
     ElMessage.error('服务端异常！')
@@ -28,6 +29,7 @@ _axios.interceptors.response.use(res => {
   }
   return res.data//返回的是数据
 })
+*/
 
 const header = { 
   'Content-Type': 'application/json;charset=UTF-8', 
