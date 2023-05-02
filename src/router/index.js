@@ -2,11 +2,15 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 //路由配置数组
 const routes = [
-  { path: '/', redirect: '/home'},
+  { path: '/', redirect: '/body'},
   {
     path: '/home',
     component:() => import('../views/HomeView.vue')
   },
+  {
+    path:'/body',
+    component:() => import('../views/main/Body.vue')
+  }
 ]
 //router指向的是大路由，配置路由和组件之间的应用关系
 const router = createRouter({

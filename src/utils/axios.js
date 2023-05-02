@@ -36,7 +36,6 @@ const header = {
   'Authorization': 'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4MTA1NjA2NjIyMywicGFzc3dvcmQiOiIxIiwiaWQiOiIxMzU3NDMiLCJleHAiOjE2ODEwNTYwNjYsInVzZXJuYW1lIjoiMSJ9.cV6UCIMdU_h4wA5tyw6xiNf2VNPqXwnOQUNCazC1RHU', 
 }
 
-// 封装filePost,post,get,post,delete方法
 const http = {
   get(url = '', params = {}) {
     return new Promise((resolve, reject) => {
