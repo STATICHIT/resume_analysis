@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 11:33:17
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-02 11:40:18
+ * @LastEditTime: 2023-05-02 16:58:51
  * @FilePath: \resume_analysis\src\views\Main.vue
  * @Description: 客户端布局底页
 -->
@@ -15,7 +15,7 @@
       <el-main class="body">
         <router-view></router-view>
       </el-main>
-      <el-footer>
+      <el-footer class="foot">
         <div>
           <Foot></Foot>
         </div>
@@ -52,11 +52,16 @@ export default({
 .top{
   position:fixed;
   top:0;
-  height: 50px;
+  height: 60px;
   width: 100%;
   z-index: 1000;
 }
 .body{
 margin-top: 40px;
+}
+
+.foot{
+  background-color: black;
+  height: 100%;
 }
 </style>
