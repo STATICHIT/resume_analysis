@@ -1,3 +1,11 @@
+/*
+ * @Author: STATICHIT
+ * @Date: 2023-04-26 19:00:37
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-05-02 11:01:34
+ * @FilePath: \resume_analysis\jsconfig.json
+ * @Description: JavaScript项目的根目录
+ */
 {
   "compilerOptions": {
     "target": "es5",

@@ -1,16 +1,48 @@
-import { createRouter, createWebHistory } from 'vue-router'
+/*
+ * @Author: STATICHIT
+ * @Date: 2023-04-26 19:00:37
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-05-02 11:37:12
+ * @FilePath: \resume_analysis\src\router\index.js
+ * @Description: vue-router类的主构造函数
+ */
 
+import { createRouter, createWebHistory } from 'vue-router'
 //路由配置数组
 const routes = [
-  { path: '/', redirect: '/body'},
+  /*
+  {
+    path:'',
+    component:()=>import('')
+  },
+  */
+  { path: '/', redirect: '/body' },
   {
     path: '/home',
-    component:() => import('../views/HomeView.vue')
+    component: () => import('../views/HomeView.vue')
   },
   {
-    path:'/body',
-    component:() => import('../views/main/Body.vue')
-  }
+    path: '/login',
+    component: () => import('../views/user/Login.vue')
+  },
+  {
+    path: '/enroll',
+    component: () => import('../views/user/Enroll.vue')
+  },
+  {
+    path: '/main', redirect: '/body',
+    component: () => import('../views/Main.vue'),
+    children: [
+      {
+        path: '/body',
+        component: () => import('../views/main/Body.vue')
+      },
+      {
+        path: '/message',
+        component: () => import('../views/page/Message.vue')
+      }
+    ]
+  },
 ]
 //router指向的是大路由，配置路由和组件之间的应用关系
 const router = createRouter({

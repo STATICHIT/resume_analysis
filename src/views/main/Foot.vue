@@ -1,4 +1,11 @@
-
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-05-02 09:23:07
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-05-02 11:00:24
+ * @FilePath: \resume_analysis\src\views\main\foot.vue
+ * @Description: 底部组件
+-->
 <template>
   <div>
     <hr />

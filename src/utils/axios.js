@@ -1,3 +1,12 @@
+/*
+ * @Author: STATICHIT
+ * @Date: 2023-04-26 19:13:07
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-05-02 10:59:58
+ * @FilePath: \resume_analysis\src\utils\axios.js
+ * @Description: 封装请求
+ */
+
 import axios from 'axios'
 import qs from 'qs';//转json数据工具包
 import { ElMessage } from 'element-plus'

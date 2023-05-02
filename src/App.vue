@@ -1,35 +1,17 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-04-26 19:00:37
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-05-02 11:39:03
+ * @FilePath: \resume_analysis\src\App.vue
+ * @Description: vue根组件
+-->
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-header>
-        <div class="top">
-          <Top></Top>
-        </div>
-      </el-header>
-      <el-main>
-        <router-view></router-view>
-      </el-main>
-      <el-footer>
-        <div>
-          <Foot></Foot>
-        </div>
-      </el-footer>
-    </el-container>
+  <div>
+    <router-view></router-view>
   </div>
 </template>
 
-<script>
-import Top from "./views/main/Top.vue"
-import Body from "./views/main/Body.vue"
-import Foot from "./views/main/Foot.vue"
-export default({
-  components: {
-    Top,
-    Body,
-    Foot,
-  }
-});
-</script>
 
 <style>
 #app {
@@ -38,26 +20,5 @@ export default({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-/* 导航 */
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-
-.top{
-  position:fixed;
-  top:0;
-  width: 100%;
-  z-index: 1000;
 }
 </style>
