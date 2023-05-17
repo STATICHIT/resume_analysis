@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:00
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-02 11:27:57
+ * @LastEditTime: 2023-05-02 17:36:08
  * @FilePath: \resume_analysis\src\views\main\top.vue
  * @Description: 顶部组件
 -->
@@ -10,14 +10,15 @@
   <div class="top">
     <div class="content">
       <div style="display: flex; flex: 1">
-        <div class="active" @click="changeCom">STA简历分析</div>
-        <div class="active"><DropDown></DropDown></div>
+        <img src="../../assets/智能互联云_智能互联引擎.png" class="logoImg" />
+        <h1 @click="changeCom" class="logo">云简智能</h1>
+        
+        <div><DropDown></DropDown></div>
       </div>
-      <div style="width: 230px; text-align: right; display: flex">
+      <div style="width: 330px; text-align: right; display: flex">
         <div
-          class="active"
           :style="isActive1"
-          style="color: #eb8f3b"
+          style="color: #6671e3;line-height: 60px;margin-right: 20px;"
           @click="self"
         >
           {{ username }}
@@ -70,27 +71,38 @@ let message = () => {
   box-sizing: border-box;
 }
 .top {
-  background-color: #3e3e3e;
+  background-color: #ffffff;
   font-size: 14px;
   position: fixed;
   width: 100%;
-
-  box-shadow: 0 5px 10px -5px gray;
+  box-shadow: 0 1px 8px -5px gray;
 }
 .content {
-  width: 70%;
-  height: 50px;
+  width: 75%;
+  height: 60px;
   margin: 0 auto;
   display: flex;
 }
+.logoImg {
+  width: 30px;
+  height: 30px;
+  align-self: center;
+  margin-right: 10px;
+}
+.logo{
+  line-height: 60px;
+  color: #6671e3;
+  margin-right: 40px;
+}
 .active {
-  line-height: 50px;
-  color: #cfcfcf;
+  line-height: 60px;
+  color: #353131;
   margin-right: 20px;
   font-size: 14px;
 }
 .active:hover {
   cursor: pointer;
-  color: #ffffff;
+  color: #6671e3;
+  border-bottom: 4px solid #6671e3;
 }
 </style>
