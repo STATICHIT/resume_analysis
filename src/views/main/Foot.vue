@@ -2,8 +2,8 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:07
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-02 17:34:15
- * @FilePath: \resume_analysis\src\views\main\foot.vue
+ * @LastEditTime: 2023-05-17 21:29:39
+ * @FilePath: \resume_analysis\src\views\main\Foot.vue
  * @Description: 底部组件
 -->
 <template>
@@ -138,11 +138,11 @@ a {
   display: block;
   width: 120px;
   height: 36px;
-  border: 1px solid #00a4ff;
+  border: 1px solid #2f2fed;
   text-align: center;
   line-height: 36px;
   font-size: 16px;
-  color: #00a4ff;
+  color: #2f2fed;
 }
 
 .footer .right dt {

@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:00
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-02 17:36:08
+ * @LastEditTime: 2023-05-02 17:39:36
  * @FilePath: \resume_analysis\src\views\main\top.vue
  * @Description: 顶部组件
 -->
@@ -12,7 +12,7 @@
       <div style="display: flex; flex: 1">
         <img src="../../assets/智能互联云_智能互联引擎.png" class="logoImg" />
         <h1 @click="changeCom" class="logo">云简智能</h1>
-        
+        <div class="active" :style="isActive1" @click="out">简历分析</div>
         <div><DropDown></DropDown></div>
       </div>
       <div style="width: 330px; text-align: right; display: flex">

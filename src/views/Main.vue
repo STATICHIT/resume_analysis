@@ -9,12 +9,12 @@
 <template>
   <div class="common-layout">
     <el-container>
-        <div class="top">
-          <Top></Top>
-        </div>
-      <el-main class="body">
+      <div class="top">
+        <Top></Top>
+      </div>
+      <div class="body">
         <router-view></router-view>
-      </el-main>
+      </div>
       <el-footer class="foot">
         <div>
           <Foot></Foot>
@@ -25,16 +25,16 @@
 </template>
 
 <script>
-import Top from "./main/Top.vue"
-import Body from "./main/Body.vue"
-import Foot from "./main/Foot.vue"
-export default({
+import Top from "./main/Top.vue";
+import Body from "./main/Body.vue";
+import Foot from "./main/Foot.vue";
+export default {
   components: {
     Top,
     Body,
     Foot,
-  }
-});
+  },
+};
 </script>
 
 <style>
@@ -46,21 +46,21 @@ export default({
   color: #2c3e50;
 }
 
-.el-header{
-  --el-header-padding:0px;
+.el-header {
+  --el-header-padding: 0px;
 }
-.top{
-  position:fixed;
-  top:0;
+.top {
+  position: fixed;
+  top: 0;
   height: 60px;
   width: 100%;
   z-index: 1000;
 }
-.body{
-margin-top: 40px;
+.body {
+  margin-top: 40px;
 }
 
-.foot{
+.foot {
   background-color: black;
   height: 100%;
 }
