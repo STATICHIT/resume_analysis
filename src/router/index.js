@@ -18,6 +18,15 @@ const routes = [
   */
   { path: '/', redirect: '/body' },
   {
+    path:'/card',component:()=>import('../views/test/card.vue')
+  },
+  {
+    path:'/test',component:()=>import('../views/test/test.vue')
+  },
+  {
+    path:'/test2',component:()=>import('../views/test/test2.vue')
+  },
+  {
     path: '/home',
     component: () => import('../views/HomeView.vue')
   },
