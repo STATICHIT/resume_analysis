@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-23 19:43:51
+ * @LastEditTime: 2023-05-24 22:26:50
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -30,6 +30,9 @@ const routes = [
     path:'/test2',component:()=>import('../views/test/test2.vue')
   },
   {
+    path:'/test3',component:()=>import('../views/test/test3.vue')
+  },
+  {
     path: '/home',
     component: () => import('../views/HomeView.vue')
   },
@@ -48,6 +51,10 @@ const routes = [
       {
         path: '/mainPage',
         component: () => import('../views/main/Body.vue')
+      },
+      {
+        path: '/talentPool',
+        component: () => import('../views/page/TalentPool.vue')
       },
       {
         path: '/message',
