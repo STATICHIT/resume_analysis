@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:00
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-23 14:29:24
+ * @LastEditTime: 2023-05-24 22:30:14
  * @FilePath: \resume_analysis\src\views\main\top.vue
  * @Description: 顶部组件
 -->
@@ -14,7 +14,7 @@
         <h1 @click="changeCom" class="logo">云简智能</h1>
         <div class="active" :style="isActive1" >简历分析</div>
         <div class="active" :style="isActive1" >人岗匹配</div>
-        <div class="active" :style="isActive1" >人才库</div>
+        <div class="active" :style="isActive1" @click="talentPool">人才库</div>
         <div class="active" :style="isActive1" >岗位库</div>
         <div class="active" :style="isActive1" >岗位分析</div>
         <!-- <div><DropDown></DropDown></div> -->
@@ -52,6 +52,9 @@ let enroll = () => {
 let changeCom = () => {
   router.push({ path: "/mainPage" });
 };
+let talentPool=()=>{
+  router.push({ path: "/talentPool" });
+}
 let self = () => {
   router.push({ path: "/self" });
 };
