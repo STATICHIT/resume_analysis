@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-02 11:37:12
+ * @LastEditTime: 2023-05-23 19:43:51
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -16,7 +16,10 @@ const routes = [
     component:()=>import('')
   },
   */
-  { path: '/', redirect: '/body' },
+  { path: '/', redirect: '/main' },
+  {
+    path:'/login',component:()=>import('../views/main/Login.vue')
+  },
   {
     path:'/card',component:()=>import('../views/test/card.vue')
   },
@@ -39,11 +42,11 @@ const routes = [
     component: () => import('../views/user/Enroll.vue')
   },
   {
-    path: '/main', redirect: '/body',
+    path: '/main', redirect: '/mainPage',
     component: () => import('../views/Main.vue'),
     children: [
       {
-        path: '/body',
+        path: '/mainPage',
         component: () => import('../views/main/Body.vue')
       },
       {

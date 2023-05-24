@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:00
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-21 17:08:37
+ * @LastEditTime: 2023-05-23 14:29:24
  * @FilePath: \resume_analysis\src\views\main\top.vue
  * @Description: 顶部组件
 -->
@@ -12,10 +12,11 @@
       <div style="display: flex; flex: 1">
         <img src="../../assets/智能互联云_智能互联引擎.png" class="logoImg" />
         <h1 @click="changeCom" class="logo">云简智能</h1>
-        <div class="active" :style="isActive1" @click="out">简历分析</div>
-        <div class="active" :style="isActive1" @click="out">人岗匹配</div>
-        <div class="active" :style="isActive1" @click="out">人才库</div>
-        <div class="active" :style="isActive1" @click="out">岗位库</div>
+        <div class="active" :style="isActive1" >简历分析</div>
+        <div class="active" :style="isActive1" >人岗匹配</div>
+        <div class="active" :style="isActive1" >人才库</div>
+        <div class="active" :style="isActive1" >岗位库</div>
+        <div class="active" :style="isActive1" >岗位分析</div>
         <!-- <div><DropDown></DropDown></div> -->
       </div>
       <div style="width: 330px; text-align: right; display: flex">
@@ -36,11 +37,12 @@
 </template>
 
 <script setup>
+import {ref} from 'vue'
 import DropDown from "../../components/DropDown.vue";
 import router from "../../router";
 const username = "STATICHIT";
-var isActive1 = "";
-var isActive2 = "display:none";
+var isActive1 = ref("");
+var isActive2 = ref("display:none");
 let login = () => {
   router.push({ path: "/login" });
 };
@@ -48,7 +50,7 @@ let enroll = () => {
   router.push({ path: "/enroll" });
 };
 let changeCom = () => {
-  router.push({ path: "/main" });
+  router.push({ path: "/mainPage" });
 };
 let self = () => {
   router.push({ path: "/self" });
@@ -58,10 +60,10 @@ let out = () => {
   if (frame === true) {
     //退出登录
     //账号退出选项消失，登录注册选项出现
-    this.isActive1 = "display:none";
+    isActive1.value = "display:none";
     //清除token
     // this.$store.commit("deleteToken");
-    router.push({ path: "/main" });
+    router.push({ path: "/login" });
   }
 };
 let message = () => {

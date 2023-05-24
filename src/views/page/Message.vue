@@ -2,12 +2,12 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 10:48:07
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-02 10:59:05
+ * @LastEditTime: 2023-05-22 20:03:43
  * @FilePath: \resume_analysis\src\views\page\Message.vue
  * @Description: 消息接收页面
 -->
 <template>
-  <div class="box">
+  <div class="myBox">
     <div class="container">
       <el-tabs v-model="message">
         <el-tab-pane :label="`未读消息(${state.unread.length})`" name="first">
@@ -46,7 +46,7 @@
                   <span class="message-title">{{ scope.row.title }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="date" width="150"></el-table-column>
+              <el-table-column prop="date" width="200"></el-table-column>
               <el-table-column width="120">
                 <template #default="scope">
                   <el-button type="danger" @click="handleDel(scope.$index)"
@@ -153,10 +153,10 @@ export default {
 </script>
 
 <style>
-.box {
+.myBox {
   background-color: rgba(227, 231, 231, 0.37);
   text-align: left;
-  height: 800px;
+  height: 1100px;
   width: 1000px;
   margin: auto;
   padding: 40px;

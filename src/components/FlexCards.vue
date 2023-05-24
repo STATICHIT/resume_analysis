@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-21 21:03:37
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-21 22:02:06
+ * @LastEditTime: 2023-05-24 10:17:16
  * @FilePath: \resume_analysis\src\components\FlexCards.vue
  * @Description: 自定义
 -->
@@ -70,7 +70,7 @@ const options = ref([
     background:
       "url(https://pic1.zhimg.com/80/v2-b32111f13bbbe1106fcd0f0d5309d538_720w.webp)",
     icon: "fas fa-sun",
-    main: "XXXX",
+    main: "岗位分析",
     sub: "Omuke trughte a otufta",
     active: false,
   },
