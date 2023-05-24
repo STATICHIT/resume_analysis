@@ -2,9 +2,9 @@
   <div>
     <div class="all-openings">
       <div class="job-board-category">
-        <h2>Client Solutions</h2>
+        <h2 class="name">姓名：陈 静 ChenJing</h2>
         <p>
-          Lorem ipsum dolor sit amet, conisectetur adipiscing eit, sted doa
+          这里后面放照片（占位文本） conisectetur adipiscing eit, sted doa
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Et dolore
           magna aliqua eiusmod el. Lorem ipsum dolor sit amet, conisectetur
           adipiscing eit, sted doa eiusmod tempor incididunt ut labore et dolore
@@ -16,14 +16,14 @@
         <div class="single-posting">
           <h2>
             <a href="https://www.google.com/?gws_rd=ssl" target="_blank"
-              >Client Solutions Specialist</a
+              >客户解决方案专员</a
             >
-            <span class="label label-part-time">Part Time</span>
+            <span class="label label-part-time">兼职</span>
           </h2>
-          <h3>Grand Rapids, MI</h3>
+          <h3>中国 · 江西省宜春市</h3>
           <div class="posting-detail">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              填充文案Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam,
@@ -31,26 +31,26 @@
             </p>
           </div>
           <a href="https://www.google.com/?gws_rd=ssl" target="_blank"
-            >View Posting</a
+            >查看详细</a
           >
         </div>
         <div class="single-posting">
           <h2>
             <a href="https://www.google.com/?gws_rd=ssl" target="_blank"
-              >Client Solutions Supervisor</a
+              >客户解决方案主管</a
             >
-            <span class="label label-full-time">Full Time</span>
+            <span class="label label-full-time">全职</span>
           </h2>
-          <h3>Grand Rapids, MI</h3>
+          <h3>中国 · 湖南省长沙市</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            填充文案Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis
             nostrud exercitation ullamco laboris nisi ut aliquip
           </p>
           <a href="https://www.google.com/?gws_rd=ssl" target="_blank"
-            >View Posting</a
+            >查看详细</a
           >
         </div>
       </div>
@@ -58,9 +58,9 @@
       <div class="border"></div>
 
       <div class="job-board-category">
-        <h2>Information Technology</h2>
+        <h2 class="name">姓名：李 珊 LiShan</h2>
         <p>
-          Lorem ipsum dolor sit amet, conisectetur adipiscing eit, sted doa
+          这里后面放照片（占位文本） conisectetur adipiscing eit, sted doa
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Et dolore
           magna aliqua eiusmod el. Lorem ipsum dolor sit amet, conisectetur
           adipiscing eit, sted doa eiusmod tempor incididunt ut labore et dolore
@@ -72,39 +72,39 @@
         <div class="single-posting">
           <h2>
             <a href="https://www.google.com/?gws_rd=ssl" target="_blank"
-              >User Experience Designer</a
+              >用户体验设计师</a
             >
-            <span class="label label-full-time">Full Time</span>
+            <span class="label label-full-time">全职</span>
           </h2>
-          <h3>Grand Rapids, MI</h3>
+          <h3>中国 · 湖南省郴州市</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            填充文案consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis
             nostrud exercitation ullamco laboris nisi ut aliquip
           </p>
           <a href="https://www.google.com/?gws_rd=ssl" target="_blank"
-            >View Posting</a
+            >查看详细</a
           >
         </div>
         <div class="single-posting">
           <h2>
             <a href="https://www.google.com/?gws_rd=ssl" target="_blank"
-              >User Interface Developer</a
+              >用户界面开发人员</a
             >
-            <span class="label label-internship">Internship</span>
+            <span class="label label-internship">实习</span>
           </h2>
-          <h3>Grand Rapids, MI</h3>
+          <h3>中国 · 浙江省杭州市</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            填充文案Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis
             nostrud exercitation ullamco laboris nisi ut aliquip
           </p>
           <a href="https://www.google.com/?gws_rd=ssl" target="_blank"
-            >View Posting</a
+            >查看详细</a
           >
         </div>
       </div>
@@ -113,7 +113,7 @@
 
       <div class="talent-pool">
         <p>
-          Lorem ipsum dolor sit amet, conisectetur adipiscing eit, sted doa
+          填充文案Lorem ipsum dolor sit amet, conisectetur adipiscing eit, sted doa
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Et dolore
           magna aliqua eiusmod el. Lorem ipsum dolor sit amet, conisectetur
           adipiscing eit, sted.
@@ -171,7 +171,7 @@ p {
 }
 
 a {
-  color: #04d3c2;
+  color: #7a83e7;
   text-decoration: underline;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
@@ -204,7 +204,7 @@ h2 a:hover {
 /* Demo-Specific CSS */
 
 button {
-  background: #04d3c2;
+  background: #7a83e7;
   border: none;
   border-radius: 3px;
   -moz-border-radius: 3px;
@@ -219,7 +219,7 @@ button {
 }
 
 button:hover {
-  background: #03968a;
+  background: #7a83e7;
 }
 
 body {
@@ -239,7 +239,9 @@ button {
   margin-top: 15px;
   margin-right: 15px;
 }
-
+.name{
+  float: left;
+}
 .label {
   padding: 0px 5px;
   margin-left: 10px;
@@ -283,7 +285,7 @@ button {
   min-width: 800px;
   max-width: 1220px;
   background: #fff;
-  margin: 15px auto;
+  margin: 0 auto;
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
