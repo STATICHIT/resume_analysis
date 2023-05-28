@@ -17,12 +17,11 @@
 </script>
 
 <style lang="scss" scoped>
-
-.box{
+.box {
   padding: 50px 0 0 0;
 }
 .search {
-  width: 500px;
+  width: 600px;
   margin: 0 auto;
   position: relative;
   display: flex;
@@ -33,10 +32,12 @@
   border: 3px solid #7a83e7;
   border-right: none;
   padding: 5px;
-  height: 45px;
+  height: 50px;
   border-radius: 5px 0 0 5px;
   outline: none;
   color: #9dbfaf;
+  font-size: 20px;
+  text-indent: 10px;
 }
 
 .searchTerm:focus {
@@ -45,13 +46,12 @@
 
 .searchButton {
   width: 40px;
-  height: 45px;
+  height: 50px;
   border: 1px solid #7a83e7;
   background: #7a83e7;
   text-align: center;
   color: #fff;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  font-size: 30px;
 }
 </style>

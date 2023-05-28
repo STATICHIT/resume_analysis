@@ -22,8 +22,8 @@
 
 <script setup>
 import Search from "../../components/Search.vue";
-import SearchType from "../test/test3.vue";
-import TalentList from "../test/test2.vue";
+import SearchType from "../../components/SearchType.vue";
+import TalentList from "../../components/TalentList.vue";
 </script>
 
 <style lang="scss" scoped>
