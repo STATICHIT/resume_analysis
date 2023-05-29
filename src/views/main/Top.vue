@@ -15,7 +15,7 @@
         <div class="active" :style="isActive1" >简历分析</div>
         <div class="active" :style="isActive1" >人岗匹配</div>
         <div class="active" :style="isActive1" @click="talentPool">人才库</div>
-        <div class="active" :style="isActive1" >岗位库</div>
+        <div class="active" :style="isActive1" @click="jobPool">岗位库</div>
         <div class="active" :style="isActive1" >岗位分析</div>
         <!-- <div><DropDown></DropDown></div> -->
       </div>
@@ -54,6 +54,9 @@ let changeCom = () => {
 };
 let talentPool=()=>{
   router.push({ path: "/talentPool" });
+}
+let jobPool=()=>{
+  router.push({ path: "/jobPool" });
 }
 let self = () => {
   router.push({ path: "/self" });

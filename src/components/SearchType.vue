@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="so_condition J_so_condition" style="margin-top:40px">
+    <div class="so_condition J_so_condition" style="margin-top: 40px">
       <div class="lefttit">地标地段</div>
       <div class="rs">
-        <div class="li">全杭州</div>
+        <div class="li select">全杭州</div>
         <div class="li">上城区</div>
         <div class="li">下城区</div>
         <div class="li">江干区</div>
@@ -36,26 +36,21 @@
       <div class="rs">
         <div class="li select">不限</div>
         <div class="li">形象好</div>
-        <div class="li">气质佳</div>
         <div class="li">能出差</div>
         <div class="li">很幽默</div>
         <div class="li">技术精悍</div>
-        <div class="li">有亲和力</div>
         <div class="li">高学历</div>
         <div class="li">经验丰富</div>
         <div class="li">能加班</div>
         <div class="li">海归</div>
         <div class="li">会开车</div>
         <div class="li">口才好</div>
-        <div class="li">声音甜美</div>
         <div class="li">会应酬</div>
-        <div class="li">诚实守信</div>
         <div class="li">外语好</div>
         <div class="li">性格开朗</div>
         <div class="li">有上进心</div>
         <div class="li">人脉广</div>
         <div class="li">知识丰富</div>
-        <div class="li">才艺多</div>
         <div class="clear"></div>
       </div>
       <div class="clear"></div>
@@ -80,10 +75,10 @@
 
         <div class="bli" style="">
           <el-select
-            v-model="value1"
+            v-model="value2"
             multiple
             placeholder="年龄"
-            style="width: 100px"
+            style="width: 120px"
           >
             <el-option
               v-for="item in options5"
@@ -97,10 +92,10 @@
 
         <div class="bli">
           <el-select
-            v-model="value1"
+            v-model="value3"
             multiple
             placeholder="学历要求"
-            style="width: 100px"
+            style="width: 120px"
           >
             <el-option
               v-for="item in options"
@@ -114,10 +109,10 @@
         </div>
         <div class="bli" style="">
           <el-select
-            v-model="value1"
+            v-model="value4"
             multiple
             placeholder="工作性质"
-            style="width: 100px"
+            style="width: 120px"
           >
             <el-option
               v-for="item in options2"
@@ -130,10 +125,10 @@
         </div>
         <div class="bli" style="">
           <el-select
-            v-model="value1"
+            v-model="value5"
             multiple
             placeholder="期望薪资"
-            style="width: 100px"
+            style="width: 160px"
           >
             <el-option
               v-for="item in options3"
@@ -146,10 +141,10 @@
         </div>
         <div class="bli" style="">
           <el-select
-            v-model="value1"
+            v-model="value6"
             multiple
             placeholder="行业类别"
-            style="width: 100px"
+            style="width: 200px"
           >
             <el-option
               v-for="item in options6"
@@ -169,8 +164,19 @@
 
 <script setup>
 import { ref } from "vue";
-const value1 = ref([]);
+const value1 = ref(["Option0"]);
+const value2 = ref(["Option0"]);
+const value3 = ref(["Option0"]);
+const value4 = ref(["Option0"]);
+const value5 = ref(["Option0"]);
+const value6 = ref(["Option0"]);
+const value7 = ref(["Option0"]);
+
 const options = [
+  {
+    value: "Option0",
+    label: "不限",
+  },
   {
     value: "Option1",
     label: "初中",
@@ -202,6 +208,10 @@ const options = [
 ];
 const options2 = [
   {
+    value: "Option0",
+    label: "不限",
+  },
+  {
     value: "Option1",
     label: "全职",
   },
@@ -215,6 +225,10 @@ const options2 = [
   },
 ];
 const options3 = [
+  {
+    value: "Option0",
+    label: "不限",
+  },
   {
     value: "Option1",
     label: " 1.5K~2K/月",
@@ -234,6 +248,10 @@ const options3 = [
 ];
 const options4 = [
   {
+    value: "Option0",
+    label: "不限",
+  },
+  {
     value: "Option1",
     label: "男",
   },
@@ -245,7 +263,7 @@ const options4 = [
 
 const options5 = [
   {
-    value: "Option1",
+    value: "Option0",
     label: "全部",
   },
   {
@@ -270,6 +288,10 @@ const options5 = [
   },
 ];
 const options6 = [
+  {
+    value: "Option0",
+    label: "不限",
+  },
   {
     value: "Option1",
     label: "计算机软件/硬件",
@@ -325,7 +347,7 @@ const options6 = [
   border-radius: 3px;
   margin-top: 5px;
 }
-.so_condition .rs .li :hover {
+.so_condition .rs .li:hover {
   color: #a75b5b;
   border: 1px #a75b5b solid;
   background-color: #d6cdcd;
@@ -345,7 +367,11 @@ const options6 = [
   cursor: pointer;
   margin-top: 3px;
 }
-
+.so_condition .rs .li.select {
+    border: 1px #FF6600 solid;
+    background-color: #FFF7EE;
+    color: #FF6600;
+}
 h1,
 h2,
 h3,
