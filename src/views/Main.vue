@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-05-02 11:33:17
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-02 16:58:51
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-05-29 22:24:08
  * @FilePath: \resume_analysis\src\views\Main.vue
  * @Description: 客户端布局底页
 -->
@@ -42,7 +42,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 

@@ -1,5 +1,4 @@
 <!-- 简历分析页面 -->
-  components: { ResumePage },
 <template>
   <div class="box">
     <div class="page animate__animated animate__fadeIn">
@@ -62,7 +61,8 @@ const handleClick = (tab, event) => {
 @import '../style/base.scss';
 
 .box {
-  padding: 20px;
+  padding: 60px;
+  background-color: #f3fcfa;
 }
 .demo-tabs{
   padding: 20px;
