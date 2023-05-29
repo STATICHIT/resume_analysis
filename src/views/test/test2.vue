@@ -1,3 +1,4 @@
+<!-- 人才列表 -->
 <template>
   <div>
     <div class="all-openings">

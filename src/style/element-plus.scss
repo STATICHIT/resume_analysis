@@ -1,0 +1,28 @@
+/* 修改element-plus原生样式 */
+
+// 引入 element-plus 的样式表
+@import 'src/style/base.scss';
+@import "element-plus/dist/index.css";
+
+
+// 自定义 el-tabs 的主题样式
+.el-tabs__nav {
+//   background-color: #ffffff; // 修改标签栏的背景色
+    color: #333;
+}
+
+.el-tabs__item.is-active {
+  color: $primary-color; // 修改当前激活的标签文字颜色
+
+}
+.el-tabs__item:hover{
+    color: $primary-color;
+}
+.el-tabs__item{
+    font-size: 15px;
+}
+.el-tabs__active-bar {
+    background-color: $primary-color; // 修改横线颜色为红色
+    height: 5px;
+}
+  
