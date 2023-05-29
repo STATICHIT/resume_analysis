@@ -15,14 +15,15 @@ import { createPinia } from 'pinia'
 //element-plus图标库
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import axios from 'axios'
-
+import animated from 'animate.css' 
+import './style/element-plus.scss'
 
 // 生成 Vue 实例 app
 const app = createApp(App)
 app.use(router)
 app.use(ElementPlus)
 app.use(createPinia())
-
+app.use(animated)
 
 //全局导入icons
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
