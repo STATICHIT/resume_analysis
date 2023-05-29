@@ -5,7 +5,14 @@ const routes = [
   { path: '/', redirect: '/home'},
   {
     path: '/home',
-    component:() => import('../views/HomeView.vue')
+    component:() => import('../views/HomeView.vue'),
+    redirect:'/analysisPage',
+    children:[
+      {
+        path:'/analysisPage',
+        component:()=>import('../views/AnalysisPage.vue')
+      }
+    ]
   },
 ]
 //router指向的是大路由，配置路由和组件之间的应用关系
