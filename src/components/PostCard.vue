@@ -9,7 +9,7 @@
 <template>
   <div class="box">
     <div>
-      <h2>现有岗位</h2>
+      <h2 style="text-align: center">现有岗位</h2>
     </div>
     <div class="container">
       <div class="col">

@@ -26,12 +26,14 @@ import PostCard from "../../components/PostCard.vue"
 }
 .board1{
   margin: 0 auto;
+  text-align: center;
   background-color: #fff;
   width: 800px;
   height: 600px;
   margin-bottom: 40px;
 }
 .board2 {
+  text-align: center;
   background-color: #e9f0f8;
   width: 100%;
   height: 220px;

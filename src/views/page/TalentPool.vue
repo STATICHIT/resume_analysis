@@ -41,6 +41,7 @@ import TalentList from "../../components/TalentList.vue";
 }
 .board1 {
   background-color: #e9f0f8;
+  text-align: center;
   width: 100%;
   height: 270px;
   padding: 50px 0 0 0;
