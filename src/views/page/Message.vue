@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 10:48:07
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-22 20:03:43
+ * @LastEditTime: 2023-05-29 22:25:40
  * @FilePath: \resume_analysis\src\views\page\Message.vue
  * @Description: 消息接收页面
 -->
@@ -31,7 +31,7 @@
             </el-table-column>
           </el-table>
           <div class="handle-row">
-            <el-button type="primary">全部标为已读</el-button>
+            <button type="primary">全部标为已读</button>
           </div>
         </el-tab-pane>
         <el-tab-pane :label="`已读消息(${state.read.length})`" name="second">
@@ -56,7 +56,7 @@
               </el-table-column>
             </el-table>
             <div class="handle-row">
-              <el-button type="danger">删除全部</el-button>
+              <button type="danger">删除全部</button>
             </div>
           </template>
         </el-tab-pane>
@@ -154,7 +154,7 @@ export default {
 
 <style>
 .myBox {
-  background-color: rgba(227, 231, 231, 0.37);
+  background-color:#f2f7fc;
   text-align: left;
   height: 1100px;
   width: 1000px;
@@ -167,6 +167,24 @@ export default {
 }
 .handle-row {
   margin-top: 30px;
+}
+button {
+  background: #7a83e7;
+  border: none;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  height: 30px;
+  padding: 0px 10px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #444fcf;
 }
 </style>
 

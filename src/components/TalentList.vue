@@ -97,7 +97,7 @@ let list = [
     englishname: "ChenWeiTing",
     country: "中国",
     area: "上海市",
-    gender: "女",
+    gender: "男",
     age: 22,
     phone: "15905895217",
     email: "2394412110@qq.com",
@@ -204,7 +204,7 @@ button {
 }
 
 button:hover {
-  background: #7a83e7;
+  background: #444fcf;
 }
 
 body {
@@ -242,6 +242,11 @@ button {
 
 .label-internship {
   background: #00aeef;
+}
+
+
+.label-part-time {
+  background: #fbb03b;
 }
 
 .all-openings {

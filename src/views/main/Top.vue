@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:00
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-24 22:30:14
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-05-29 22:21:10
  * @FilePath: \resume_analysis\src\views\main\top.vue
  * @Description: 顶部组件
 -->
@@ -12,7 +12,7 @@
       <div style="display: flex; flex: 1">
         <img src="../../assets/智能互联云_智能互联引擎.png" class="logoImg" />
         <h1 @click="changeCom" class="logo">云简智能</h1>
-        <div class="active" :style="isActive1" >简历分析</div>
+        <div class="active" :style="isActive1" @click="router.push('/analysisPage')">简历分析</div>
         <div class="active" :style="isActive1" >人岗匹配</div>
         <div class="active" :style="isActive1" @click="talentPool">人才库</div>
         <div class="active" :style="isActive1" @click="jobPool">岗位库</div>
