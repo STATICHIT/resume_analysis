@@ -16,7 +16,7 @@
         <div class="active" :style="isActive1" >人岗匹配</div>
         <div class="active" :style="isActive1" @click="talentPool">人才库</div>
         <div class="active" :style="isActive1" @click="jobPool">岗位库</div>
-        <div class="active" :style="isActive1" >岗位分析</div>
+        <div class="active" :style="isActive1" @click="jobAnalysis">岗位分析</div>
         <!-- <div><DropDown></DropDown></div> -->
       </div>
       <div style="width: 330px; text-align: right; display: flex">
@@ -57,6 +57,9 @@ let talentPool=()=>{
 }
 let jobPool=()=>{
   router.push({ path: "/jobPool" });
+}
+let jobAnalysis=()=>{
+  router.push({ path: "/jobAnalysis" });
 }
 let self = () => {
   router.push({ path: "/self" });

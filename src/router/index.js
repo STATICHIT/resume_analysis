@@ -1,8 +1,8 @@
 /*
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-05-29 22:18:22
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-05-30 18:10:03
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -30,6 +30,9 @@ const routes = [
     path: '/test3', component: () => import('../views/test/test3.vue')
   },
   {
+    path: '/test4', component: () => import('../views/test/test4.vue')
+  },
+  {
     path: '/login',
     component: () => import('../views/user/Login.vue')
   },
@@ -52,6 +55,10 @@ const routes = [
       {
         path: '/message',
         component: () => import('../views/page/Message.vue')
+      },
+      {
+        path: '/jobAnalysis',
+        component: () => import('../views/page/JobAnalysis.vue')
       },
       {
         path: '/analysisPage',
