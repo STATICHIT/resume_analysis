@@ -3,7 +3,7 @@
   <div class="box">
     <div class="page animate__animated animate__fadeIn">
       <div class="avatar">
-        <img src="..\assets\avatar.png" />
+        <img src="../../assets/avatar.png" />
         <div>
           <div class="user-tip">
             <h2>唐奇</h2>
@@ -23,24 +23,28 @@
             <span>2390864551@qq.com</span>
             <el-icon><Briefcase /></el-icon>
             <span>0年工作经验</span>
-            <img src="..\assets\student-icon.png" />
+            <img src="..\..\assets\student-icon.png" />
             <span>本科</span>
           </div>
         </div>
       </div>
       <el-tabs v-model="state.isVisit"  class="demo-tabs" @tab-click="handleClick">
-    <el-tab-pane label="中文简历" name="first">
+    <el-tab-pane  class="animate__animated animate__slideInLeft" :lazy="true" label="中文简历" name="first">
         <resume-page></resume-page>
     </el-tab-pane>
-    <el-tab-pane label="候选人画像" name="second"></el-tab-pane>
+    <el-tab-pane class="animate__animated animate__slideInRight" :lazy="true" label="候选人画像" name="second">
+    <ResumePortraitVue></ResumePortraitVue>
+  </el-tab-pane>
   </el-tabs>
     </div>
+    <el-button color="#626aef" size="large" class="goBack" style="font-weight:bold">返回文件上传页面</el-button>
   </div>
 </template>
 
 <script setup>
 import ResumePageVue from "@/components/ResumePage.vue";
 import ResumePage from "@/components/ResumePage.vue";
+import ResumePortraitVue from "@/components/ResumePortrait.vue";
 import animated from "animate.css";
 import { reactive } from "vue";
 
@@ -52,13 +56,12 @@ const state = reactive({
 })
 
 const handleClick = (tab, event) => {
-  console.log(tab, event)
 }
 
 </script>
 
 <style lang="scss" scoped>
-@import '../style/base.scss';
+@import '/src/style/base.scss';
 
 .box {
   padding: 60px;
@@ -71,9 +74,13 @@ const handleClick = (tab, event) => {
 .demo-tabs el-tab-pane {
   color: $primary-color;
 }
-
+.goBack{
+  font-weight: bold;
+  margin-left: 48%;
+  margin-top: 20px;
+}
 .page {
-  width: 50%;
+  width: 57%;
   padding: 30px 20px;
   margin-left: 25%;
   height: auto;
