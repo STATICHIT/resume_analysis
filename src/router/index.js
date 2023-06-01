@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-05-29 22:47:33
+ * @LastEditTime: 2023-05-31 22:36:42
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -46,6 +46,10 @@ const routes = [
       {
         path: '/analysisPage',
         component: () => import('../views/page/AnalysisPage.vue')
+      },
+      {
+        path: '/analysisPosts',
+        component: () => import('../views/page/AnalysisPosts.vue')
       },
     ]
   },
