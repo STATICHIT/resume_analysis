@@ -20,7 +20,21 @@
     <div>
       <span class="title">教育背景</span>
       <div class="education">
-        <span>吉首大学</span>
+        <el-popover
+    ref="popover"
+    placement="right"
+    class="popup"
+    title="吉首大学"
+    :width="600"
+    trigger="hover"
+    content="吉首大学 [107] （Jishou University），简称“吉大” [1] ，学校地跨湖南省湘西土家族苗族自治州和张家界市两地办学 [105] ，是国家民族事务委员会与湖南省人民政府省部共建大学，是湖南省高水平建设大学、湖南省国内一流学科建设高校， [104] 学校具有推荐免试研究生资格， [104] 入选国家“中西部高校基础能力建设工程”、“卓越医生教育培养计划”、“卓越农林人才教育培养计划”、“服务国家特殊需求博士人才培养项目”、“湖南省2011计划”，为中国服务外包校企联盟成员单位。 [2]
+学校成立于1958年4月，1978年复升为省属综合性大学，同年中南大学湘雅医学院湘西分院并入吉首大学组建医疗系，湘潭大学湘西分校并入吉首大学组建体育系，2000年，吉首卫生学校并入吉首大学；2001年，湘西民族教育学院与吉首民族师范学校并入吉首大学组建吉首大学师范学院；2002年，武陵高等专科学校并入吉首大学成为吉首大学张家界校区。 [1]
+根据2023年5月学校官网信息显示，学校总占地面积2900余亩，建筑面积近60万平方米，教学科研仪器设备总值3.3亿元，各类纸质、电子文献600余万册；设有教学学院22个，一级学科41个，本科专业78个， [104] 拥有博士后科研流动站2个、一级学科博士点1个、一级学科硕士点16个、专业硕士点17个；有在职教职员工近1500人，专任教师1100余人；各类在籍学生3万余人，其中在校本科生、硕士生、博士生、留学生共2万人。"
+  >
+    <template #reference>
+      <span class="m-2">吉首大学<img src="../assets/imgs/mark02.png" class="circle"></span>
+    </template>
+  </el-popover>
         <ul>
           <li><span>开始时间：</span>2020.09</li>
           <li><span>结束时间：</span>至今</li>
@@ -35,7 +49,34 @@
     <div>
       <span class="title">社会经历</span>
       <div>
-        <span>吉首大学</span>
+        <el-popover
+    ref="popover"
+    placement="right"
+    title="吉首大学"
+    :width="600"
+    trigger="hover"
+    content="吉首大学 [107] （Jishou University），简称“吉大” [1] ，学校地跨湖南省湘西土家族苗族自治州和张家界市两地办学 [105] ，是国家民族事务委员会与湖南省人民政府省部共建大学，是湖南省高水平建设大学、湖南省国内一流学科建设高校， [104] 学校具有推荐免试研究生资格， [104] 入选国家“中西部高校基础能力建设工程”、“卓越医生教育培养计划”、“卓越农林人才教育培养计划”、“服务国家特殊需求博士人才培养项目”、“湖南省2011计划”，为中国服务外包校企联盟成员单位。 [2]
+学校成立于1958年4月，1978年复升为省属综合性大学，同年中南大学湘雅医学院湘西分院并入吉首大学组建医疗系，湘潭大学湘西分校并入吉首大学组建体育系，2000年，吉首卫生学校并入吉首大学；2001年，湘西民族教育学院与吉首民族师范学校并入吉首大学组建吉首大学师范学院；2002年，武陵高等专科学校并入吉首大学成为吉首大学张家界校区。 [1]
+根据2023年5月学校官网信息显示，学校总占地面积2900余亩，建筑面积近60万平方米，教学科研仪器设备总值3.3亿元，各类纸质、电子文献600余万册；设有教学学院22个，一级学科41个，本科专业78个， [104] 拥有博士后科研流动站2个、一级学科博士点1个、一级学科硕士点16个、专业硕士点17个；有在职教职员工近1500人，专任教师1100余人；各类在籍学生3万余人，其中在校本科生、硕士生、博士生、留学生共2万人。"
+  >
+    <template #reference>
+      <span class="m-2">吉首大学<img src="../assets/imgs/mark02.png" class="circle"></span>
+      
+    </template>
+  </el-popover>
+        
+        <!-- <el-popover
+    ref="popover"
+    placement="right"
+    :visible="visible"
+    title="Title"
+    :width="200"
+    trigger="hover"
+    content="popupContent.pop1"
+  ><span :class="{keyWords:true}" @mouseover="visible=true"
+    @mouseout="visible=false" >吉首大学</span>
+  </el-popover> -->
+        
         <ul>
           <li><span>开始时间：</span>2021.06</li>
           <li><span>结束时间：</span>至今</li>
@@ -74,8 +115,8 @@
     <div>
       <span class="title">补充信息</span>
     </div>
-
-    <div class="openJson" v-show="!isVisited">
+  </div> 
+     <div class="openJson" v-show="!isVisited">
       <div class="codeBox">
         <el-button type="success" class="return" @click="lookJson"
           >查看返回结果</el-button
@@ -83,7 +124,6 @@
         <pre v-html="syntaxHighlight(state.json)"></pre>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup>
@@ -91,6 +131,7 @@ import { stringify } from "qs";
 import { reactive, ref } from "vue";
 
 const isVisited = ref(true);
+const visible = ref(false)
 
 const state = reactive({
   project_experience: [
@@ -282,6 +323,21 @@ const state = reactive({
   },
 });
 
+const popupContent = reactive({
+  pop1:'吉首大学 [107] （Jishou University），简称“吉大” [1] ，学校地跨湖南省湘西土家族苗族自治州和张家界市两地办学 [105] ，是国家民族事务委员会与湖南省人民政府省部共建大学，是湖南省高水平建设大学、湖南省国内一流学科建设高校， [104] 学校具有推荐免试研究生资格， [104] 入选国家“中西部高校基础能力建设工程”、“卓越医生教育培养计划”、“卓越农林人才教育培养计划”、“服务国家特殊需求博士人才培养项目”、“湖南省2011计划”，为中国服务外包校企联盟成员单位。 [2]学校成立于1958年4月，1978年复升为省属综合性大学，同年中南大学湘雅医学院湘西分院并入吉首大学组建医疗系，湘潭大学湘西分校并入吉首大学组建体育系，2000年，吉首卫生学校并入吉首大学；2001年，湘西民族教育学院与吉首民族师范学校并入吉首大学组建吉首大学师范学院；2002年，武陵高等专科学校并入吉首大学成为吉首大学张家界校区。 [1]根据2023年5月学校官网信息显示，学校总占地面积2900余亩，建筑面积近60万平方米，教学科研仪器设备总值3.3亿元，各类纸质、电子文献600余万册；设有教学学院22个，一级学科41个，本科专业78个， [104] 拥有博士后科研流动站2个、一级学科博士点1个、一级学科硕士点16个、专业硕士点17个；有在职教职员工近1500人，专任教师1100余人；各类在籍学生3万余人，其中在校本科生、硕士生、博士生、留学生共2万人。'
+})
+const isHovering = ref(true);
+function onMouseOverHandler() {
+  isHovering.value = true;
+}
+
+function onMouseOutHandler() {
+  isHovering.value = false;
+}
+const keyStyle = () => {
+  
+}
+
 const jsonStr = JSON.stringify(state.json);
 
 const lookJson = () => {
@@ -340,6 +396,19 @@ ul:not(.ul-list) {
   list-style: none;
   margin-left: -20px;
 }
+
+.circle {
+  width: 20px;
+  height: 20px;
+  margin-bottom: -3px;
+  transition: all 0.3s ease-out; /* 添加动画过渡效果 */
+  margin-left: 15px;
+}
+
+.circle:hover {
+  transform: scale(1.5); /* 触发缩放动画 */
+}
+
 .codeBox {
   background: #32325d;
   color: #e6ebf1;
@@ -361,7 +430,13 @@ ul li {
 .ul-list li::marker {
   color: $primary-color;
 }
-
+.mark{
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  margin-top: 10px;
+  margin-left: 20px;
+}
 .ul-list {
   display: flex;
   flex-wrap: wrap;
