@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-05-31 22:36:42
+ * @LastEditTime: 2023-06-04 22:16:11
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -18,10 +18,19 @@ const routes = [
   */
   { path: '/', redirect: '/main' },
   {
+    path: '/card', component: () => import('../views/test/card.vue')
+  },
+  {
+    path: '/test', component: () => import('../views/test/test.vue')
+  },
+  {
     path: '/test2', component: () => import('../views/test/test2.vue')
   },
   {
     path: '/test3', component: () => import('../views/test/test3.vue')
+  },
+  {
+    path: '/test4', component: () => import('../views/test/test4.vue')
   },
   {
     path: '/login',
@@ -40,8 +49,16 @@ const routes = [
         component: () => import('../views/page/TalentPool.vue')
       },
       {
+        path: '/jobPool',
+        component: () => import('../views/page/JobPool.vue')
+      },
+      {
         path: '/message',
         component: () => import('../views/page/Message.vue')
+      },
+      {
+        path: '/jobAnalysis',
+        component: () => import('../views/page/JobAnalysis.vue')
       },
       {
         path: '/analysisPage',

@@ -2,23 +2,17 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 21:10:51
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-29 22:12:52
- * @FilePath: \resume_analysis\src\views\test\test3.vue
- * @Description: 自定义
--->
-<!--
- * @Author: STATICHIT
- * @Date: 2023-05-24 21:10:51
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-29 22:05:20
- * @FilePath: \resume_analysis\src\views\test\test3.vue
+ * @LastEditTime: 2023-05-30 22:52:40
+ * @FilePath: \resume_analysis\src\components\PostCard.vue
  * @Description: 自定义
 -->
 <template>
-  <div style="border: 5px solid skyblue; padding: 50px">
+  <div class="box">
     <div>
-      <h2>现有岗位</h2>
+      <h2 style="text-align: center">现有岗位</h2>
+      <p style="text-align: center">Current positions</p>
     </div>
+    <br><br>
     <div class="container">
       <div class="col">
         <div class="card-container">
@@ -198,7 +192,9 @@ let list = [
 *:focus {
   outline: none !important;
 }
-
+.box {
+  padding: 40px 100px;
+}
 body {
   margin: 0;
   padding: 0;
