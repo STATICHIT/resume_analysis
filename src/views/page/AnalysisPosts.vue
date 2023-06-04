@@ -1,4 +1,4 @@
-<!-- 简历分析页面 -->
+<!--职位解析页面 -->
 <template>
     <div class="box">
       <div class="page animate__animated animate__fadeIn">
