@@ -1,8 +1,8 @@
 /*
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-30 18:10:03
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-06-04 22:16:11
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -66,7 +66,11 @@ const routes = [
       },
       {
         path: '/analysisPage',
-        component: () => import('../views/AnalysisPage.vue')
+        component: () => import('../views/page/AnalysisPage.vue')
+      },
+      {
+        path: '/analysisPosts',
+        component: () => import('../views/page/AnalysisPosts.vue')
       },
     ]
   },
