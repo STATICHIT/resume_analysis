@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:14
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-21 21:52:48
+ * @LastEditTime: 2023-06-05 21:48:48
  * @FilePath: \resume_analysis\src\views\main\Body.vue
  * @Description: 主页身体组件
 -->
@@ -21,20 +21,22 @@
     </div>
     <!-- <div class="shade"></div> -->
     <div class="board2">
-      <img class="img1" src="https://www.xiaoxizn.com/home/generalization-min.png" alt="">
-      <img class="img2" src="https://www.xiaoxizn.com/home/ai-min.png" alt="">
+      <img
+        class="img1"
+        src="https://www.xiaoxizn.com/home/generalization-min.png"
+        alt=""
+      />
+      <img class="img2" src="https://www.xiaoxizn.com/home/ai-min.png" alt="" />
       <h2 class="board2Title">功能介绍</h2>
       <h4 class="littleTitle2">Function introduction</h4>
       <FlexCards></FlexCards>
     </div>
-    <div class="board3">
-
-    </div>
+    <div class="board3"></div>
   </div>
 </template>
 
 <script setup>
-import FlexCards from "../../components/FlexCards.vue"
+import FlexCards from "../../components/FlexCards.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -105,40 +107,39 @@ import FlexCards from "../../components/FlexCards.vue"
   background: rgba(0, 0, 0, 0.1);
   margin-top: -6rem;
 }
-.board2{
+.board2 {
   width: 100%;
-  height: 1000px; 
+  height: 1000px;
   padding: 6rem;
   text-align: center;
   background-color: #eafaf7;
   position: relative;
 }
-.board2Title{
+.board2Title {
   font-size: 30px;
   margin-top: 20px;
   margin-bottom: 5px;
-
 }
-.littleTitle2{
+.littleTitle2 {
   margin-bottom: 100px;
 }
-.img1{
+.img1 {
   position: absolute;
   width: 320px;
   height: 370px;
   left: 70px;
-  bottom:110px;
+  bottom: 110px;
 }
-.img2{
+.img2 {
   position: absolute;
   width: 300px;
   height: 400px;
   right: 80px;
-  bottom:130px;
+  bottom: 130px;
 }
-.board3{
+.board3 {
   width: 100%;
-  height: 1000px; 
+  height: 1000px;
   background-color: rgba(241, 238, 238, 0.288);
 }
 </style>

@@ -2,12 +2,13 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 10:48:07
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-29 22:25:40
+ * @LastEditTime: 2023-06-05 21:43:06
  * @FilePath: \resume_analysis\src\views\page\Message.vue
  * @Description: 消息接收页面
 -->
 <template>
-  <div class="myBox">
+  <div class="cur">
+    <div class="myBox">
     <div class="container">
       <el-tabs v-model="message">
         <el-tab-pane :label="`未读消息(${state.unread.length})`" name="first">
@@ -89,6 +90,7 @@
       </el-tabs>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -153,8 +155,13 @@ export default {
 </script>
 
 <style>
+.cur {
+  background: url("../../assets/imgs/波纹背景.png") no-repeat;
+  background-size: 100%;
+  background-position-y: bottom;
+}
 .myBox {
-  background-color:#f2f7fc;
+  background-color:#ecf3fa;
   text-align: left;
   height: 1100px;
   width: 1000px;

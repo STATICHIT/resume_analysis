@@ -1,9 +1,10 @@
 <template>
   <div class="box">
-    <div
-      class="cont ins"
-      :class="{ 's--signup': isSignUpActive }"
-    >
+    <div class="logos">
+      <img src="../../assets/智能互联云_智能互联引擎.png" class="logoImg" />
+      <span class="logo">云简智能</span>
+    </div>
+    <div class="cont ins" :class="{ 's--signup': isSignUpActive }">
       <div class="form sign-in">
         <h2>你好😀，欢迎回来。</h2>
         <label>
@@ -14,7 +15,7 @@
           <span>Password</span>
           <input type="password" />
         </label>
-        <p class="forgot-pass">忘记密码?</p>
+        <p class="forgot-pass">Forget Password ?</p>
         <button type="button" class="submit">登 录</button>
       </div>
       <div class="sub-cont">
@@ -35,7 +36,7 @@
             <span class="m--in">立即登录</span>
           </div>
         </div>
-        <div class="form sign-up" style="padding: 100px 0;">
+        <div class="form sign-up" style="padding: 100px 0">
           <h2>你好，在此注册账号。</h2>
           <label>
             <span>Name</span>
@@ -79,16 +80,41 @@ let change = () => {
 }
 
 .box {
-  background-color: beige;
+  background-color: rgba(236, 243, 250, 0.479);
   height: 970px;
   padding: 200px;
+  position: relative;
+}
+.logos {
+  position: absolute;
+  top: 50px;
+  left: 120px;
 }
 body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   background: #ededed;
 }
-.ins{
+
+.logoImg {
+  width: 30px;
+  height: 30px;
+  align-self: center;
+  margin-right: 10px;
+}
+.logo {
+  line-height: 60px;
+  color: #6671e3;
+  margin-right: 40px;
+  font-size: 35px;
+  font-weight: 500;
+}
+
+.ins {
   padding: 100px 0;
+  border-radius: 10px;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
 .fa {
@@ -192,7 +218,8 @@ button {
     top: 0;
     width: $contW;
     height: 100%;
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/sections-3.jpg");
+    // background-image: url("https://picx.zhimg.com/80/v2-b4fadcad56bd7bde42dd0ad70c383115_720w.webp?source=1940ef5c");
+    background-image: url("https://pic1.zhimg.com/80/v2-904505bcf0c424788f6028b8952aa2e7_720w.webp?source=1940ef5c");
     background-size: cover;
     transition: transform $switchAT ease-in-out;
   }
@@ -341,7 +368,7 @@ input {
 .submit {
   margin-top: 40px;
   margin-bottom: 20px;
-  background: #d4af7a;
+  background: #99a0f0;
   text-transform: uppercase;
 }
 

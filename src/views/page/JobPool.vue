@@ -12,10 +12,7 @@
     <div class="postBoard">
       <PostCard></PostCard>
     </div>
-
-    <h1 style="margin-top: 100px; margin-bottom: 80px; text-align: center">
-      录入岗位
-    </h1>
+    <div class="bigTitle">录入更多岗位</div>
     <div class="board1">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="文件录入" name="first">
@@ -59,12 +56,20 @@ const activeName = ref("first");
   height: 210px;
   padding: 80px 0 0 0;
 }
+.bigTitle {
+  margin-top: 50px;
+  margin-bottom: 60px;
+  text-align: center;
+  font-size: 35px;
+  font-weight: 200;
+}
 .board1 {
   margin: 0 auto;
   text-align: center;
   background-color: #fff;
   width: 760px;
   height: 660px;
+  border-radius: 20px;
   margin-bottom: 40px;
   padding: 40px;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,

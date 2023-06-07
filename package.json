@@ -13,6 +13,8 @@
     "echarts": "^5.4.1",
     "animate.css": "^4.1.1",
     "element-plus": "^2.2.28",
+    "file-loader": "^6.0.0",
+    "jwt-decode": "^3.1.2",
     "node-sass": "^8.0.0",
     "pinia": "^2.0.30",
     "qs": "^6.11.0",

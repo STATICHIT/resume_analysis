@@ -53,6 +53,10 @@ const routes = [
         component: () => import('../views/page/JobPool.vue')
       },
       {
+        path: '/self',
+        component: () => import('../views/page/Self.vue')
+      },
+      {
         path: '/message',
         component: () => import('../views/page/Message.vue')
       },

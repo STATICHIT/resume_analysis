@@ -83,7 +83,7 @@
         上传成功自动进行岗位分析
       </div>
     </div>
-
+    <br>
     <button>开始录入</button>
   </div>
 </template>
@@ -91,6 +91,7 @@
 <script setup>
 import { ref } from "vue";
 const value2 = ref(true);
+
 </script>
 
 <style lang="scss" scoped>
