@@ -1,9 +1,9 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:00
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-05-29 22:21:10
- * @FilePath: \resume_analysis\src\views\main\top.vue
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-06-12 22:27:15
+ * @FilePath: \resume_analysis\src\views\main\Top.vue
  * @Description: 顶部组件
 -->
 <template>
@@ -12,11 +12,21 @@
       <div style="display: flex; flex: 1">
         <img src="../../assets/智能互联云_智能互联引擎.png" class="logoImg" />
         <h1 @click="changeCom" class="logo">云简智能</h1>
-        <div class="active" :style="isActive1" @click="router.push('/analysisPage')">简历分析</div>
-        <div class="active" :style="isActive1" >人岗匹配</div>
-        <div class="active" :style="isActive1" @click="talentPool">人才库</div>
-        <div class="active" :style="isActive1" @click="jobPool">岗位库</div>
-        <div class="active" :style="isActive1" @click="jobAnalysis">岗位分析</div>
+        <div style="display: flex; flex: 1">
+          <div
+            class="active"
+            v-for="(item, i) in tops"
+            :key="i"
+            :class="item.path == navHeader ? 'checkstyle' : ''"
+            @click="changeHeader(item)"
+          >{{ item.title }}</div>
+          <!-- <div class="active" @click="router.push('/analysisPage')">简历分析</div>
+          <div class="active" @click="matching">人岗匹配</div>
+          <div class="active" @click="talentPool">人才库</div>
+          <div class="active" @click="jobPool">岗位库</div>
+          <div class="active" @click="jobAnalysis">岗位分析</div> -->
+        </div>
+
         <!-- <div><DropDown></DropDown></div> -->
       </div>
       <div style="width: 330px; text-align: right; display: flex">
@@ -28,39 +38,37 @@
           {{ username }}
         </div>
         <div class="active" :style="isActive1" @click="out">退出</div>
-        <div class="active" :style="isActive2" @click="login">登录</div>
-        <div class="active" :style="isActive2" @click="enroll">注册</div>
-        <div class="active" :style="isActive1" @click="message">消息通知</div>
+        <div class="active" :style="isActive1" :class="'/message' == navHeader ? 'checkstyle' : ''" @click="message">消息通知</div>
+        <div class="active" :style="isActive2" @click="router.push('/login')">登录</div>
+        <div class="active" :style="isActive2" @click="router.push('/enroll')">注册</div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref } from "vue";
 import DropDown from "../../components/DropDown.vue";
 import router from "../../router";
 const username = "STATICHIT";
+const tops = [
+  { title: "简历分析", path: "/analysisPage" },
+  { title: "人岗匹配", path: "/matching" },
+  { title: "人才库", path: "/talentPool" },
+  { title: "岗位库", path: "/jobPool" },
+  { title: "岗位分析", path: "/jobAnalysis" },
+];
+let navHeader=ref("1");
+let changeHeader = (item) =>{
+  navHeader.value=item.path;
+  router.push({ path: item.path});
+}
 var isActive1 = ref("");
 var isActive2 = ref("display:none");
-let login = () => {
-  router.push({ path: "/login" });
-};
-let enroll = () => {
-  router.push({ path: "/enroll" });
-};
 let changeCom = () => {
+  navHeader.value="";
   router.push({ path: "/mainPage" });
 };
-let talentPool=()=>{
-  router.push({ path: "/talentPool" });
-}
-let jobPool=()=>{
-  router.push({ path: "/jobPool" });
-}
-let jobAnalysis=()=>{
-  router.push({ path: "/jobAnalysis" });
-}
 let self = () => {
   router.push({ path: "/self" });
 };
@@ -76,6 +84,7 @@ let out = () => {
   }
 };
 let message = () => {
+  navHeader.value="/message";
   router.push({ path: "/message" });
 };
 </script>
@@ -118,5 +127,9 @@ let message = () => {
   cursor: pointer;
   color: #6671e3;
   border-bottom: 4px solid #6671e3;
+}
+.checkstyle{
+  color: #2a39d6;
+  border-bottom: 4px solid #2a39d6;
 }
 </style>

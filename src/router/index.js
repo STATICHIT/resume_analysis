@@ -10,12 +10,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 //路由配置数组
 const routes = [
-  /*
-  {
-    path:'',
-    component:()=>import('')
-  },
-  */
   { path: '/', redirect: '/main' },
   {
     path: '/card', component: () => import('../views/test/card.vue')
@@ -41,6 +35,10 @@ const routes = [
     component: () => import('../views/Main.vue'),
     children: [
       {
+        path: '/404',
+        component: () => import('../views/page/404.vue')
+      },
+      {
         path: '/mainPage',
         component: () => import('../views/main/Body.vue')
       },
@@ -51,6 +49,10 @@ const routes = [
       {
         path: '/jobPool',
         component: () => import('../views/page/JobPool.vue')
+      },
+      {
+        path: '/matching',
+        component: () => import('../views/page/Matching.vue')
       },
       {
         path: '/self',

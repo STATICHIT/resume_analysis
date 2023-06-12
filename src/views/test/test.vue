@@ -22,6 +22,7 @@ export default {
   methods:{
     add(){
       this.list.push({id:1});
+      console.log(-11);
     }
   }
   

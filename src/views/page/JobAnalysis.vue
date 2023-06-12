@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 18:09:13
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-05 20:57:12
+ * @LastEditTime: 2023-06-11 20:47:10
  * @FilePath: \resume_analysis\src\views\page\JobAnalysis.vue
  * @Description: 自定义
 -->
@@ -21,7 +21,7 @@
             <input type="text" id="name" name="user_name" />
             <label for="bio" style="text-align: left">岗位描述:</label>
             <textarea id="bio" name="user_bio"></textarea>
-            <button>开始录入</button>
+            <button>开始分析</button>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import Upload from "../../components/Upload.vue";
+import Upload from "../../components/Upload2.vue";
 import { ref } from "vue";
 const activeName = ref("first");
 </script>

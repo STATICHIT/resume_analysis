@@ -41,7 +41,7 @@
           </div>
           <a href="" target="_blank">查看岗位分析结果</a
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="" target="_blank">查看简历分析结果</a>
+          <a href="/analysisPage" target="_blank">查看简历分析结果</a>
         </div>
         <div class="border"></div>
       </div>
