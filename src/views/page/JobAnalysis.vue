@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 18:09:13
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-12 23:26:38
+ * @LastEditTime: 2023-06-15 22:00:31
  * @FilePath: \resume_analysis\src\views\page\JobAnalysis.vue
  * @Description: 自定义
 -->
@@ -14,7 +14,7 @@
     <div class="board1">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="文件录入" name="first">
-          <Upload></Upload>
+          <Upload ></Upload>
         </el-tab-pane>
         <el-tab-pane label="手动录入" name="second">
           <div style="padding: 20px">
@@ -32,7 +32,7 @@
 
 <script setup>
 import Upload from "../../components/Upload2.vue";
-import Load from "../test/test4.vue";
+import Loading from "../../components/Loading.vue";
 import { ref } from "vue";
 import router from "../../router";
 const activeName = ref("first");
