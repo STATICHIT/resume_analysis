@@ -1,8 +1,16 @@
 /*
  * @Author: STATICHIT
+ * @Date: 2023-06-07 20:06:01
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-06-14 22:04:50
+ * @FilePath: \resume_analysis\src\router\index.js
+ * @Description: 自定义
+ */
+/*
+ * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-06-04 22:16:11
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-06-13 15:14:19
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -47,6 +55,10 @@ const routes = [
         component: () => import('../views/page/TalentPool.vue')
       },
       {
+        path: '/visualization',
+        component: () => import('../views/page/Visualization.vue')
+      },
+      {
         path: '/jobPool',
         component: () => import('../views/page/JobPool.vue')
       },
@@ -86,8 +98,6 @@ const router = createRouter({
 //设置路由守卫
 /*
 router.beforeEach((to, from, next) => {
-  // console.log(to)
-  // console.log(from)
   if (to.path == '/login') {
     // 如果路径是 /login 则正常执行
     next()
