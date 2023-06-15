@@ -1,13 +1,5 @@
 /*
  * @Author: STATICHIT
- * @Date: 2023-06-07 20:06:01
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-14 22:04:50
- * @FilePath: \resume_analysis\src\router\index.js
- * @Description: 自定义
- */
-/*
- * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
  * @LastEditors: STATICHIT 2394412110@qq.com
  * @LastEditTime: 2023-06-13 15:14:19

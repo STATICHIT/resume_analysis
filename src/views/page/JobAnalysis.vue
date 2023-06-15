@@ -2,12 +2,13 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 18:09:13
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-11 20:47:10
+ * @LastEditTime: 2023-06-12 23:26:38
  * @FilePath: \resume_analysis\src\views\page\JobAnalysis.vue
  * @Description: 自定义
 -->
 <template>
-  <div class="box cur">
+  <div class="box cur father">
+    <!-- <Load class="load load"></Load> -->
     <br />
     <div class="bigTitle">岗位分析</div>
     <div class="board1">
@@ -21,7 +22,7 @@
             <input type="text" id="name" name="user_name" />
             <label for="bio" style="text-align: left">岗位描述:</label>
             <textarea id="bio" name="user_bio"></textarea>
-            <button>开始分析</button>
+            <button @click="analysis">开始分析</button>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -31,8 +32,13 @@
 
 <script setup>
 import Upload from "../../components/Upload2.vue";
+import Load from "../test/test4.vue";
 import { ref } from "vue";
+import router from "../../router";
 const activeName = ref("first");
+let analysis = () => {
+  router.push({ path: "/analysisPosts" });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -40,6 +46,14 @@ const activeName = ref("first");
   background: url("../../assets/imgs/波纹背景.png") no-repeat;
   background-size: 100%;
   background-position-y: bottom;
+}
+.father {
+  position: relative;
+}
+.load {
+  position: absolute;
+  top:0;
+  left:0;
 }
 .box {
   background-color: #ffffff;
@@ -65,7 +79,7 @@ const activeName = ref("first");
     rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
-.postBoard{
+.postBoard {
   background-color: #f2f7fc;
   padding: 50px;
 }

@@ -164,19 +164,15 @@
 
 <script setup>
 import { ref } from "vue";
-const value1 = ref(["Option0"]);
-const value2 = ref(["Option0"]);
-const value3 = ref(["Option0"]);
-const value4 = ref(["Option0"]);
-const value5 = ref(["Option0"]);
-const value6 = ref(["Option0"]);
-const value7 = ref(["Option0"]);
+const value1 = ref([]);
+const value2 = ref([]);
+const value3 = ref([]);
+const value4 = ref([]);
+const value5 = ref([]);
+const value6 = ref([]);
+const value7 = ref([]);
 
 const options = [
-  {
-    value: "Option0",
-    label: "不限",
-  },
   {
     value: "Option1",
     label: "初中",
@@ -208,10 +204,6 @@ const options = [
 ];
 const options2 = [
   {
-    value: "Option0",
-    label: "不限",
-  },
-  {
     value: "Option1",
     label: "全职",
   },
@@ -225,10 +217,6 @@ const options2 = [
   },
 ];
 const options3 = [
-  {
-    value: "Option0",
-    label: "不限",
-  },
   {
     value: "Option1",
     label: " 1.5K~2K/月",
@@ -248,10 +236,6 @@ const options3 = [
 ];
 const options4 = [
   {
-    value: "Option0",
-    label: "不限",
-  },
-  {
     value: "Option1",
     label: "男",
   },
@@ -262,10 +246,6 @@ const options4 = [
 ];
 
 const options5 = [
-  {
-    value: "Option0",
-    label: "全部",
-  },
   {
     value: "Option2",
     label: "16-20岁",
@@ -288,10 +268,6 @@ const options5 = [
   },
 ];
 const options6 = [
-  {
-    value: "Option0",
-    label: "不限",
-  },
   {
     value: "Option1",
     label: "计算机软件/硬件",
