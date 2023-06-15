@@ -20,13 +20,7 @@
             :class="item.path == navHeader ? 'checkstyle' : ''"
             @click="changeHeader(item)"
           >{{ item.title }}</div>
-          <!-- <div class="active" @click="router.push('/analysisPage')">简历分析</div>
-          <div class="active" @click="matching">人岗匹配</div>
-          <div class="active" @click="talentPool">人才库</div>
-          <div class="active" @click="jobPool">岗位库</div>
-          <div class="active" @click="jobAnalysis">岗位分析</div> -->
         </div>
-
         <!-- <div><DropDown></DropDown></div> -->
       </div>
       <div style="width: 330px; text-align: right; display: flex">

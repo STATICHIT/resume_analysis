@@ -2,13 +2,13 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 18:09:13
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-15 22:00:31
+ * @LastEditTime: 2023-06-15 22:18:10
  * @FilePath: \resume_analysis\src\views\page\JobAnalysis.vue
  * @Description: 自定义
 -->
 <template>
   <div class="box cur father">
-    <!-- <Load class="load load"></Load> -->
+    <!-- <Loading class="load load"></Loading> -->
     <br />
     <div class="bigTitle">岗位分析</div>
     <div class="board1">

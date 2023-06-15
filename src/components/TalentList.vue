@@ -58,7 +58,7 @@
           准：目标人才库是准的
         </p>
         <br />
-        <button>查看人才库管理可视化图</button>
+        <button @click="router.push('/visualization')">查看人才库管理可视化图</button>
       </div>
     </div>
   </div>
@@ -66,6 +66,7 @@
 
 <script setup>
 import { onMounted, reactive, ref } from "vue";
+import router from "../router";
 let list = [
   {
     name: "王鹤棣",

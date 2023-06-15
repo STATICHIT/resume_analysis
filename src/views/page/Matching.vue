@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-10 11:18:26
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-15 22:05:43
+ * @LastEditTime: 2023-06-15 22:09:17
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
  * @Description: 自定义
 -->
@@ -115,6 +115,7 @@ let changeJob = (item) => {
   selectJob.value = item.name;
 };
 const fullscreenLoading = ref(false);
+
 const openFullScreen = () => {
   fullscreenLoading.value = true;
   setTimeout(() => {
