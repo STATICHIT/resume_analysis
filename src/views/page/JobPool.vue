@@ -50,10 +50,11 @@ const activeName = ref("first");
   background-position-y: bottom;
 }
 .board2 {
+  background-image: url("../../assets/imgs/10.png");
   text-align: center;
   background-color: #e9f0f8;
   width: 100%;
-  height: 210px;
+  height: 220px;
   padding: 80px 0 0 0;
 }
 .bigTitle {

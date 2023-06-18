@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-18 15:31:04
+ * @LastEditTime: 2023-06-18 21:19:22
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -12,18 +12,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   { path: '/', redirect: '/main' },
   {
-    path: '/card', component: () => import('../views/test/card.vue')
-  },
-  {
-    path: '/test', component: () => import('../views/test/test.vue')
-  },
-  {
-    path: '/test2', component: () => import('../views/test/test2.vue')
-  },
-  {
-    path: '/test3', component: () => import('../views/test/test3.vue')
-  },
-  {
     path: '/login',
     component: () => import('../views/user/Login.vue')
   },
@@ -31,6 +19,15 @@ const routes = [
     path: '/main', redirect: '/mainPage',
     component: () => import('../views/Main.vue'),
     children: [
+      {
+        path: '/test', component: () => import('../views/test/test.vue')
+      },
+      {
+        path: '/test2', component: () => import('../views/test/test2.vue')
+      },
+      {
+        path: '/test3', component: () => import('../views/test/test3.vue')
+      },
       {
         path: '/test4', component: () => import('../views/test/test4.vue')
       },

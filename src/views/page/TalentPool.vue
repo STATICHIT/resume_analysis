@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 22:26:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-29 22:50:11
+ * @LastEditTime: 2023-06-18 21:46:04
  * @FilePath: \resume_analysis\src\views\page\TalentPool.vue
  * @Description: 自定义
 -->
@@ -41,7 +41,7 @@ import TalentList from "../../components/TalentList.vue";
   background-color: rgb(242, 247, 252);
 }
 .board1 {
-  background-color: #e9f0f8;
+  background-image: url("../../assets/imgs/10.png");
   text-align: center;
   width: 100%;
   height: 270px;
