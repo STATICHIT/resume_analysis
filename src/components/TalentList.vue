@@ -58,7 +58,7 @@
           准：目标人才库是准的
         </p>
         <br />
-        <button @click="router.push('/visualization')">查看人才库管理可视化图</button>
+        <button class="my-button" @click="router.push('/visualization')">查看人才库管理可视化图</button>
       </div>
     </div>
   </div>
@@ -238,11 +238,11 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.my-button:hover {
   background: #444fcf;
 }
 
-button {
+.my-button {
   display: inline-block;
   margin-top: 15px;
   margin-right: 15px;
