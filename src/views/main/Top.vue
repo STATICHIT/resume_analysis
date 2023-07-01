@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:00
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-12 22:27:15
+ * @LastEditTime: 2023-07-01 11:04:23
  * @FilePath: \resume_analysis\src\views\main\Top.vue
  * @Description: 顶部组件
 -->
@@ -46,7 +46,7 @@ import DropDown from "../../components/DropDown.vue";
 import router from "../../router";
 const username = "STATICHIT";
 const tops = [
-  { title: "简历分析", path: "/analysisPage" },
+  { title: "简历分析", path: "/resumeAnalysis" },
   { title: "人岗匹配", path: "/matching" },
   { title: "人才库", path: "/talentPool" },
   { title: "岗位库", path: "/jobPool" },
@@ -107,6 +107,7 @@ let message = () => {
   margin-right: 10px;
 }
 .logo {
+  cursor: pointer;
   line-height: 60px;
   color: #6671e3;
   margin-right: 40px;

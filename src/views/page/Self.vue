@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-18 22:48:09
+ * @LastEditTime: 2023-06-18 22:58:38
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 自定义
 -->
@@ -92,7 +92,7 @@ let logs = [
 
 <style lang="scss" scoped>
 .box {
-  height: 1300px;
+  height: 100%;
 }
 .head {
   width: 100%;

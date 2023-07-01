@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-18 21:19:22
+ * @LastEditTime: 2023-06-19 21:52:36
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -32,47 +32,51 @@ const routes = [
         path: '/test4', component: () => import('../views/test/test4.vue')
       },
       {
-        path: '/404',
+        path: '/404',//404页面
         component: () => import('../views/page/404.vue')
       },
       {
-        path: '/mainPage',
+        path: '/mainPage',//主页面
         component: () => import('../views/main/Body.vue')
       },
       {
-        path: '/talentPool',
+        path: '/talentPool',//人才库页面
         component: () => import('../views/page/TalentPool.vue')
       },
       {
-        path: '/visualization',
+        path: '/visualization',//人才库可视化分析页面
         component: () => import('../views/page/Visualization.vue')
       },
       {
-        path: '/jobPool',
+        path: '/jobPool',//岗位库页面
         component: () => import('../views/page/JobPool.vue')
       },
       {
-        path: '/matching',
+        path: '/matching',//人岗匹配页面
         component: () => import('../views/page/Matching.vue')
       },
       {
-        path: '/self',
+        path: '/self',//个人中心页面（包含数据分析，操作日志）
         component: () => import('../views/page/Self.vue')
       },
       {
-        path: '/message',
+        path: '/message',//消息页面
         component: () => import('../views/page/Message.vue')
       },
       {
-        path: '/jobAnalysis',
+        path: '/jobAnalysis',//岗位分析上传页面
         component: () => import('../views/page/JobAnalysis.vue')
       },
       {
-        path: '/analysisPage',
+        path: '/resumeAnalysis',//简历分析上传页面
+        component: () => import('../views/page/ResumeAnalysis.vue')
+      },
+      {
+        path: '/analysisPage',//简历分析内容页面
         component: () => import('../views/page/AnalysisPage.vue')
       },
       {
-        path: '/analysisPosts',
+        path: '/analysisPosts',//岗位分析内容页面
         component: () => import('../views/page/AnalysisPosts.vue')
       },
     ]

@@ -1,3 +1,11 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-06-07 20:06:01
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-06-19 21:50:22
+ * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
+ * @Description: 自定义
+-->
 <!-- 简历分析页面 -->
 <template>
   <div class="box">
