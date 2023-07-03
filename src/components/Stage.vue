@@ -1,7 +1,7 @@
 <template>
-  <div style="padding: 400px 200px">
+  <div>
     <div style="display: inline-block">
-      <div class="scroll">
+      <div class="scroll selectBox">
         <div
           v-for="(item, i) in status"
           :key="i"
@@ -41,7 +41,7 @@
 
 <script setup>
 import { ref } from "vue";
-import dragProcess from "../../components/DragProcess.vue";
+import dragProcess from "../components/DragProcess.vue";
 const status = ref([
   { id: 1, name: "投递人选", cnt: 20, color: "#5e52dd" },
   { id: 2, name: "笔试阶段", cnt: 10, color: "#cf7098" },
@@ -67,11 +67,11 @@ let manage = () => {
 <style lang="scss" scoped>
 .items {
   width: 200px;
-  height: 50px;
+  height: 45px;
   padding: 0 15px;
-  line-height: 50px;
+  line-height: 45px;
   display: inline-block;
-  background-color: #f7f6fb;
+  background-color: #fff;
   border: 2px solid none;
   border-radius: 10px;
   text-align: left;
@@ -86,7 +86,7 @@ let manage = () => {
 }
 .scroll {
   float: left;
-  width: 1300px;
+  width: 1100px;
   text-align: center;
   white-space: nowrap;
   overflow-x: scroll;
@@ -102,6 +102,7 @@ let manage = () => {
   color: #fff;
   display: inline;
   float: right;
+  font-size: 12px;
   border-radius: 10px;
   margin-top: 10px;
   text-align: center;
@@ -122,7 +123,24 @@ let manage = () => {
   align-items: center;
   text-align: center;
   font-size: 16px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0);
   border: none;
 }
+.selectBox::-webkit-scrollbar {
+  height: 6px;
+}
+
+/* 滚动槽 */
+.selectBox::-webkit-scrollbar-track {
+  border-radius: 20px;
+}
+
+/* 滚动条滑块 */
+.selectBox::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: rgba(144, 147, 153, 0.3);
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
+
 </style>

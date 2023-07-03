@@ -124,7 +124,7 @@
           <label for="references">备注</label>
           <textarea name="references" id="references"></textarea>
         </div>
-        <input type="submit" value="Create Resume" id="create-resume" />
+        <input type="submit" value="开始分析" id="create-resume" />
       </form>
     </div>
   </div>
@@ -343,6 +343,7 @@ textarea:focus {
 }
 
 input[type="submit"] {
+  width: 200px;
   margin-top: 20px;
   background: #1de9b6;
   padding: 8px 16px;

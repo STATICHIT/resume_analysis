@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="so_condition J_so_condition" style="margin-top: 40px">
+    <div class="so_condition" style="margin-top: 40px">
       <div class="lefttit">地标地段</div>
       <div class="rs">
         <div class="li select">全杭州</div>
@@ -285,7 +285,7 @@ const options6 = [
 
 <style lang="scss" scoped>
 .so_condition {
-  width: 1198px;
+  width: 1200px;
   height: 280px;
   margin: 0 auto;
   margin-bottom: 20px;
