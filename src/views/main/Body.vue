@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:14
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-05 21:48:48
+ * @LastEditTime: 2023-07-02 20:57:34
  * @FilePath: \resume_analysis\src\views\main\Body.vue
  * @Description: 主页身体组件
 -->
