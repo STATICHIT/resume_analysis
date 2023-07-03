@@ -1,3 +1,11 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-05-25 19:45:33
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:19:09
+ * @FilePath: \resume_analysis\src\components\SearchType.vue
+ * @Description: 条件搜索选择栏
+-->
 <template>
   <div>
     <div class="so_condition" style="margin-top: 40px">

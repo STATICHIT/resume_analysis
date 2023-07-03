@@ -6,14 +6,6 @@
  * @FilePath: \resume_analysis\src\views\test\test3.vue
  * @Description: 自定义
 -->
-<!--
- * @Author: STATICHIT
- * @Date: 2023-05-24 21:10:51
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-29 22:05:20
- * @FilePath: \resume_analysis\src\views\test\test3.vue
- * @Description: 自定义
--->
 <template>
   <div style="border: 5px solid skyblue; padding: 50px">
     <div>

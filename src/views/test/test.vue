@@ -1,3 +1,12 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-05-18 17:47:09
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:16:35
+ * @FilePath: \resume_analysis\src\views\test\test.vue
+ * @Description: 自定义
+-->
+
 <template>
   <div style="padding: 200px">
     <div class="box">

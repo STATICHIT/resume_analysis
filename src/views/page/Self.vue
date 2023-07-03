@@ -4,7 +4,7 @@
  * @LastEditors: STATICHIT 2394412110@qq.com
  * @LastEditTime: 2023-07-02 21:00:08
  * @FilePath: \resume_analysis\src\views\page\Self.vue
- * @Description: 自定义
+ * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
 <template>
   <div class="box cur">

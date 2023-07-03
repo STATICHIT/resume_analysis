@@ -1,3 +1,12 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-06-11 20:46:15
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:18:37
+ * @FilePath: \resume_analysis\src\components\Upload2.vue
+ * @Description: 岗位批量上传组件
+-->
+
 <template>
   <div>
     <div class="myUpload">
@@ -14,7 +23,7 @@
         </div>
         <template #tip>
           <div class="el-upload__tip">
-            支持PDF，JPG，PNG，DOCX，前端表单五种格式上传
+            请上传exacl表格,由三列数据构成，分别是：岗位名,岗位描述,岗位要求
           </div>
         </template>
       </el-upload>

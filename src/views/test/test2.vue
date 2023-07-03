@@ -1,3 +1,12 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-05-21 17:18:54
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:16:14
+ * @FilePath: \resume_analysis\src\views\test\test2.vue
+ * @Description: 自定义
+-->
+
 <template>
   <div style="padding: 400px 200px">
     <div style="display: inline-block">

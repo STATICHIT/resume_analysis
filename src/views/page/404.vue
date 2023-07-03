@@ -4,7 +4,7 @@
  * @LastEditors: STATICHIT 2394412110@qq.com
  * @LastEditTime: 2023-06-11 21:50:13
  * @FilePath: \resume_analysis\src\views\page\404.vue
- * @Description: 自定义
+ * @Description: 404页面
 -->
 <template>
   <div class="box">

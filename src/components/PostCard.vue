@@ -2,9 +2,9 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 21:10:51
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-30 22:52:40
+ * @LastEditTime: 2023-07-03 10:22:41
  * @FilePath: \resume_analysis\src\components\PostCard.vue
- * @Description: 自定义
+ * @Description: 岗位展示列表
 -->
 <template>
   <div class="box">

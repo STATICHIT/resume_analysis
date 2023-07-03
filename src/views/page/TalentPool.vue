@@ -4,7 +4,7 @@
  * @LastEditors: STATICHIT 2394412110@qq.com
  * @LastEditTime: 2023-07-02 22:08:54
  * @FilePath: \resume_analysis\src\views\page\TalentPool.vue
- * @Description: 自定义
+ * @Description: 人才库
 -->
 <template>
   <div class="box">

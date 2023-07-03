@@ -1,3 +1,11 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-07-01 14:51:55
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:22:32
+ * @FilePath: \resume_analysis\src\components\resumeForm.vue
+ * @Description: 简历表单
+-->
 <template>
   <div class="box1">
     <div>

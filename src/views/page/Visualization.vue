@@ -4,7 +4,7 @@
  * @LastEditors: STATICHIT 2394412110@qq.com
  * @LastEditTime: 2023-06-18 20:46:09
  * @FilePath: \resume_analysis\src\views\page\Visualization.vue
- * @Description: 自定义
+ * @Description: 可视化数据大屏
 -->
 <template>
   <div class="box cur">

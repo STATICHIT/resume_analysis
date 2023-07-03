@@ -4,7 +4,7 @@
  * @LastEditors: STATICHIT 2394412110@qq.com
  * @LastEditTime: 2023-07-02 21:11:01
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
- * @Description: 自定义
+ * @Description: 人岗匹配
 -->
 <template>
   <div class="box cur">

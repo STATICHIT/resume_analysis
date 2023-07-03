@@ -1,3 +1,11 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-07-02 19:13:39
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:19:01
+ * @FilePath: \resume_analysis\src\components\Stage.vue
+ * @Description: 状态条件选择栏
+-->
 <template>
   <div>
     <div style="display: inline-block">

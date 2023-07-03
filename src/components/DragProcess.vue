@@ -1,3 +1,11 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-07-02 00:52:47
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:23:57
+ * @FilePath: \resume_analysis\src\components\DragProcess.vue
+ * @Description: 拖拽式流程管理组件
+-->
 <template>
   <div>
     <div class="box">

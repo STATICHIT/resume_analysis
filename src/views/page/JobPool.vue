@@ -1,3 +1,11 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-05-29 22:10:18
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:17:21
+ * @FilePath: \resume_analysis\src\views\page\JobPool.vue
+ * @Description: 岗位库
+-->
 <template>
   <div class="box cur">
     <div class="board2">
@@ -34,7 +42,7 @@
 
 <script setup>
 import PostCard from "../../components/PostCard.vue";
-import Upload from "../../components/Upload.vue";
+import Upload from "../../components/Upload2.vue";
 import { ref } from "vue";
 const activeName = ref("first");
 </script>

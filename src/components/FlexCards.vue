@@ -4,7 +4,7 @@
  * @LastEditors: STATICHIT 2394412110@qq.com
  * @LastEditTime: 2023-05-24 10:17:16
  * @FilePath: \resume_analysis\src\components\FlexCards.vue
- * @Description: 自定义
+ * @Description: 介绍卡片
 -->
 <template>
   <div>

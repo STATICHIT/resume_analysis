@@ -4,7 +4,7 @@
  * @LastEditors: STATICHIT 2394412110@qq.com
  * @LastEditTime: 2023-06-15 22:18:10
  * @FilePath: \resume_analysis\src\views\page\JobAnalysis.vue
- * @Description: 自定义
+ * @Description: 岗位分析入口
 -->
 <template>
   <div class="box cur father">

@@ -1,3 +1,12 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-05-23 19:43:35
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:17:02
+ * @FilePath: \resume_analysis\src\views\page\Login.vue
+ * @Description: 登录注册
+-->
+
 <template>
   <div class="box">
     <div class="logos">
