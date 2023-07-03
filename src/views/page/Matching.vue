@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-10 11:18:26
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-15 22:09:17
+ * @LastEditTime: 2023-07-02 10:53:54
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
  * @Description: 自定义
 -->
@@ -27,7 +27,6 @@
                   class="jobCard"
                 >
                   <p>
-                    <!-- {{ i + 1 }}.&nbsp;&nbsp; -->
                     {{ item.name }}
                   </p>
                 </div>
@@ -47,9 +46,10 @@
         </el-tabs>
       </div>
       <div class="right" v-loading.lock="fullscreenLoading">
+        <img v-if="initialImg" src="../../assets//search.png"  alt="" />
         <div class="selectBox selectBox2">
           <div
-            v-for="(item, i) in talents"
+            v-for="(item, i) in talentss"
             :key="i"
             :class="item.name == selectTalent ? 'checkstyle2' : ''"
             @click="intoTalent(item)"
@@ -84,7 +84,7 @@
 import { ref } from "vue";
 import router from "../../router";
 const activeName = ref("first");
-const jobs = [
+const jobs = ref([
   { name: "web前端开发工程师" },
   { name: "FPGA原型验证工程师" },
   { name: "解决方案工程师" },
@@ -109,21 +109,24 @@ const jobs = [
   { name: "CB端产品经理" },
   { name: "CJava开发工程师" },
   { name: "CC++开发工程师" },
-];
+]);
 let selectJob = ref();
 let changeJob = (item) => {
   selectJob.value = item.name;
 };
 const fullscreenLoading = ref(false);
-
+const initialImg =ref(true);
 const openFullScreen = () => {
   fullscreenLoading.value = true;
   setTimeout(() => {
     fullscreenLoading.value = false;
+    initialImg.value=false;
+    talentss.value = talents.value;
   }, 2000);
 };
 
-const talents = [
+const talentss = ref([]);
+const talents = ref([
   {
     name: "彭于晏",
     score: "硕士",
@@ -213,7 +216,8 @@ const talents = [
     title: "ISP算法工程师",
     tags: ["人脸识别", "算法研究", "语音识别"],
   },
-];
+]);
+
 let selectTalent = ref();
 let intoTalent = (item) => {
   console.log(item.name);
