@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-10 11:18:26
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-02 10:53:54
+ * @LastEditTime: 2023-07-02 21:11:01
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
  * @Description: 自定义
 -->
@@ -40,7 +40,7 @@
               <input type="text" id="name" name="user_name" />
               <label for="bio" style="text-align: left">岗位描述:</label>
               <textarea id="bio" name="user_bio"></textarea>
-              <button>开始匹配</button>
+              <button @click="openFullScreen">开始匹配</button>
             </div>
           </el-tab-pane>
         </el-tabs>
@@ -244,7 +244,8 @@ let intoTalent = (item) => {
   font-size: 35px;
   font-weight: 600;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 80px;
+  margin-bottom: 10px;
 }
 .main {
   margin: 50px auto;
@@ -285,13 +286,6 @@ let intoTalent = (item) => {
 }
 .selectBox::-webkit-scrollbar-track {
   background: #c4dfeb;
-}
-.bigTitle {
-  margin-top: 20px;
-  margin-bottom: 60px;
-  text-align: center;
-  font-size: 40px;
-  font-weight: 600;
 }
 input,
 textarea {

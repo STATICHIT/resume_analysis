@@ -9,7 +9,13 @@
         <i class="dis">|</i>
         <b style="color: #fbaf00">● <span>投递人选</span></b>
       </li>
-      <draggable tag="ul" :list="list" class="list-group" handle=".handle">
+      <draggable
+        tag="ul"
+        :list="list"
+        class="list-group"
+        group="status"
+        handle=".handle"
+      >
         <li
           class="list-group-item flex-container handle"
           v-for="(element, idx) in list"
@@ -29,7 +35,13 @@
         </li>
       </draggable>
       <h4>成功状态</h4>
-      <draggable tag="ul" :list="list" class="list-group" handle=".handle">
+      <draggable
+        tag="ul"
+        :list="list2"
+        class="list-group"
+        group="status"
+        handle=".handle"
+      >
         <li
           class="list-group-item flex-container handle"
           v-for="(element, idx) in list2"
@@ -74,6 +86,7 @@
           ></i>
         </li>
       </div>
+      <div><button>确认修改</button></div>
     </div>
   </div>
 </template>
@@ -133,8 +146,6 @@ export default {
 .button {
   margin-top: 35px;
 }
-.handle {
-}
 h4 {
   color: rgb(100, 100, 100);
   margin-top: 20px;
@@ -150,7 +161,7 @@ li {
   margin-bottom: 10px;
   padding: 2px 20px;
 }
-.addcom{
+.addcom {
   border: 2px dashed rgba(212, 208, 208, 0.452);
 }
 li i {
@@ -191,7 +202,7 @@ input {
 .flex-container {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 .flex-item {
   text-align: left;
@@ -207,5 +218,22 @@ input {
   position: relative;
   top: -14px;
   background-color: #fff;
+}
+button {
+  margin-left: 27%;
+  margin-top: 20px;
+  width: 200px;
+  background: #1de9b6;
+  padding: 8px 16px;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+button:hover {
+  background: #64ffda;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.14);
 }
 </style>
