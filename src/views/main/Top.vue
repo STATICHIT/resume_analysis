@@ -19,22 +19,31 @@
             :key="i"
             :class="item.path == navHeader ? 'checkstyle' : ''"
             @click="changeHeader(item)"
-          >{{ item.title }}</div>
+          >
+            {{ item.title }}
+          </div>
         </div>
         <!-- <div><DropDown></DropDown></div> -->
       </div>
       <div style="width: 330px; text-align: right; display: flex">
-        <div
-          :style="isActive1"
-          style="color: #6671e3; line-height: 60px; margin-right: 20px"
-          @click="self"
-        >
+        <div :style="isActive1" class="name" @click="self">
           {{ username }}
         </div>
         <div class="active" :style="isActive1" @click="out">退出</div>
-        <div class="active" :style="isActive1" :class="'/message' == navHeader ? 'checkstyle' : ''" @click="message">消息通知</div>
-        <div class="active" :style="isActive2" @click="router.push('/login')">登录</div>
-        <div class="active" :style="isActive2" @click="router.push('/enroll')">注册</div>
+        <div
+          class="active"
+          :style="isActive1"
+          :class="'/message' == navHeader ? 'checkstyle' : ''"
+          @click="message"
+        >
+          消息通知
+        </div>
+        <div class="active" :style="isActive2" @click="router.push('/login')">
+          登录
+        </div>
+        <div class="active" :style="isActive2" @click="router.push('/enroll')">
+          注册
+        </div>
       </div>
     </div>
   </div>
@@ -52,15 +61,15 @@ const tops = [
   { title: "岗位库", path: "/jobPool" },
   { title: "岗位分析", path: "/jobAnalysis" },
 ];
-let navHeader=ref("1");
-let changeHeader = (item) =>{
-  navHeader.value=item.path;
-  router.push({ path: item.path});
-}
+let navHeader = ref("1");
+let changeHeader = (item) => {
+  navHeader.value = item.path;
+  router.push({ path: item.path });
+};
 var isActive1 = ref("");
 var isActive2 = ref("display:none");
 let changeCom = () => {
-  navHeader.value="";
+  navHeader.value = "";
   router.push({ path: "/mainPage" });
 };
 let self = () => {
@@ -78,7 +87,7 @@ let out = () => {
   }
 };
 let message = () => {
-  navHeader.value="/message";
+  navHeader.value = "/message";
   router.push({ path: "/message" });
 };
 </script>
@@ -93,6 +102,12 @@ let message = () => {
   position: fixed;
   width: 100%;
   box-shadow: 0 1px 8px -5px gray;
+}
+.name {
+  color: #6671e3;
+  line-height: 60px;
+  margin-right: 20px;
+  cursor: pointer;
 }
 .content {
   width: 75%;
@@ -123,7 +138,7 @@ let message = () => {
   color: #6671e3;
   border-bottom: 4px solid #6671e3;
 }
-.checkstyle{
+.checkstyle {
   color: #2a39d6;
   border-bottom: 4px solid #2a39d6;
 }
