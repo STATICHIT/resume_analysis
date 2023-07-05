@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-02 21:00:08
+ * @LastEditTime: 2023-07-05 11:12:32
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -128,6 +128,27 @@
             </div>
           </div>
         </el-tab-pane>
+        <el-tab-pane label="邀约模板" name="fourth">
+          <div
+            style="height: 100%; min-height: 800px; padding: 20px; float: left"
+          >
+            <invite></invite>
+          </div>
+          <div
+            style="
+              width: 350px;
+              height: 100%;
+              min-height: 800px;
+              padding: 20px;
+              float: right;
+            "
+          >
+            <div class="mybutton2">
+              <button class="detail" style="margin-top: 20px">切换模板</button>
+              <button class="detail" style="margin-top: 20px">确认模板</button>
+            </div>
+          </div>
+        </el-tab-pane>
       </el-tabs>
     </div>
   </div>
@@ -137,7 +158,8 @@
 import { onMounted, ref } from "vue";
 import * as echarts from "echarts"; //引入echarts
 import theme from "../../utils/echarts"; //引入主题
-const activeName = ref("first");
+import invite from "../../components/Invitation.vue";
+const activeName = ref("fourth");
 onMounted(() => {
   // pre();
 });
@@ -635,8 +657,10 @@ const initEcharts = () => {
   height: 250px;
   box-shadow: rgba(99, 99, 99, 0.452) 0px 2px 8px 0px;
 }
-.detail {
+.detial {
   margin-right: 80px;
+}
+.detail {
   width: 200px;
   background: #1de9b6;
   padding: 8px 16px;
@@ -658,5 +682,9 @@ const initEcharts = () => {
 .mybutton {
   float: right;
   margin-top: -220px;
+}
+.mybutton2 {
+  height: 200px;
+  margin-top: 160%;
 }
 </style>
