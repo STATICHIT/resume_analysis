@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-07-03 21:52:10
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-05 11:00:07
+ * @LastEditTime: 2023-07-05 20:16:06
  * @FilePath: \resume_analysis\src\components\Invitation.vue
  * @Description: 自定义
 -->
@@ -56,7 +56,46 @@
             >tip：加粗部分在邮件发出时将由系统自动配置</span
           >
         </el-tab-pane>
-        <el-tab-pane label="入职邀约" name="second">入职邀约</el-tab-pane>
+        <el-tab-pane label="入职邀约" name="second">
+          <h3 style="margin-bottom: 20px">信息配置</h3>
+          <el-form>
+            <el-form-item label="对接HR称呼">
+              <el-input v-model="form2.name" />
+            </el-form-item>
+            <el-form-item label="HR联系方式">
+              <el-input v-model="form2.phone" />
+            </el-form-item>
+            <el-form-item label="HR帮助邮箱">
+              <el-input v-model="form2.email" />
+            </el-form-item>
+          </el-form>
+          <h3 style="margin-bottom: 20px">邮件效果</h3>
+          <br />
+          <span
+            style="
+              display: inline-block;
+              background-color: rgba(251, 252, 219, 0.664);
+              padding: 30px;
+            "
+          >
+            <h4>亲爱的 李明：</h4>
+            <br />
+            跨越山海，终于找到最优秀的你!恭喜你以出色的表现通过了所有面试，现在我们非常荣幸地邀请你加入美团大家庭。多元业务，等你飞奔疾驰;广阔舞台，待你大展身手。未来，我们一起成长，一起更好!
+            <br /><br>
+            <h3>职位：后台开发</h3><br>
+            此通知为系统发出，请勿直接回复~<br>
+            后续联络工作请联系HR：{{ form2.name }} {{form2.phone}} <br>
+            若是Ta不慎错过了你的电话或短信，也可以将问题发送到我们的HR帮助台{{ form2.email }} <br>
+            会有专人在第一时间跟进回复哦~
+            <br />
+            <span style="margin-left: 700px"><b>2023年7月5日</b></span>
+            <br />
+            <span style="margin-left: 700px"><b>字节跳动 人力资源平台</b></span>
+          </span>
+          <span style="color: rgb(148, 147, 147)"
+            >tip：加粗部分在邮件发出时将由系统自动配置</span
+          >
+        </el-tab-pane>
       </el-tabs>
       <!-- <el-button text @click="centerDialogVisible = true"> 发送邀约 </el-button>
 
@@ -92,13 +131,18 @@
 <script setup>
 import { ref } from "vue";
 const activeName = ref("first");
-const form = {
+const form = ref({
   time: "2023年7月4日 21点27分",
   area: "北京字节跳动科技园",
   type: "线下面试",
   data: "1份个人简历、身份证、签字笔",
   contact: "Cherry 188********（微信同号）",
-};
+});
+const form2 = ref({
+  name: "lucky",
+  phone: "123-4567-890",
+  email: "example@email.com",
+});
 const centerDialogVisible = ref(false);
 </script>
 

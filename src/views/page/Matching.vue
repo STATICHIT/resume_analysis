@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-10 11:18:26
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-05 11:32:52
+ * @LastEditTime: 2023-07-05 17:01:09
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
  * @Description: 人岗匹配
 -->
@@ -359,7 +359,9 @@ label {
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 .checkstyle {
-  border: 1px solid rgb(160, 157, 157);
+  background-color: #ecf5ff;
+  color:#409eff;
+  font-weight: 600;
   box-shadow: rgba(0, 0, 0, 0.521) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }

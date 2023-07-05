@@ -148,29 +148,28 @@ let uploadFile = (file) => {
   const formData = new FormData();
   formData.append("file", file);
   console.log(formData);
-  const res0 = axios.post(
-    "http://192.168.50.159:5555/resume/upload",
-    formData,
-    {
+  axios
+    .post("http://192.168.50.159:5555/resume/upload", formData, {
       headers: header,
-    }
-  );
-  console.log("!!",res0);
-  // if (res0.data.code === 200) {
-  //   updateTableData(file.id, {
-  //     percent: 100,
-  //   });
-  //   setTimeout(() => {
-  //     // 定时器回调函数中重新启用按钮
-  //     updateTableData(file.id, {
-  //       status: 5, // 已上传
-  //     });
-  //   }, 500);
-  // } else {
-  //   updateTableData(file.id, {
-  //     status: 4, // 上传失败
-  //   });
-  // }
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.data.code === 200) {
+        updateTableData(file.id, {
+          percent: 100,
+        });
+        setTimeout(() => {
+          // 定时器回调函数中重新启用按钮
+          updateTableData(file.id, {
+            status: 5, // 已上传
+          });
+        }, 500);
+      } else {
+        updateTableData(file.id, {
+          status: 4, // 上传失败
+        });
+      }
+    });
 };
 //点击【开始分析】按钮
 let analysis = () => {

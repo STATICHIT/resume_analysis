@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:14
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-02 20:57:34
+ * @LastEditTime: 2023-07-05 16:53:18
  * @FilePath: \resume_analysis\src\views\main\Body.vue
  * @Description: 主页身体组件
 -->
@@ -31,7 +31,7 @@
       <h4 class="littleTitle2">Function introduction</h4>
       <FlexCards></FlexCards>
     </div>
-    <div class="board3"></div>
+    <!-- <div class="board3"></div> -->
   </div>
 </template>
 
@@ -41,7 +41,7 @@ import FlexCards from "../../components/FlexCards.vue";
 
 <style lang="scss" scoped>
 .box {
-  height: 3000px;
+  height: 100%;
 }
 
 .board1 {

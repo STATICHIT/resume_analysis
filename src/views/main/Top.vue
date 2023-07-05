@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:00
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-01 11:04:23
+ * @LastEditTime: 2023-07-05 19:57:31
  * @FilePath: \resume_analysis\src\views\main\Top.vue
  * @Description: 顶部组件
 -->
@@ -22,8 +22,8 @@
           >
             {{ item.title }}
           </div>
+          <!-- <div><DropDown></DropDown></div> -->
         </div>
-        <!-- <div><DropDown></DropDown></div> -->
       </div>
       <div style="width: 330px; text-align: right; display: flex">
         <div :style="isActive1" class="name" @click="self">

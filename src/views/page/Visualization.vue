@@ -2,12 +2,13 @@
  * @Author: STATICHIT
  * @Date: 2023-06-14 22:04:36
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-18 20:46:09
+ * @LastEditTime: 2023-07-05 17:12:49
  * @FilePath: \resume_analysis\src\views\page\Visualization.vue
  * @Description: 可视化数据大屏
 -->
 <template>
-  <div class="box cur">
+  <div class="box cur" style="position: relative">
+    <div @click="router.go(-1)" class="back">⬅ 返回</div>
     <div class="bigTitle">人才库招聘数据分析</div>
     <div class="board">
       <div class="card card1">
@@ -96,6 +97,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import router from "../../router";
 import * as echarts from "echarts"; //引入echarts
 import theme from "../../utils/echarts"; //引入主题
 let num1 = ref(40);
@@ -371,6 +373,16 @@ const initEcharts = () => {
   background: url("../../assets/imgs/波纹背景.png") no-repeat;
   background-size: 100%;
   background-position-y: bottom;
+}
+.back {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 140px;
+  width: 100px;
+  height: 100px;
+  font-size: 25px;
+  font-weight: 700;
 }
 .bigTitle {
   font-size: 35px;

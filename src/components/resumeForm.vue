@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-07-01 14:51:55
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-03 10:22:32
+ * @LastEditTime: 2023-07-05 16:57:47
  * @FilePath: \resume_analysis\src\components\resumeForm.vue
  * @Description: 简历表单
 -->
@@ -18,7 +18,7 @@
             type="text"
             name="name"
             id="name"
-            placeholder="Robert Norman Ross"
+            placeholder="张三"
           />
           <div id="name__error" class="error"></div>
         </div>
@@ -28,7 +28,7 @@
             type="text"
             name="address"
             id="address"
-            placeholder="4059 Mt Lee Dr. Hollywood, CA 90068"
+            placeholder="上海市徐汇区龙瑞路77弄1-15号"
           />
         </div>
         <div class="form-group">
