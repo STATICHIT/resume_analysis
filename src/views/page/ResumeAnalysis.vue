@@ -2,13 +2,13 @@
  * @Author: STATICHIT
  * @Date: 2023-06-19 21:50:15
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-03 10:16:50
+ * @LastEditTime: 2023-07-04 22:35:22
  * @FilePath: \resume_analysis\src\views\page\ResumeAnalysis.vue
  * @Description: 简历分析入口
 -->
 
 <template>
-  <div class="box cur father">
+  <div class="box cur father" :style="{'background-color':curcolor}">
     <!-- <Loading class="load load"></Loading> -->
     <br />
     <div class="bigTitle">简历分析</div>
@@ -33,10 +33,18 @@ import Upload from "../../components/Upload.vue";
 import Loading from "../../components/Loading.vue";
 import { ref } from "vue";
 import router from "../../router";
+const curcolor=ref("#eafaf7");
 const activeName = ref("first");
 let analysis = () => {
   router.push({ path: "/analysisPage" });
 };
+let handleClick = ()=>{
+  if(activeName.value === "first"){
+    curcolor.value="#fff";
+  }else{
+    curcolor.value="#eafaf7";
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -45,7 +53,6 @@ let analysis = () => {
   background-size: 100%;
   background-position-y: bottom;
 }
-//@at-root 用Matlab做一个K层的聚类分析
 .father {
   position: relative;
 }

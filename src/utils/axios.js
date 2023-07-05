@@ -40,9 +40,9 @@ _axios.interceptors.response.use(res => {
 })
 */
 
-const header = { 
-  'Content-Type': 'application/json;charset=UTF-8', 
-  'Authorization': 'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4MTA1NjA2NjIyMywicGFzc3dvcmQiOiIxIiwiaWQiOiIxMzU3NDMiLCJleHAiOjE2ODEwNTYwNjYsInVzZXJuYW1lIjoiMSJ9.cV6UCIMdU_h4wA5tyw6xiNf2VNPqXwnOQUNCazC1RHU', 
+const header = {
+  'Content-Type': 'application/json;charset=UTF-8',
+  'Authorization': 'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_oeyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o',
 }
 
 const http = {

@@ -24,3 +24,8 @@ let apiFun = {
 apiFun.test.test = () => {
   return http.get('/test/demo')
 }
+
+//岗位上传
+apiFun.test.test = ()=>{
+  return http.post('/resume/upload')
+}

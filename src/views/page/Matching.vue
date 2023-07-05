@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-10 11:18:26
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-02 21:11:01
+ * @LastEditTime: 2023-07-05 11:32:52
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
  * @Description: 人岗匹配
 -->
@@ -46,7 +46,12 @@
         </el-tabs>
       </div>
       <div class="right" v-loading.lock="fullscreenLoading">
-        <img v-if="initialImg" src="../../assets//search.png"  alt="" />
+        <img
+          v-if="initialImg"
+          src="../../assets//search.png"
+          alt=""
+          class="searchImg"
+        />
         <div class="selectBox selectBox2">
           <div
             v-for="(item, i) in talentss"
@@ -115,12 +120,12 @@ let changeJob = (item) => {
   selectJob.value = item.name;
 };
 const fullscreenLoading = ref(false);
-const initialImg =ref(true);
+const initialImg = ref(true);
 const openFullScreen = () => {
   fullscreenLoading.value = true;
   setTimeout(() => {
     fullscreenLoading.value = false;
-    initialImg.value=false;
+    initialImg.value = false;
     talentss.value = talents.value;
   }, 2000);
 };
@@ -250,7 +255,7 @@ let intoTalent = (item) => {
 .main {
   margin: 50px auto;
   width: 75%;
-  height: 600px;
+  height: 630px;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
     rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
@@ -375,21 +380,23 @@ button {
   background: #7a83e7;
   border: none;
   border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   height: 35px;
-  padding: 0px 10px;
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 200;
   width: 180px;
+  padding: 8px 16px;
+  color: white;
+  font-weight: bold;
   font-size: 14px;
-  color: #fff;
-  cursor: pointer;
   margin-top: 20px;
   margin-left: 25%;
 }
 
 button:hover {
   background: #444fcf;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.14);
+}
+.searchImg {
+  margin-top: 40px;
+  height: 90%;
+  width: 90%;
 }
 </style>

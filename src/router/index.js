@@ -32,6 +32,9 @@ const routes = [
         path: '/test4', component: () => import('../views/test/test4.vue')
       },
       {
+        path: '/test5', component: () => import('../views/test/test5.vue')
+      },
+      {
         path: '/404',//404页面
         component: () => import('../views/page/404.vue')
       },
