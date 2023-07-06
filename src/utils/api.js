@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-05 21:57:11
+ * @LastEditTime: 2023-07-06 20:13:50
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -14,11 +14,14 @@ let apiFun = {
   user: {},
   firm:{},
   test:{},
+  search:{},
 
 };
 
 //测试接口（按需添加，可删）
-
+apiFun.search.getAll=()=>{
+  
+}
 
 
 //前后端链接测试
@@ -30,5 +33,6 @@ apiFun.test.test = () => {
 apiFun.test.test1 = ()=>{
   return http.post('/resume/upload')
 }
+
 
 export default apiFun;

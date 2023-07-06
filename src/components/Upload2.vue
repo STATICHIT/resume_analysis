@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-11 20:46:15
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-03 11:55:53
+ * @LastEditTime: 2023-07-06 22:31:03
  * @FilePath: \resume_analysis\src\components\Upload2.vue
  * @Description: 岗位批量上传组件
 -->

@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-07-02 19:13:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-03 10:19:01
+ * @LastEditTime: 2023-07-06 19:46:40
  * @FilePath: \resume_analysis\src\components\Stage.vue
  * @Description: 状态条件选择栏
 -->
@@ -60,7 +60,7 @@ const status = ref([
   { id: 7, name: "已转正", cnt: 3, color: "#b7c3ff" },
   { id: 8, name: "淘汰", cnt: 18, color: "#d4d4d4" },
 ]);
-const curStatus = ref("投递人选");
+const curStatus = ref("");
 let select = (item) => {
   //点击之后加上边框颜色
   curStatus.value = item.name;
@@ -74,6 +74,7 @@ let manage = () => {
 
 <style lang="scss" scoped>
 .items {
+  cursor: pointer;
   width: 200px;
   height: 45px;
   padding: 0 15px;
@@ -150,5 +151,4 @@ let manage = () => {
   -webkit-transition: 0.3s background-color;
   transition: 0.3s background-color;
 }
-
 </style>

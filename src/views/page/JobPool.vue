@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-29 22:10:18
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-03 10:17:21
+ * @LastEditTime: 2023-07-06 20:59:44
  * @FilePath: \resume_analysis\src\views\page\JobPool.vue
  * @Description: 岗位库
 -->
@@ -24,14 +24,17 @@
     <div class="board1">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="文件录入" name="first">
+          <br /><br /><br />
           <Upload></Upload>
         </el-tab-pane>
         <el-tab-pane label="手动录入" name="second">
           <div style="padding: 20px">
             <label for="name" style="text-align: left">岗位名:</label>
             <input type="text" id="name" name="user_name" />
-            <label for="bio" style="text-align: left">岗位描述:</label>
-            <textarea id="bio" name="user_bio"></textarea>
+            <label for="bio" style="text-align: left">岗位职责:</label>
+            <textarea id="bio" name="user_bio" class="text1"></textarea>
+            <label for="bio" style="text-align: left">岗位要求:</label>
+            <textarea id="bio" name="user_bio" class="text2"></textarea>
             <button>开始录入</button>
           </div>
         </el-tab-pane>
@@ -43,8 +46,16 @@
 <script setup>
 import PostCard from "../../components/PostCard.vue";
 import Upload from "../../components/Upload2.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 const activeName = ref("first");
+onMounted(() => {
+  Pre();
+});
+
+let Pre = () => {
+  //state状态选项导入
+  //全部候选人导入
+};
 </script>
 
 <style lang="scss" scoped>
@@ -77,7 +88,7 @@ const activeName = ref("first");
   text-align: center;
   background-color: #fff;
   width: 760px;
-  height: 660px;
+  height: 700px;
   border-radius: 20px;
   margin-bottom: 40px;
   padding: 40px;
@@ -86,7 +97,7 @@ const activeName = ref("first");
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
-.postBoard{
+.postBoard {
   background-color: #f2f7fc;
   padding: 50px;
 }
@@ -107,12 +118,11 @@ textarea {
 input {
   height: 20px;
 }
-textarea {
-  height: 270px;
+.text1 {
+  height: 120px;
 }
-input[type="radio"],
-input[type="checkbox"] {
-  margin: 0 4px 8px 0;
+.text2 {
+  height: 180px;
 }
 
 label {
@@ -133,7 +143,7 @@ button {
   font-size: 14px;
   color: #fff;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 button:hover {

@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 21:10:51
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-06 11:16:25
+ * @LastEditTime: 2023-07-06 19:38:20
  * @FilePath: \resume_analysis\src\components\PostCard.vue
  * @Description: 岗位展示列表
 -->
@@ -14,7 +14,12 @@
     </div>
     <br /><br />
     <div class="container">
-      <div v-for="(job, idx) in list" :key="idx" class="card-container">
+      <div
+        v-for="(job, idx) in list"
+        :key="idx"
+        class="card-container"
+        @click="intoJob(job)"
+      >
         <div>
           <div class="overlay"></div>
           <div class="card">
@@ -136,6 +141,7 @@
 </template>
 
 <script setup>
+import router from "../router";
 let list = [
   {
     name: "web前端开发工程师",
@@ -174,6 +180,9 @@ let list = [
     area: "深圳·福田区·华强南",
   },
 ];
+let intoJob = (job) => {
+  router.push("/analysisPosts");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -195,6 +204,7 @@ let list = [
 }
 
 .card-container {
+  cursor: pointer;
   position: relative;
   width: 31%;
   height: 160px;
@@ -294,6 +304,41 @@ let list = [
 }
 
 .card-container:nth-of-type(9) .card:before {
+  background-image: url("https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/asteroid20180605-home.jpg?itok=KSUffiCR");
+}
+.card-container:nth-of-type(10) .card:before {
+  background-image: url("https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/pia22474-2000.jpg?itok=cajl1lYH");
+}
+
+.card-container:nth-of-type(11) .card:before {
+  background-image: url("https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/m18-090.jpg?itok=TQ8Fuk4x");
+}
+
+.card-container:nth-of-type(12) .card:before {
+  background-image: url("https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/40808879360_18c96d62f1_o.jpg?itok=NttmTWPK");
+}
+
+.card-container:nth-of-type(13) .card:before {
+  background-image: url("https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/jwst-pv-145604copy.jpg?itok=Jq7GN-Rc");
+}
+
+.card-container:nth-of-type(14) .card:before {
+  background-image: url("https://www.nasa.gov/sites/default/files/styles/ubernode_alt_horiz/public/thumbnails/image/worldview201709201920x1080.png");
+}
+
+.card-container:nth-of-type(15) .card:before {
+  background-image: url("https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/nasasibexobs.jpg?itok=U2LCp14i");
+}
+
+.card-container:nth-of-type(16) .card:before {
+  background-image: url("https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/pia19808.jpg?itok=rgxgamMM");
+}
+
+.card-container:nth-of-type(17) .card:before {
+  background-image: url("https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/e0102_lg.jpg?itok=sd9lOayI");
+}
+
+.card-container:nth-of-type(18) .card:before {
   background-image: url("https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/asteroid20180605-home.jpg?itok=KSUffiCR");
 }
 
