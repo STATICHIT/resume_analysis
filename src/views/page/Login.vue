@@ -1,3 +1,12 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-05-23 19:43:35
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:17:02
+ * @FilePath: \resume_analysis\src\views\page\Login.vue
+ * @Description: 登录注册
+-->
+
 <template>
   <div class="box">
     <div class="logos">
@@ -16,7 +25,9 @@
           <input type="password" />
         </label>
         <p class="forgot-pass">Forget Password ?</p>
-        <button type="button" class="submit">登 录</button>
+        <button type="button" class="submit" @click="router.push('/main')">
+          登 录
+        </button>
       </div>
       <div class="sub-cont">
         <div class="img">
@@ -63,6 +74,7 @@
 
 <script setup>
 import { ref } from "vue";
+import router from "../../router";
 let isSignUpActive = ref(false);
 let change = () => {
   console.log("我进来了，当前isSignUpActive是：", isSignUpActive.value);
@@ -71,6 +83,7 @@ let change = () => {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:math";
 *,
 *:before,
 *:after {
@@ -143,7 +156,7 @@ $switchAT: 1.2s;
 $inputW: 260px;
 $btnH: 36px;
 
-$diffRatio: ($contW - $imgW) / $contW;
+$diffRatio: math.div($contW - $imgW, $contW);
 
 @mixin signUpActive {
   .cont.s--signup & {
@@ -218,7 +231,6 @@ button {
     top: 0;
     width: $contW;
     height: 100%;
-    // background-image: url("https://picx.zhimg.com/80/v2-b4fadcad56bd7bde42dd0ad70c383115_720w.webp?source=1940ef5c");
     background-image: url("https://pic1.zhimg.com/80/v2-904505bcf0c424788f6028b8952aa2e7_720w.webp?source=1940ef5c");
     background-size: cover;
     transition: transform $switchAT ease-in-out;

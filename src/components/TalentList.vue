@@ -1,3 +1,11 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-05-25 19:44:37
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:18:57
+ * @FilePath: \resume_analysis\src\components\TalentList.vue
+ * @Description: 人才列表
+-->
 <template>
   <div>
     <div class="result">

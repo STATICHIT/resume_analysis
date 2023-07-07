@@ -1,3 +1,12 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-05-30 20:45:43
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:20:11
+ * @FilePath: \resume_analysis\src\components\Upload.vue
+ * @Description: 简历分析上传组件
+-->
+
 <template>
   <div>
     <div class="myUpload">
@@ -84,7 +93,7 @@
       </div>
     </div>
     <br>
-    <button>开始录入</button>
+    <button class="mybutton">开始录入</button>
   </div>
 </template>
 
@@ -116,24 +125,21 @@ const value2 = ref(true);
 .highSettingdetail {
   margin-left: -450px;
 }
-button {
+.mybutton {
+  margin-left: 35%;
+  cursor: pointer;
   background: #7a83e7;
   border: none;
   border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   height: 35px;
   padding: 0px 10px;
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 200;
-  width: 180px;
+  width: 200px;
   font-size: 14px;
   color: #fff;
-  cursor: pointer;
   margin-top: 20px;
 }
 
-button:hover {
+.mybutton:hover {
   background: #444fcf;
 }
 </style>

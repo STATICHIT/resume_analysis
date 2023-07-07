@@ -2,9 +2,9 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 18:09:13
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-15 22:18:10
+ * @LastEditTime: 2023-07-03 21:24:30
  * @FilePath: \resume_analysis\src\views\page\JobAnalysis.vue
- * @Description: 自定义
+ * @Description: 岗位分析入口
 -->
 <template>
   <div class="box cur father">
@@ -57,11 +57,10 @@ let analysis = () => {
 }
 .box {
   background-color: #ffffff;
-  height: 1000px;
-  padding: 50px;
+  height: 100%;
+  padding: 100px;
 }
 .bigTitle {
-  margin-top: 20px;
   margin-bottom: 60px;
   text-align: center;
   font-size: 40px;
@@ -72,7 +71,7 @@ let analysis = () => {
   text-align: center;
   background-color: #fff;
   width: 760px;
-  height: 660px;
+  height: 100%;
   border-radius: 20px;
   padding: 40px;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,

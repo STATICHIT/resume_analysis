@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-07-07 15:44:12
+ * @LastEditTime: 2023-07-07 16:14:16
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
  * @Description: 自定义
 -->

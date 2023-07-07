@@ -1,3 +1,11 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-05-24 22:36:16
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-03 10:19:11
+ * @FilePath: \resume_analysis\src\components\Search.vue
+ * @Description: 搜索组件
+-->
 <template>
   <div style="margin-top:30px">
     <div class="search">

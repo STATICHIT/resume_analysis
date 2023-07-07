@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:07
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-05-17 21:29:39
+ * @LastEditTime: 2023-07-02 20:59:26
  * @FilePath: \resume_analysis\src\views\main\Foot.vue
  * @Description: 底部组件
 -->
@@ -70,6 +70,7 @@
         >
       </div>
     </div>
+    <el-backtop :right="100" :bottom="100" />
   </div>
 </template>
 

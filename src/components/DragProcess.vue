@@ -1,16 +1,15 @@
 <!--
  * @Author: STATICHIT
- * @Date: 2023-05-18 17:47:09
+ * @Date: 2023-07-02 00:52:47
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-03 10:16:35
- * @FilePath: \resume_analysis\src\views\test\test.vue
- * @Description: 自定义
+ * @LastEditTime: 2023-07-03 10:23:57
+ * @FilePath: \resume_analysis\src\components\DragProcess.vue
+ * @Description: 拖拽式流程管理组件
 -->
-
 <template>
-  <div style="padding: 200px">
+  <div>
     <div class="box">
-      <div class="line">
+      <div class="line" style="margin-top: 0;">
         <span class="text"><h3>流程管理</h3></span>
       </div>
       <h4>活跃状态</h4>
@@ -80,6 +79,7 @@
       </div>
       <div class="col-1">
         <li class="list-group-item flex-container addcom">
+          <i class="dis">|</i>
           <b :style="{ color: begincolor }">●</b>
           <input
             type="text"
@@ -147,18 +147,12 @@ export default {
   height: 100%;
   width: 500px;
   margin: 0 auto;
-  padding: 30px;
-  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
-    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-}
-.button {
-  margin-top: 35px;
+  padding: 0 30px;
 }
 h4 {
   color: rgb(100, 100, 100);
   margin-top: 20px;
-  margin-bottom: 8px;
+  margin-bottom: 18px;
 }
 ul {
   list-style-type: none;
@@ -221,7 +215,7 @@ input {
   border-top: 1px solid rgba(145, 143, 143, 0.308);
   text-align: center;
   margin-top: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 .text {
   position: relative;
@@ -230,7 +224,7 @@ input {
 }
 button {
   margin-left: 27%;
-  margin-top: 20px;
+  margin-top: 25px;
   width: 200px;
   background: #1de9b6;
   padding: 8px 16px;

@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-19 21:52:36
+ * @LastEditTime: 2023-07-02 21:28:22
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -13,7 +13,7 @@ const routes = [
   { path: '/', redirect: '/main' },
   {
     path: '/login',
-    component: () => import('../views/user/Login.vue')
+    component: () => import('../views/page/Login.vue')
   },
   {
     path: '/main', redirect: '/mainPage',
@@ -30,6 +30,9 @@ const routes = [
       },
       {
         path: '/test4', component: () => import('../views/test/test4.vue')
+      },
+      {
+        path: '/test5', component: () => import('../views/test/test5.vue')
       },
       {
         path: '/404',//404页面
@@ -88,27 +91,28 @@ const routes = [
 ]
 //router指向的是大路由，配置路由和组件之间的应用关系
 const router = createRouter({
-      history: createWebHistory(process.env.BASE_URL),
-      routes
-    })
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
 
 //设置路由守卫
-/*
+
 router.beforeEach((to, from, next) => {
-  if (to.path == '/login') {
-    // 如果路径是 /login 则正常执行
-    next()
-  } else {
-    // 如果不是 /login，判断是否有 token
-    if (!localStorage.getItem('token')) {
-      // 如果没有，则跳至登录页面
-      next({ path: '/login' })
-    } else {
-      // 否则继续执行
-      next()
-    }
-  }
+  // if (to.path == '/login') {
+  //   // 如果路径是 /login 则正常执行
+  //   next()
+  // } else {
+  //   // 如果不是 /login，判断是否有 token
+  //   if (!localStorage.getItem('token')) {
+  //     // 如果没有，则跳至登录页面
+  //     next({ path: '/login' })
+  //   } else {
+  //     // 否则继续执行
+  window.scrollTo(0, 0);
+  next()
+  // }
+  // }
 })
-*/
+
 
 export default router

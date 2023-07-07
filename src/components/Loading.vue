@@ -4,7 +4,7 @@
  * @LastEditors: STATICHIT 2394412110@qq.com
  * @LastEditTime: 2023-06-15 21:10:58
  * @FilePath: \resume_analysis\src\components\Load1.vue
- * @Description: 自定义
+ * @Description: 加载动画
 -->
 <template>
   <div class="bg">

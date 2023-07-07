@@ -1,3 +1,11 @@
+<!--
+ * @Author: STATICHIT
+ * @Date: 2023-07-01 14:51:55
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-07-05 16:57:47
+ * @FilePath: \resume_analysis\src\components\resumeForm.vue
+ * @Description: 简历表单
+-->
 <template>
   <div class="box1">
     <div>
@@ -10,7 +18,7 @@
             type="text"
             name="name"
             id="name"
-            placeholder="Robert Norman Ross"
+            placeholder="张三"
           />
           <div id="name__error" class="error"></div>
         </div>
@@ -20,7 +28,7 @@
             type="text"
             name="address"
             id="address"
-            placeholder="4059 Mt Lee Dr. Hollywood, CA 90068"
+            placeholder="上海市徐汇区龙瑞路77弄1-15号"
           />
         </div>
         <div class="form-group">
@@ -124,7 +132,7 @@
           <label for="references">备注</label>
           <textarea name="references" id="references"></textarea>
         </div>
-        <input type="submit" value="Create Resume" id="create-resume" />
+        <input type="submit" value="开始分析" id="create-resume" />
       </form>
     </div>
   </div>
@@ -343,6 +351,7 @@ textarea:focus {
 }
 
 input[type="submit"] {
+  width: 200px;
   margin-top: 20px;
   background: #1de9b6;
   padding: 8px 16px;

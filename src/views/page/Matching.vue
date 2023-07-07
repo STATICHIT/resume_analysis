@@ -2,9 +2,9 @@
  * @Author: STATICHIT
  * @Date: 2023-06-10 11:18:26
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-15 22:09:17
+ * @LastEditTime: 2023-07-05 17:01:09
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
- * @Description: 自定义
+ * @Description: 人岗匹配
 -->
 <template>
   <div class="box cur">
@@ -27,7 +27,6 @@
                   class="jobCard"
                 >
                   <p>
-                    <!-- {{ i + 1 }}.&nbsp;&nbsp; -->
                     {{ item.name }}
                   </p>
                 </div>
@@ -41,15 +40,21 @@
               <input type="text" id="name" name="user_name" />
               <label for="bio" style="text-align: left">岗位描述:</label>
               <textarea id="bio" name="user_bio"></textarea>
-              <button>开始匹配</button>
+              <button @click="openFullScreen">开始匹配</button>
             </div>
           </el-tab-pane>
         </el-tabs>
       </div>
       <div class="right" v-loading.lock="fullscreenLoading">
+        <img
+          v-if="initialImg"
+          src="../../assets//search.png"
+          alt=""
+          class="searchImg"
+        />
         <div class="selectBox selectBox2">
           <div
-            v-for="(item, i) in talents"
+            v-for="(item, i) in talentss"
             :key="i"
             :class="item.name == selectTalent ? 'checkstyle2' : ''"
             @click="intoTalent(item)"
@@ -84,7 +89,7 @@
 import { ref } from "vue";
 import router from "../../router";
 const activeName = ref("first");
-const jobs = [
+const jobs = ref([
   { name: "web前端开发工程师" },
   { name: "FPGA原型验证工程师" },
   { name: "解决方案工程师" },
@@ -109,21 +114,24 @@ const jobs = [
   { name: "CB端产品经理" },
   { name: "CJava开发工程师" },
   { name: "CC++开发工程师" },
-];
+]);
 let selectJob = ref();
 let changeJob = (item) => {
   selectJob.value = item.name;
 };
 const fullscreenLoading = ref(false);
-
+const initialImg = ref(true);
 const openFullScreen = () => {
   fullscreenLoading.value = true;
   setTimeout(() => {
     fullscreenLoading.value = false;
+    initialImg.value = false;
+    talentss.value = talents.value;
   }, 2000);
 };
 
-const talents = [
+const talentss = ref([]);
+const talents = ref([
   {
     name: "彭于晏",
     score: "硕士",
@@ -213,7 +221,8 @@ const talents = [
     title: "ISP算法工程师",
     tags: ["人脸识别", "算法研究", "语音识别"],
   },
-];
+]);
+
 let selectTalent = ref();
 let intoTalent = (item) => {
   console.log(item.name);
@@ -240,12 +249,13 @@ let intoTalent = (item) => {
   font-size: 35px;
   font-weight: 600;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 80px;
+  margin-bottom: 10px;
 }
 .main {
   margin: 50px auto;
   width: 75%;
-  height: 600px;
+  height: 630px;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
     rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
@@ -281,13 +291,6 @@ let intoTalent = (item) => {
 }
 .selectBox::-webkit-scrollbar-track {
   background: #c4dfeb;
-}
-.bigTitle {
-  margin-top: 20px;
-  margin-bottom: 60px;
-  text-align: center;
-  font-size: 40px;
-  font-weight: 600;
 }
 input,
 textarea {
@@ -356,7 +359,9 @@ label {
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 .checkstyle {
-  border: 1px solid rgb(160, 157, 157);
+  background-color: #ecf5ff;
+  color:#409eff;
+  font-weight: 600;
   box-shadow: rgba(0, 0, 0, 0.521) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
@@ -377,21 +382,23 @@ button {
   background: #7a83e7;
   border: none;
   border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   height: 35px;
-  padding: 0px 10px;
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 200;
   width: 180px;
+  padding: 8px 16px;
+  color: white;
+  font-weight: bold;
   font-size: 14px;
-  color: #fff;
-  cursor: pointer;
   margin-top: 20px;
   margin-left: 25%;
 }
 
 button:hover {
   background: #444fcf;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.14);
+}
+.searchImg {
+  margin-top: 40px;
+  height: 90%;
+  width: 90%;
 }
 </style>
