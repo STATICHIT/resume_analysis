@@ -4,7 +4,6 @@
 @import 'src/style/base.scss';
 @import "element-plus/dist/index.css";
 
-
 // 自定义 el-tabs 的主题样式
 .el-tabs__nav {
 //   background-color: #ffffff; // 修改标签栏的背景色
@@ -25,4 +24,12 @@
     background-color: $primary-color; // 修改横线颜色为红色
     height: 5px;
 }
+  /* CSS */
+  .el-dropdown-menu .el-dropdown-menu__item:hover {
+    background-color: #EFEDFD;
+    color: #7061E5;
+  }
+  
+  
+
   

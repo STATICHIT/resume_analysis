@@ -1,6 +1,5 @@
 <template>
   <div class="box cur father">
-    <!-- <Loading class="load load"></Loading> -->
     <br />
     <div class="bigTitle">简历分析</div>
     <div class="board1">

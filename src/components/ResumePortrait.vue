@@ -2,7 +2,7 @@
 <template>
   <div class="container" v-show="isVisited">
     <el-button type="success" class="return" @click="lookJson">查看返回数据</el-button>
-    <div>
+    <!-- <div>
       <span class="lights">简历亮点</span>
       <div class="light-contain">
         <div class="labels">
@@ -31,10 +31,10 @@
           <li v-for="item in state.warns" :key="item">{{ item }}</li>
         </ul>
       </div>
-    </div>
+    </div> -->
     <div class="tags">
       <span class="title">候选人标签</span>
-      <div>
+      <!-- <div>
         <span>基本标签</span>
         <div>
           <el-button
@@ -46,17 +46,17 @@
             >{{ item.tag }}</el-button
           >
         </div>
-      </div>
+      </div> -->
       <div>
         <span>教育背景标签</span>
         <div>
           <el-button
             type="success"
-            v-for="item in state.tags.education"
+            v-for="item in labelProcessing.educationTags"
             :key="item"
             class="btn"
             plain
-            >{{ item.tag }}</el-button
+            >{{ item }}</el-button
           >
         </div>
       </div>
@@ -65,19 +65,19 @@
         <div>
           <el-button
             type="danger"
-            v-for="item in state.tags.professional"
+            v-for="item in labelProcessing.jobTags"
             :key="item"
             class="btn"
             plain
-            >{{ item.tag }}</el-button
+            >{{ item }}</el-button
           >
         </div>
       </div>
-      <div>
+      <!-- <div>
         <span>软性技能标签</span>
         <div>
           <el-button
-            v-for="item in state.tags.others"
+            v-for="item in labelProcessing.skillTags"
             color="#626aef"
             :key="item"
             class="btn"
@@ -85,17 +85,17 @@
             >{{ item.tag }}</el-button
           >
         </div>
-      </div>
+      </div> -->
       <div>
         <span>专业技能标签</span>
         <div>
           <el-button
             type="warning"
-            v-for="item in state.tags.skills"
+            v-for="item in labelProcessing.skillTags"
             :key="item"
             class="btn"
             plain
-            >{{ item.tag }}</el-button
+            >{{ item }}</el-button
           >
         </div>
       </div>
@@ -112,7 +112,7 @@
         <div class="echarts" ref="back"></div>
       </div>
     </div>
-    <div>
+    <!-- <div>
       <span>预测职能</span>
       <div class="tables">
         <div class="echarts" ref="works1"></div>
@@ -123,12 +123,12 @@
       <div class="tables">
         <div class="echarts" ref="works3"></div>
       </div>
-    </div>
+    </div> -->
   </div> 
   <div v-show="!isVisited">
     <div class="codeBox">
       <el-button type="success" class="return" @click="lookJson">查看返回结果</el-button>
-      <pre v-html="syntaxHighlight(state.json)"></pre>
+      <pre v-html="syntaxHighlight(labelProcessing)"></pre>
     </div>
   </div>
 </template>
@@ -136,6 +136,12 @@
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import * as echarts from "echarts";
+
+const prop = defineProps({
+  labelProcessing:{
+    type:Object
+  }
+})
 
 const talent = ref(null);
 const isVisited = ref(true)
@@ -189,188 +195,11 @@ const state = reactive({
       { tag: "宏观经济", type: "professional_skill", subclass: "其它" },
     ],
   },
-  json:{
-    "project_experience": [],
-    "contact_info": {
-        "phone_number": "13800138000",
-        "QQ": "",
-        "wechat": "",
-        "email": "",
-        "home_phone_number": ""
-    },
-    "social_experience": [
-        {
-            "description": "制单会计\n独立处理“公司”中的所有账务处理,个人所得税、企业所得税、出口退税的核算申报；\n负责与审计沟通公司的财务问题，并就问题对账务进行有效的调整。",
-            "end_time_year": "2014",
-            "still_active": 0,
-            "end_time_month": "01",
-            "organization_name": "校内仿真实训",
-            "start_time_year": "2013",
-            "location": "",
-            "department": "",
-            "job_title": "制单会计",
-            "start_time_month": "01"
-        },
-        {
-            "description": "负责活学生会动的组织策划；\n负责学生会内部的文档管理，上级来文和学生组织的批复，对所有文件资料的各项工作；\n负责学生会的工作汇报 ， 资产管理工作 ， 保管印章并对学校拨付的固定资产登记注册。",
-            "end_time_year": "2013",
-            "still_active": 0,
-            "end_time_month": "09",
-            "organization_name": "飞扬大学学生会",
-            "start_time_year": "2012",
-            "location": "",
-            "department": "",
-            "job_title": "会长",
-            "start_time_month": "08"
-        }
-    ],
-    "education_experience": [
-        {
-            "ranking": "",
-            "major": "会计学",
-            "degree": "本科",
-            "end_time_year": "2010",
-            "still_active": 0,
-            "school_rank": "",
-            "school_level": "",
-            "end_time_month": "07",
-            "school_name": "广州飞扬大学",
-            "abroad_country": "",
-            "GPA": "",
-            "courses": "中级财务管理，会计电算化，会计学基础，财务会计，会计英语，成本会计，会计学，税法，会计，审计",
-            "start_time_year": "2009",
-            "location": "广州",
-            "department": "",
-            "study_model": "",
-            "abroad": 0,
-            "start_time_month": "09"
-        }
-    ],
-    "basic_info": {
-        "major": "会计学",
-        "expect_location": "",
-        "current_salary": "",
-        "current_location_norm": "中国-广东-广州",
-        "current_location": "广东广州",
-        "expect_location_norm": "",
-        "desired_salary": "",
-        "birthplace": "",
-        "degree": "本科",
-        "desired_industry": "",
-        "desired_position": "",
-        "zipcode": "",
-        "professional_level": "初级",
-        "national_identity_number": "",
-        "date_of_birth": "1993-02-02",
-        "birthplace_norm": "",
-        "num_work_experience": 13,
-        "current_position": "实习",
-        "work_start_year": "2013",
-        "political_status": "",
-        "current_company": "广州飞扬科技有限公司",
-        "school_name": "广州飞扬大学",
-        "ethnic": "",
-        "recent_graduate_year": "2010",
-        "name": "亿铭",
-        "lastupdate_time": "2023-05-29-06-30-18",
-        "gender": "",
-        "age": 30,
-        "marital_status": "",
-        "current_status": "",
-        "school_type": "",
-        "detailed_location": "",
-        "industry": ""
-    },
-    "training_experience": [],
-    "work_experience": [
-        {
-            "salary": "",
-            "description": "负责公司会计核算，报表编制及月度报税工作；\n发票的扫描、开具、核对及管理工作；\n单位的报账、定期对账、处理账务相关的事",
-            "end_time_year": "2015",
-            "still_active": 0,
-            "skills": [
-                "管理工作",
-                "会计"
-            ],
-            "company_type": "",
-            "industry": "互联网/软件",
-            "end_time_month": "04",
-            "location": "",
-            "company_size": "",
-            "job_function": "市场",
-            "start_time_year": "2014",
-            "company_name": "广州飞扬科技有限公司",
-            "report_to": "",
-            "department": "",
-            "underling_num": "",
-            "job_title": "实习",
-            "start_time_month": "08"
-        },
-        {
-            "salary": "",
-            "description": "负责公司会计核算，报表编制及月度报税工作；\n负责项目资金财务收取、材料发票保管，做好催付和对账工作；\n负责项目报表的正确性和上报的及时性；",
-            "end_time_year": "2014",
-            "still_active": 0,
-            "skills": [
-                "财务",
-                "会计"
-            ],
-            "company_type": "",
-            "industry": "电子/通信/硬件",
-            "end_time_month": "07",
-            "location": "",
-            "company_size": "",
-            "job_function": "市场",
-            "start_time_year": "2013",
-            "company_name": "广州电子科技有限公司",
-            "report_to": "",
-            "department": "",
-            "underling_num": "",
-            "job_title": "实习",
-            "start_time_month": "07"
-        }
-    ],
-    "others": {
-        "language": [
-            "tem-4",
-            "英语"
-        ],
-        "certificate": [
-            "tem-4",
-            "会计上岗证",
-            "会计电算化",
-            "计算机二级",
-            "证券从业资格证"
-        ],
-        "skills": [
-            "策划",
-            "财务",
-            "审计",
-            "会计",
-            "仿真",
-            "财务管理",
-            "管理工作",
-            "财务软件",
-            "财务会计",
-            "财务分析",
-            "社会活动",
-            "常用办公软件"
-        ],
-        "self_evaluation": "个人介绍: 本人是会计专业大四学生 ， 即将毕业；有丰富的专业知识体系和实践经历做基础 ， 大学期间学习刻苦 ， 成绩优异、还积极地参加各种社会活动 ， 抓住每一个机会锻炼自己 ， 希望找一份会计相关实习工作；并且在实践中不断学习、进步。\n 工作方面: 有一定的财务分析能力，能够熟练使用金蝶等财务软件，熟练使用常用办公软件等；工作认真细致，吃苦耐劳、责任心强；数据敏感度强、善于沟通、协调、组织能力强；有良好的职业操守，具有较强的服务意识。\n 性格方面: 个性稳重、思维严谨、乐观豁达、容易相处，团队荣誉感强。",
-        "awards": [],
-        "it_skills": [
-            "财务软件",
-            "常用办公软件"
-        ],
-        "business_skills": [
-            "会计",
-            "财务会计",
-            "常用办公软件"
-        ]
-    },
-    "resume_rawtext": ""
-},
 });
+
+onMounted(()=>{
+  console.log(prop.labelProcessing.comprehensiveAbility.leadership)
+})
 const option = reactive({
     option1 : {
   radar: {
@@ -378,9 +207,9 @@ const option = reactive({
       { name: "语言能力" , color: "#6873E3" },
       { name: "所获荣誉" , color: "#6873E3" },
       { name: "教育背景" , color: "#6873E3" },
-      { name: "工作能力" , color: "#6873E3" },
+      { name: "工作时间" , color: "#6873E3" },
       { name: "领导力", color: "#6873E3" },
-      { name: "社会能力" , color: "#6873E3" },
+      { name: "技能" , color: "#6873E3" },
     ],
   },
   series: [
@@ -389,7 +218,8 @@ const option = reactive({
       type: "radar",
       data: [
         {
-          value: [10, 30, 200, 300, 500, 180],
+          value: [prop.labelProcessing.comprehensiveAbility.languageAbility, prop.labelProcessing.comprehensiveAbility.honorsReceived, prop.labelProcessing.comprehensiveAbility.educationalBackground,
+          prop.labelProcessing.comprehensiveAbility.serviceYears, prop.labelProcessing.comprehensiveAbility.leadership, prop.labelProcessing.comprehensiveAbility.skill],
           name: "Allocated Budget",
         },
       ],
@@ -402,21 +232,22 @@ const option = reactive({
 
   option2: {
     radar: {
-        
+      startAngle: 20, // 设置起点位置为右侧
       indicator: [
-        { name: "互联网",max:1000,  color: "#6873E3" },
-        { name: "金融",max:1000,color: "#6873E3" },
-        { name: "产品",max:1000,color: "#6873E3" },
-        { name: "互联网", max:1000,color: "#6873E3" },
-        { name: "生产/采购/物流",max:1000, color: "#6873E3" },
-        { name: "人事/行政/高级管理",max:1000,  color: "#6873E3" },
-        { name: "运营/客服/销售/市场", max:1000,color: "#6873E3" },
-        { name: "工程师",max:1000, color: "#6873E3" },
-        { name: "其他", max:1000, color: "#6873E3" },
-        { name: "教育/翻译/服务业",max:1000,  color: "#6873E3" },
-        { name: "生物/医疗/制药/护理",max:1000, color: "#6873E3" },
-        { name: "咨询/法律/公务员",max:1000, color: "#6873E3" },
-        { name: "建筑/房地产",max:1000, color: "#6873E3" },
+        { name: "互联网",max:20,  color: "#6873E3" },
+        { name: "金融",max:20,color: "#6873E3" },
+        { name: "产品",max:20,color: "#6873E3" },
+        { name: "生产/采购/物流",max:20, color: "#6873E3" },
+        { name: "人事/行政/高级管理",max:20,  color: "#6873E3" },
+        { name: "运营/客服/销售/市场", max:20,color: "#6873E3" },
+        { name: "工程师",max:20, color: "#6873E3" },
+        // { name: "其他", max:20, color: "#6873E3" },
+        { name: "教育/翻译/服务业",max:20,  color: "#6873E3" },
+        { name: "生物/医疗/制药/护理",max:20, color: "#6873E3" },
+        { name: "咨询/法律/公务员",max:20, color: "#6873E3" },
+        { name: "建筑/房地产",max:20, color: "#6873E3" },
+        { name: "广告",max:20, color: "#6873E3" },
+        { name: "媒体",max:20, color: "#6873E3" },
       ],
     },
     series: [
@@ -425,7 +256,10 @@ const option = reactive({
         type: "radar",
         data: [
         {
-            value: [300,300,300,800,300,900,200,300,300,300,300,300,300],
+            value: [prop.labelProcessing.backgroundIndustry.internet,prop.labelProcessing.backgroundIndustry.finance,prop.labelProcessing.backgroundIndustry.product
+            ,prop.labelProcessing.backgroundIndustry.logisticsProcure,prop.labelProcessing.backgroundIndustry.administration,prop.labelProcessing.backgroundIndustry.marketOperations,prop.labelProcessing.backgroundIndustry.engineer,
+            prop.labelProcessing.backgroundIndustry.educationTranslate,prop.labelProcessing.backgroundIndustry.treatPharmacy,prop.labelProcessing.backgroundIndustry.legalAdvice,prop.labelProcessing.backgroundIndustry.build
+            ,prop.labelProcessing.backgroundIndustry.advertisement,prop.labelProcessing.backgroundIndustry.medium],
         }
         ],
         lineStyle:{
@@ -600,12 +434,12 @@ option5 : {
    const myBack = echarts.init(back.value);
    myBack.setOption(option.option2);
 
-   const myWorks1 = echarts.init(works1.value);
-   myWorks1.setOption(option.option3);
-   const myWorks2 = echarts.init(works2.value);
- myWorks2.setOption(option.option4);
- const myWorks3 = echarts.init(works3.value);
- myWorks3.setOption(option.option5);
+//    const myWorks1 = echarts.init(works1.value);
+//    myWorks1.setOption(option.option3);
+//    const myWorks2 = echarts.init(works2.value);
+//  myWorks2.setOption(option.option4);
+//  const myWorks3 = echarts.init(works3.value);
+//  myWorks3.setOption(option.option5);
  });
 
 const jsonStr = JSON.stringify(state.json);
