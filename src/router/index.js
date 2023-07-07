@@ -82,6 +82,10 @@ const routes = [
         path: '/analysisPosts',//岗位分析内容页面
         component: () => import('../views/page/AnalysisPosts.vue')
       },
+      {
+        path: '/sameResume',//岗位分析内容页面
+        component: () => import('../views/page/SameResume.vue')
+      },
     ]
   },
 ]

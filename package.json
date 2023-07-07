@@ -30,7 +30,9 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "unplugin-element-plus": "^0.7.1",
+    "unplugin-vue-components": "^0.25.1"
   },
   "browserslist": [
     "> 1%",
