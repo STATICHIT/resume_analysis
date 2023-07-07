@@ -31,7 +31,8 @@
 import Upload0 from "../../components/resumeForm.vue";
 import Upload from "../../components/Upload.vue";
 import Loading from "../../components/Loading.vue";
-import { ref } from "vue";
+import { ref,onMounted } from "vue";
+import apiFun from "../../utils/api";
 import router from "../../router";
 const curcolor=ref("#eafaf7");
 const activeName = ref("first");

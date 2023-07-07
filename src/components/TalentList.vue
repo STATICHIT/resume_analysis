@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-25 19:44:37
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-03 10:18:57
+ * @LastEditTime: 2023-07-07 17:30:43
  * @FilePath: \resume_analysis\src\components\TalentList.vue
  * @Description: 人才列表
 -->
@@ -27,14 +27,12 @@
         <div class="postings">
           <div class="leftPart">
             <div class="single-posting">
-              <h2 class="names">{{ item.name }} {{ item.englishname }}</h2>
-              <!-- <h3>{{ item.country }} · {{ item.area }}</h3> -->
-
+              <h2 class="names">{{ item.name }}</h2>
+              <!-- <h2 class="names">{{ item.name }} {{ item.englishname }}</h2> -->
               <el-tooltip v-for="item in state2.lights" :key="item">
                 <template #content> 简历亮点 </template>
                 <el-button class="tooltip">{{ item }}</el-button>
               </el-tooltip>
-
               <div class="posting-detail">
                 <p>
                   {{ item.gender }} | {{ item.age }}岁 | {{ item.degree }} |
@@ -48,10 +46,6 @@
             </div>
             <div class="single-posting">
               <div class="post">应聘岗位：{{ item.work }}</div>
-              <span class="label label-full-time">全职</span>
-              <!-- <p>
-                本职位公司预计招聘3个实习生，要求本科及以上毕业学历。招聘截止于2023年12月12日，预计本年
-              </p> -->
             </div>
           </div>
           <div class="rightPart">
@@ -66,16 +60,26 @@
           准：目标人才库是准的
         </p>
         <br />
-        <button class="my-button" @click="router.push('/visualization')">查看人才库管理可视化图</button>
+        <button class="my-button" @click="router.push('/visualization')">
+          查看人才库管理可视化图
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
+import { defineProps } from "vue";
 import router from "../router";
-let list = [
+const props = defineProps({
+  result: {
+    type: Object,
+    default: "",
+  },
+});
+
+let list = ref([
   {
     name: "王鹤棣",
     phone: "19806520243",
@@ -152,15 +156,20 @@ let list = [
     work: "用户服务开发人员",
     goal: "兼职",
   },
-];
+]);
 const state = reactive({
-  tableData: [],
   total: 200, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 8,
+  pageSize: 5,
 });
 const state2 = reactive({
-  lights: ["熟练掌握英语", "技术达标", "本科毕业", "双一流大学","大厂实习经历"],
+  lights: [
+    "熟练掌握英语",
+    "技术达标",
+    "本科毕业",
+    "双一流大学",
+    "大厂实习经历",
+  ],
 });
 </script>
 
@@ -169,7 +178,6 @@ const state2 = reactive({
   text-align: left;
 }
 h2 {
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   font-size: 20px;
   color: #333;
@@ -177,7 +185,6 @@ h2 {
 }
 
 h3 {
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   font-size: 16px;
   color: #999;
@@ -185,7 +192,6 @@ h3 {
 }
 
 p {
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 300;
   font-size: 16px;
   color: #333;
@@ -195,7 +201,6 @@ p {
 a {
   color: #7a83e7;
   text-decoration: underline;
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   font-size: 16px;
   text-decoration: none;
@@ -205,20 +210,6 @@ a:hover {
   color: #442adb;
 }
 
-h2 a {
-  color: #333;
-  text-decoration: none;
-  font-size: 17px;
-  margin-right: 8px;
-  line-height: 24px;
-}
-
-.label {
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 600;
-  font-size: 11px;
-  color: #fff;
-}
 .tooltip {
   margin-right: 10px;
   margin-top: 4px;
@@ -229,7 +220,6 @@ h2 a {
   color: rgb(51, 112, 255);
   border: 0;
 }
-/* Demo-Specific CSS */
 
 button {
   background: #7a83e7;

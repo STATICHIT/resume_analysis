@@ -160,6 +160,7 @@ import * as echarts from "echarts"; //引入echarts
 import theme from "../../utils/echarts"; //引入主题
 import invite from "../../components/Invitation.vue";
 const activeName = ref("first");
+import apiFun from "../../utils/api";
 onMounted(() => {
   // pre();
 });

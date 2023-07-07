@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-06 20:13:50
+ * @LastEditTime: 2023-07-07 00:30:14
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -34,5 +34,9 @@ apiFun.test.test1 = ()=>{
   return http.post('/resume/upload')
 }
 
+//搜索接口
+apiFun.search.getResumeList=(page,size)=>{
+  return http.get(`/resume/selectResume/${page}/${size}`)
+}
 
 export default apiFun;

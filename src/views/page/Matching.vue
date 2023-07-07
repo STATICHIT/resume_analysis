@@ -86,7 +86,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import apiFun from "../../utils/api";
 import router from "../../router";
 const activeName = ref("first");
 const jobs = ref([
@@ -360,7 +361,7 @@ label {
 }
 .checkstyle {
   background-color: #ecf5ff;
-  color:#409eff;
+  color: #409eff;
   font-weight: 600;
   box-shadow: rgba(0, 0, 0, 0.521) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;

@@ -75,6 +75,7 @@
 <script setup>
 import { ref } from "vue";
 import router from "../../router";
+import apiFun from "../../utils/api";
 let isSignUpActive = ref(false);
 let change = () => {
   console.log("我进来了，当前isSignUpActive是：", isSignUpActive.value);
