@@ -1,7 +1,7 @@
 <!-- 中文简历页面 -->
 <template>
   <div v-show="isVisited" class="container">
-    <el-button type="success" class="return" @click="lookJson"
+    <el-button type="success" class="return" @click="lookJson" v-show="showReturn"
       >查看返回数据</el-button
     >
     <div>
@@ -144,6 +144,9 @@ const visible = ref(false)
 const prop = defineProps({
   userMsg:{
     type:Object
+  },
+  showReturn:{
+    type:Boolean
   }
 })
 const state = reactive({

@@ -1,8 +1,8 @@
 /*
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-02 21:28:22
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-07-07 16:22:13
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -83,7 +83,7 @@ const routes = [
         component: () => import('../views/page/AnalysisPosts.vue')
       },
       {
-        path: '/sameResume',//岗位分析内容页面
+        path: '/sameResume',//简历去重详细页面
         component: () => import('../views/page/SameResume.vue')
       },
     ]
