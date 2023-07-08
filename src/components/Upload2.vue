@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-11 20:46:15
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-06 22:31:03
+ * @LastEditTime: 2023-07-07 21:45:46
  * @FilePath: \resume_analysis\src\components\Upload2.vue
  * @Description: 岗位批量上传组件
 -->
@@ -18,7 +18,7 @@
         <el-icon class="el-icon--upload"><upload-filled /></el-icon>
         <div class="el-upload__text">
           点击 或 拖拽<br />
-          即可上传简历文件
+          即可上传exacl文件
         </div>
         <template #tip>
           <div class="el-upload__tip">
@@ -204,23 +204,16 @@ let uuidv4 = () => {
   display: inline-block;
   margin-left: 70px;
 }
-.btnGroup {
-  border-top: 1px solid rgba(189, 187, 187, 0.452);
-  padding: 15px 30px;
-  text-align: left;
-}
 .highSettingdetail {
   margin-left: -450px;
 }
 .mybutton {
+  cursor: pointer;
   background: #7a83e7;
   border: none;
   border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   height: 35px;
   padding: 0px 10px;
-  font-family: "Source Sans Pro", sans-serif;
   font-weight: 200;
   width: 180px;
   font-size: 14px;

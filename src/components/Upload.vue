@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 20:45:43
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-03 10:20:11
+ * @LastEditTime: 2023-07-07 22:31:59
  * @FilePath: \resume_analysis\src\components\Upload.vue
  * @Description: 简历分析上传组件
 -->
@@ -14,6 +14,7 @@
         class="upload-demo"
         drag
         :before-upload="beforeUpload"
+        :accept="acceptedMimeTypes"
         multiple
       >
         <el-icon class="el-icon--upload"><upload-filled /></el-icon>
@@ -27,14 +28,6 @@
           </div>
         </template>
       </el-upload>
-      <br />
-      <input
-        type="file"
-        id="fileInput"
-        class="fileInput"
-        multiple
-        v-on:change="handleFileSelect($event)"
-      />
       <br />
       <el-table
         :data="tableData"
@@ -53,10 +46,7 @@
         </el-table-column>
         <el-table-column label="状态">
           <template v-slot="scope">
-            <span v-if="scope.row.status === -1">正在准备上传</span
-            ><!--正在计算MD5-->
-            <span v-if="scope.row.status === 1">已准备上传</span
-            ><!--MD5计算完成，准备上传-->
+            <span v-if="scope.row.status === 1">已准备上传</span>
             <span v-if="scope.row.status === 4" style="color: brown"
               >上传失败</span
             >
@@ -85,22 +75,153 @@
     <div>
       <div class="highSettingdetail">
         <el-switch
-          v-model="value2"
+          v-model="autoadd"
           class="ml-2"
           style="--el-switch-on-color: #6671e3; --el-switch-off-color: #d7daf8"
         />
-        上传成功自动进行岗位分析
+        分析成功自动纳入人才库
       </div>
     </div>
-    <br>
-    <button class="mybutton">开始录入</button>
+    <br />
+    <button class="mybutton" @click="analysis">开始分析</button>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-const value2 = ref(true);
+import { ref, computed } from "vue";
+import axios from "axios";
+import { ElNotification } from 'element-plus'
+const autoadd = ref(true); //自动纳入人才库
+const tableData = ref([]); //上传列表
+//文件上传调用的方法
+let beforeUpload = (file) => {
+  addFile(file);
+};
+//添加文件到列表,并计算其基础属性
+let addFile = (file) => {
+  const id = uuidv4(); // 生成唯一 ID
+  let size = (file.size / 1024).toFixed(2); //Byte转KB并四舍五入到3位小数
+  size = size < 1024 ? size + " KB" : (size / 1024).toFixed(2) + " MB";
+  tableData.value.push({
+    id: id,
+    name: file.name,
+    size: size,
+    status: 1,
+    percent: 0, // 进度百分比
+    xhr: null, // XMLHttpRequest 对象
+    file: file, //文件本身
+  });
+  console.log("*******3", tableData.value); //输出测试
+};
+//更新文件上传列表
+let updateTableData = (id, newData) => {
+  const index = tableData.value.findIndex((file) => file.id === id);
+  if (index !== -1) {
+    tableData.value.splice(
+      index,
+      1,
+      Object.assign({}, tableData.value[index], newData)
+    );
+  }
+  return true;
+};
+//删除上传列表中的文件
+let deleteFile = (id) => {
+  const index = tableData.value.findIndex((file) => file.id === id);
+  if (index !== -1) {
+    const file = tableData.value[index]; //这个file是object类型的，只是列表中的一项
+    if (file.status === 2) {
+      // 如果文件正在上传，则中断上传
+      file.xhr.abort();
+    }
+    tableData.value.splice(index, 1);
+  }
+};
+const header = {
+  "Content-Type": "application/json;charset=UTF-8",
+  Authorization:
+    "eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_oeyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o",
+};
+//上传文件
+let uploadFile = (file) => {
+  console.log(file);
+  updateTableData(file.id, {
+    status: 2,
+    percent: 0,
+  });
+  const formData = new FormData();
+  formData.append("file", file);
+  console.log(formData);
+  axios
+    .post("http://192.168.50.159:5555/resume/upload", formData, {
+      headers: header,
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.data.code === 200) {
+        updateTableData(file.id, {
+          percent: 100,
+        });
+        setTimeout(() => {
+          // 定时器回调函数中重新启用按钮
+          updateTableData(file.id, {
+            status: 5, // 已上传
+          });
+        }, 500);
+      } else {
+        updateTableData(file.id, {
+          status: 4, // 上传失败
+        });
+      }
+    });
+};
+//点击【开始分析】按钮
+let analysis = () => {
+  console.log("*******点击了开始分析按钮"); //输出测试
+  tableData.value
+    .forEach((f) => {
+      if (f.status === 1) {
+        const file = f.file; //获取到该列指向的文件本身
+        uploadFile(file);
+      }
+    })
+    .then(() => {
+      open();
+    });
+};
 
+const open = () => {
+  ElNotification({
+    title: "分析成功",
+    message: "所有简历文件均已分析完成并纳入人才库，您可前往人才库查看最新简历",
+    type: "success",
+  });
+};
+
+//生成id
+let uuidv4 = () => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
+// 定义支持的文件类型和MIME类型
+const acceptedFileTypes = ref([
+  { ext: ".pdf", mime: "application/pdf" },
+  { ext: ".jpg", mime: "image/jpeg" },
+  { ext: ".jpeg", mime: "image/jpeg" },
+  { ext: ".png", mime: "image/png" },
+  {
+    ext: ".docx",
+    mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  },
+]);
+
+// 计算属性计算出逗号分隔的MIME类型字符串
+const acceptedMimeTypes = computed(() => {
+  return acceptedFileTypes.value.map((type) => type.mime).join(",");
+});
 </script>
 
 <style lang="scss" scoped>
@@ -122,8 +243,14 @@ const value2 = ref(true);
   padding: 15px 30px;
   text-align: left;
 }
+
+.btnGroup {
+  border-top: 1px solid rgba(189, 187, 187, 0.452);
+  padding: 15px 30px;
+  text-align: left;
+}
 .highSettingdetail {
-  margin-left: -450px;
+  margin-left: 10px;
 }
 .mybutton {
   margin-left: 35%;

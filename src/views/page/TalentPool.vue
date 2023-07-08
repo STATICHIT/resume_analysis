@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 22:26:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-07 17:28:11
+ * @LastEditTime: 2023-07-07 19:40:00
  * @FilePath: \resume_analysis\src\views\page\TalentPool.vue
  * @Description: 人才库
 -->
@@ -16,16 +16,28 @@
         基于大数据及AI简历解析技术，高效对简历库候选人进行多维度的筛选，搜索与评分。<br />
         用最灵活精准的搜索引擎来为用户打造最符合要求的候选人列表。
       </p>
+      <!-- 搜索框组件 -->
       <div>
-        <Search></Search>
+        <!-- <Search></Search> -->
+        <div style="margin-top: 30px">
+          <div class="search">
+            <input type="text" class="searchTerm" placeholder="请输入关键字" />
+            <button type="submit" class="searchButton" @click="searchTalent">
+              <el-icon size="25"><Search /></el-icon>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+    <!-- 条件选择筛选框 -->
     <div>
       <SearchType></SearchType>
     </div>
+    <!-- 人才状态栏 -->
     <div class="stage">
       <Stage></Stage>
     </div>
+    <!-- TalentList -->
     <div>
       <!-- <TalentList v-if="flag" :result="result"></TalentList> -->
       <div class="result">
@@ -101,7 +113,7 @@
 </template>
 
 <script setup>
-import Search from "../../components/Search.vue";
+// import Search from "../../components/Search.vue";
 import Stage from "../../components/Stage.vue";
 import SearchType from "../../components/SearchType.vue";
 // import TalentList from "../../components/TalentList.vue";
@@ -216,15 +228,9 @@ const state = reactive({
   currentPage: 1, // 当前页
   pageSize: 5,
 });
-const state2 = reactive({
-  lights: [
-    "熟练掌握英语",
-    "技术达标",
-    "本科毕业",
-    "双一流大学",
-    "大厂实习经历",
-  ],
-});
+function searchTalent() {
+  
+}
 </script>
 
 <style lang="scss" scoped>
@@ -411,5 +417,42 @@ button {
   margin-top: 15px;
   margin-bottom: 40px;
   float: left;
+}
+.search {
+  width: 700px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #b7bbec;
+  border-right: none;
+  padding: 5px;
+  height: 50px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+  font-size: 20px;
+  text-indent: 10px;
+}
+
+.searchTerm:focus {
+  color: rgb(141, 148, 235);
+}
+
+.searchButton {
+  width: 110px;
+  height: 50px;
+  border: 1px solid #b7bbec;
+  background: #b7bbec;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+.searchButton:hover {
+  background: #8991ec;
 }
 </style>

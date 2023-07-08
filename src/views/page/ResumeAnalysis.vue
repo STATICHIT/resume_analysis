@@ -2,13 +2,13 @@
  * @Author: STATICHIT
  * @Date: 2023-06-19 21:50:15
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-04 22:35:22
+ * @LastEditTime: 2023-07-07 21:43:55
  * @FilePath: \resume_analysis\src\views\page\ResumeAnalysis.vue
  * @Description: 简历分析入口
 -->
 
 <template>
-  <div class="box cur father" :style="{'background-color':curcolor}">
+  <div class="box cur father" :style="{ 'background-color': curcolor }">
     <!-- <Loading class="load load"></Loading> -->
     <br />
     <div class="bigTitle">简历分析</div>
@@ -20,7 +20,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="文件录入" name="second">
-          <Upload ></Upload>
+          <Upload></Upload>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -31,21 +31,18 @@
 import Upload0 from "../../components/resumeForm.vue";
 import Upload from "../../components/Upload.vue";
 import Loading from "../../components/Loading.vue";
-import { ref,onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import apiFun from "../../utils/api";
 import router from "../../router";
-const curcolor=ref("#eafaf7");
-const activeName = ref("first");
-let analysis = () => {
-  router.push({ path: "/analysisPage" });
-};
-let handleClick = ()=>{
-  if(activeName.value === "first"){
-    curcolor.value="#fff";
-  }else{
-    curcolor.value="#eafaf7";
+const curcolor = ref("#eafaf7");
+const activeName = ref("second");
+let handleClick = () => {
+  if (activeName.value === "first") {
+    curcolor.value = "#fff";
+  } else {
+    curcolor.value = "#eafaf7";
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -59,8 +56,8 @@ let handleClick = ()=>{
 }
 .load {
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
 }
 .box {
   background-color: #eafaf7;
@@ -80,7 +77,7 @@ let handleClick = ()=>{
   width: 760px;
   height: 100%;
   border-radius: 20px;
-  padding:40px;
+  padding: 40px;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
     rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
