@@ -94,7 +94,8 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue";
+import { ref, onMounted,reactive } from "vue";
+import apiFun from "../../utils/api";
 export default {
   name: "tabs",
   setup() {

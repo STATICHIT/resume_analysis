@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-05 20:16:31
+ * @LastEditTime: 2023-07-08 19:55:50
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -84,27 +84,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="操作日志" name="second">
-          <div
-            class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2"
-            style="padding: 30px 80px"
-          >
-            <ul class="timeline" v-for="(item, i) in logs" :key="i">
-              <li class="timeline-item">
-                <div>
-                  <span>{{ item.time }}</span>
-                </div>
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                  <h3 class="timeline-title">{{ item.action }}</h3>
-                  <div>
-                    <p>
-                      {{ item.detail }}
-                    </p>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
+          <log></log>
         </el-tab-pane>
         <el-tab-pane label="简历去重" name="third">
           <div style="height: 100%; min-height: 800px; padding: 20px">
@@ -159,48 +139,9 @@ import { onMounted, ref } from "vue";
 import * as echarts from "echarts"; //引入echarts
 import theme from "../../utils/echarts"; //引入主题
 import invite from "../../components/Invitation.vue";
+import log from "../../components/Log.vue"
+import apiFun from "../../utils/api";
 const activeName = ref("first");
-onMounted(() => {
-  // pre();
-});
-let logs = [
-  {
-    time: "2023年6月18日 22点17分",
-    action: "发送面试邀约",
-    detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
-  },
-  {
-    time: "2023年6月18日 11点26分",
-    action: "应聘人状态修改",
-    detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
-  },
-  {
-    time: "2023年6月17日 9点23分",
-    action: "发送入职邀约",
-    detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
-  },
-  {
-    time: "2023年6月16日 7点11分",
-    action: "应聘人状态修改",
-    detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
-  },
-  {
-    time: "2023年6月16日 7点11分",
-    action: "应聘人状态修改",
-    detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
-  },
-  {
-    time: "2023年6月16日 7点11分",
-    action: "应聘人状态修改",
-    detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
-  },
-];
 let num = ref(4);
 onMounted(() => {
   initEcharts();
@@ -225,24 +166,6 @@ const resumes = [
       imgSrc:
         "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
     },
-    {
-      imgSrc:
-        "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
-    },
-  ],
-  [
-    {
-      imgSrc:
-        "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
-    },
-    {
-      imgSrc:
-        "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
-    },
-    {
-      imgSrc:
-        "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
-    },
   ],
   [
     {
@@ -255,20 +178,6 @@ const resumes = [
     },
   ],
   [
-    {
-      imgSrc:
-        "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
-    },
-    {
-      imgSrc:
-        "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
-    },
-  ],
-  [
-    {
-      imgSrc:
-        "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
-    },
     {
       imgSrc:
         "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
@@ -279,7 +188,6 @@ const resumes = [
     },
   ],
 ];
-
 const tableData1 = [
   {
     department: "产品部",
@@ -554,49 +462,6 @@ const initEcharts = () => {
   background-size: 100%;
   background-position-y: bottom;
 }
-
-.timeline {
-  line-height: 1.4em;
-  list-style: none;
-}
-
-.timeline-item {
-  padding-left: 40px;
-  position: relative;
-}
-
-.timeline-marker:before {
-  background: #ff6b6b;
-  border: 3px solid transparent;
-  border-radius: 100%;
-  content: "";
-  display: block;
-  height: 15px;
-  position: absolute;
-  top: 4px;
-  left: 0;
-  width: 15px;
-}
-
-.timeline-marker:after {
-  content: "";
-  width: 3px;
-  background: #ccd5db;
-  display: block;
-  position: absolute;
-  top: 24px;
-  bottom: 0;
-  left: 6px;
-}
-
-.timeline-content {
-  padding-top: 20px;
-  padding-bottom: 40px;
-}
-.timeline-title {
-  margin-bottom: 10px;
-}
-
 .board {
   display: flex;
   flex-direction: row;

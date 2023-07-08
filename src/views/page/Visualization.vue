@@ -100,6 +100,7 @@ import { onMounted, ref } from "vue";
 import router from "../../router";
 import * as echarts from "echarts"; //引入echarts
 import theme from "../../utils/echarts"; //引入主题
+import apiFun from "../../utils/api";
 let num1 = ref(40);
 let num2 = ref(39);
 let num3 = ref(17);

@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-23 19:43:35
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-03 10:17:02
+ * @LastEditTime: 2023-07-08 19:40:38
  * @FilePath: \resume_analysis\src\views\page\Login.vue
  * @Description: 登录注册
 -->
@@ -17,17 +17,15 @@
       <div class="form sign-in">
         <h2>你好😀，欢迎回来。</h2>
         <label>
-          <span>Email</span>
-          <input type="email" />
+          <span>username</span>
+          <input type="username" v-model="username" />
         </label>
         <label>
           <span>Password</span>
-          <input type="password" />
+          <input type="password" v-model="password" />
         </label>
         <p class="forgot-pass">Forget Password ?</p>
-        <button type="button" class="submit" @click="router.push('/main')">
-          登 录
-        </button>
+        <button type="button" class="submit" @click="login">登 录</button>
       </div>
       <div class="sub-cont">
         <div class="img">
@@ -51,21 +49,21 @@
           <h2>你好，在此注册账号。</h2>
           <label>
             <span>Name</span>
-            <input type="text" />
+            <input type="text" v-model="username2" />
           </label>
           <label>
             <span>Email</span>
-            <input type="email" />
+            <input type="email" v-model="email" />
           </label>
           <label>
             <span>Password</span>
-            <input type="password" />
+            <input type="password" v-model="psw1" />
           </label>
           <label>
             <span>Make_Sure_Password</span>
-            <input type="password2" />
+            <input type="password2" v-model="psw2" />
           </label>
-          <button type="button" class="submit">注 册</button>
+          <button type="button" class="submit" @click="register">注 册</button>
         </div>
       </div>
     </div>
@@ -75,10 +73,72 @@
 <script setup>
 import { ref } from "vue";
 import router from "../../router";
+import apiFun from "../../utils/api";
+import { ElMessage } from "element-plus";
 let isSignUpActive = ref(false);
+const username = ref("");
+const password = ref("");
+const username2 = ref("");
+const email = ref("");
+const psw1 = ref("");
+const psw2 = ref("");
 let change = () => {
-  console.log("我进来了，当前isSignUpActive是：", isSignUpActive.value);
   isSignUpActive.value = !isSignUpActive.value;
+};
+let login = () => {
+  // 登录
+  if (username.value == "" || password.value == "") {
+    ElMessage.error("账号或密码不能为空");
+  } else {
+    apiFun.user
+      .login({
+        username: username.value,
+        password: password.value,
+      })
+      .then((res) => {
+        console.log(res);
+        // var token = res.data.token;
+        // localStorage.setItem("token", token);
+        // //解析token
+        // const decode = jwt_decode(token);
+        // console.log("token解析内容", decode); //decode是一个对象
+        // //把解析后的token内容放进store中
+        // useStore.id = decode.id;
+        // useStore.username = decode.username;
+        // useStore.token = token;
+        // let admin = res.data.admin
+        // console.log(admin)
+        ElMessage.success("登录成功");
+        router.push({ path: "/main" }); //跳转到主页面
+      });
+  }
+};
+
+let register = () => {
+  if (this.password != this.password2) {
+    ElMessage.error("两次输入密码不相同");
+  } else {
+    if (
+      username.value == "" ||
+      email.value == "" ||
+      psw1.value == "" ||
+      psw2 == ""
+    ) {
+      ElMessage.error("请完整填写信息");
+    } else {
+      console.log("我进来了这里");
+      apiFun.user
+        .register({
+          username: username.value,
+          password: psw1.value,
+          email: email.value,
+        })
+        .then((res) => {
+          ElMessage.success("注册成功,快去登录吧~");
+          change();
+        });
+    }
+  }
 };
 </script>
 

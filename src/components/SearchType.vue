@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-25 19:45:33
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-06 23:25:20
+ * @LastEditTime: 2023-07-07 09:55:07
  * @FilePath: \resume_analysis\src\components\SearchType.vue
  * @Description: 条件搜索选择栏
 -->
@@ -119,7 +119,7 @@
 <script setup>
 import { ref,onMounted } from "vue";
 onMounted(() => {
-  Pre();
+  // Pre();
 });
 const value1 = ref([]); //性别
 const value2 = ref([]); //学历要求
