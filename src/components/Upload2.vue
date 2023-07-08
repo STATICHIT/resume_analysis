@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-11 20:46:15
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-07 21:45:46
+ * @LastEditTime: 2023-07-08 17:27:03
  * @FilePath: \resume_analysis\src\components\Upload2.vue
  * @Description: 岗位批量上传组件
 -->
@@ -13,6 +13,7 @@
         class="upload-demo"
         drag
         :before-upload="beforeUpload"
+        accept=".xls,.xlsx"
         multiple
       >
         <el-icon class="el-icon--upload"><upload-filled /></el-icon>
@@ -22,7 +23,7 @@
         </div>
         <template #tip>
           <div class="el-upload__tip">
-            请上传exacl表格,由三列数据构成，分别是：岗位名、岗位描述、岗位要求。
+            请上传exacl表格,每一行进行一个岗位描述，大致内容为岗位名、岗位描述、岗位要求。
           </div>
         </template>
       </el-upload>
@@ -88,8 +89,10 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import * as XLSX from "xlsx";
 const autoadd = ref(true); //自动录入岗位库
 const tableData = ref([]); //上传列表
+
 //文件上传调用的方法
 let beforeUpload = (file) => {
   addFile(file);
@@ -133,43 +136,39 @@ let deleteFile = (id) => {
     tableData.value.splice(index, 1);
   }
 };
-const header = {
-  "Content-Type": "application/json;charset=UTF-8",
-  Authorization:
-    "eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_oeyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o",
-};
 //上传文件
 let uploadFile = (file) => {
-  console.log(file);
+  // console.log(file);
   updateTableData(file.id, {
     status: 2,
     percent: 0,
   });
-  const formData = new FormData();
-  formData.append("file", file);
-  console.log(formData);
-  axios
-    .post("http://192.168.50.159:5555/resume/upload", formData, {
-      headers: header,
-    })
-    .then((res) => {
-      console.log(res);
-      if (res.data.code === 200) {
+  let data = [];
+  data = readExcel(file);
+  console.log(data);
+  apiFun.upload.postUpload(data).then((res) => {
+    console.log(res);
+    if (res.data.code === 200) {
+      updateTableData(file.id, {
+        percent: 100,
+      });
+      setTimeout(() => {
+        // 定时器回调函数中重新启用按钮
         updateTableData(file.id, {
-          percent: 100,
+          status: 5, // 已上传
         });
-        setTimeout(() => {
-          // 定时器回调函数中重新启用按钮
-          updateTableData(file.id, {
-            status: 5, // 已上传
-          });
-        }, 500);
-      } else {
-        updateTableData(file.id, {
-          status: 4, // 上传失败
-        });
-      }
-    });
+      }, 500);
+    } else {
+      updateTableData(file.id, {
+        status: 4, // 上传失败
+      });
+    }
+  });
+
+  // data.forEach((d) => {
+  //   const formattedString = `岗位名: ${d[0]}; 岗位职责: ${d[1]}; 岗位要求: ${d[2]}`;
+  //   jobs.push(formattedString);
+  // });
 };
 //点击【开始分析】按钮
 let analysis = () => {
@@ -182,10 +181,42 @@ let analysis = () => {
 };
 //生成id
 let uuidv4 = () => {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0,
-      v = c == "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+    .replace(/[xy]/g, function (c) {
+      const r = (Math.random() * 16) | 0,
+        v = c == "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    })
+    .then(() => {
+      open();
+    });
+};
+
+function readExcel(file) {
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: "array" });
+
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 2 });
+
+    console.log(jsonData);
+    return jsonData;
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function showMessage(message, type) {
+  console.warn(message);
+}
+
+const open = () => {
+  ElNotification({
+    title: "分析成功",
+    message: "所有简历文件均已分析完成并纳入人才库，您可前往人才库查看最新简历",
+    type: "success",
   });
 };
 </script>

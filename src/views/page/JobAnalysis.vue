@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 18:09:13
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-03 21:24:30
+ * @LastEditTime: 2023-07-08 17:22:18
  * @FilePath: \resume_analysis\src\views\page\JobAnalysis.vue
  * @Description: 岗位分析入口
 -->
@@ -20,8 +20,10 @@
           <div style="padding: 20px">
             <label for="name" style="text-align: left">岗位名:</label>
             <input type="text" id="name" name="user_name" />
-            <label for="bio" style="text-align: left">岗位描述:</label>
-            <textarea id="bio" name="user_bio"></textarea>
+            <label for="bio" style="text-align: left">岗位职责:</label>
+            <textarea id="bio" name="user_bio" class="text1"></textarea>
+            <label for="bio" style="text-align: left">岗位要求:</label>
+            <textarea id="bio" name="user_bio" class="text2"></textarea>
             <button @click="analysis">开始分析</button>
           </div>
         </el-tab-pane>
@@ -99,8 +101,12 @@ textarea {
 input {
   height: 20px;
 }
-textarea {
-  height: 270px;
+
+.text1 {
+  height: 120px;
+}
+.text2 {
+  height: 180px;
 }
 input[type="radio"],
 input[type="checkbox"] {
