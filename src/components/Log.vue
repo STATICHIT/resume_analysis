@@ -1,3 +1,4 @@
+<!-- 日志组件 -->
 <template>
   <div>
     <div
@@ -27,13 +28,9 @@
 <script setup>
 import { onMounted, ref } from "vue";
 const props = defineProps({
-  log:{
+  logs:{
     type:Array,
-    default:[]
-  }
-});
-let logs = [
-  {
+    default:[{
     time: "2023年6月18日 22点17分",
     action: "发送面试邀约",
     detail:
@@ -68,8 +65,11 @@ let logs = [
     action: "应聘人状态修改",
     detail:
       "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
-  },
-];
+  }]
+  }
+});
+
+
 </script>
 
 <style lang="scss" scoped>

@@ -2,9 +2,9 @@
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-07-07 19:18:08
+ * @LastEditTime: 2023-07-11 15:26:38
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
- * @Description: 自定义
+ * @Description: 简历分析页面
 -->
 <!-- 简历分析页面 -->
 <template>
@@ -93,7 +93,7 @@
           label="中文简历"
           name="first"
         >
-          <resume-page :userMsg="userMsg" :showReturn="true"></resume-page>
+          <resume-page :userMsg="userMsg" :showReturn="true" :schoolList="list"></resume-page>
         </el-tab-pane>
         <el-tab-pane
           class="animate__animated animate__slideInRight"
@@ -103,6 +103,22 @@
         >
           <ResumePortraitVue :labelProcessing="labelProcessing"></ResumePortraitVue>
         </el-tab-pane>
+        <el-tab-pane
+          class="animate__animated animate__slideInRight"
+          :lazy="true"
+          label="推荐岗位"
+          name="third"
+        >
+        <postPage></postPage>
+      </el-tab-pane>
+        <el-tab-pane
+          class="animate__animated animate__slideInRight"
+          :lazy="true"
+          label="操作日志"
+          name="forth"
+        >
+      <Log :logs="logs"></Log>
+      </el-tab-pane>
       </el-tabs>
     </div>
     <el-button
@@ -126,6 +142,8 @@ import { useRoute } from "vue-router";
 import { ArrowDown } from "@element-plus/icons-vue";
 import apiFun from "@/utils/api";
 import { ElMessage, ElMessageBox } from "element-plus";
+import Log from "@/components/Log.vue"
+import postPage from '@/components/PostPage.vue'
 
 const route = useRoute();
 const query = route.query;
@@ -140,39 +158,43 @@ const state = reactive({
     {
       value: 1,
       name: "投递人选",
+      color:'',
+      userId:''
     },
     {
       value: 1,
       name: "简历推荐",
+      color:'',
+      userId:''
     },
-    {
-      value: 2,
-      name: "笔试阶段",
-    },
-    {
-      value: 3,
-      name: "面试阶段",
-    },
-    {
-      value: 4,
-      name: "轮岗",
-    },
-    {
-      value: 5,
-      name: "offer阶段",
-    },
-    {
-      value: 6,
-      name: "入职",
-    },
-    {
-      value: 7,
-      name: "已转正",
-    },
-    {
-      value: 8,
-      name: "淘汰",
-    },
+     {
+       value: 2,
+       name: "笔试阶段",
+     },
+     {
+       value: 3,
+       name: "面试阶段",
+     },
+     {
+       value: 4,
+       name: "轮岗",
+     },
+     {
+       value: 5,
+       name: "offer阶段",
+     },
+     {
+       value: 6,
+       name: "入职",
+     },
+     {
+       value: 7,
+       name: "已转正",
+     },
+     {  
+       value: 8,
+       name: "淘汰",
+     },
   ],
   resumeState: 0,
 });
@@ -180,7 +202,7 @@ const state = reactive({
 let resume = ref({
   id: 14,
   userId: 1,
-  fullName: "黎贵",
+  fullName: "黎芸贵",
   email: "service@500d.me",
   phone: "13800138000",
   content:
@@ -188,7 +210,7 @@ let resume = ref({
   path: "E:/img2/e8800689-ac0f-4e9d-9fca-ce8fabf76ca5.png",
   resumeStatus: 1,
   labelProcessing:
-    '{"backgroundIndustry":{"administration":15,"advertisement":0,"build":3,"educationTranslate":7,"engineer":2,"finance":4,"internet":2,"legalAdvice":6,"logisticsProcure":1,"marketOperations":18,"medium":0,"product":1,"treatPharmacy":1},"comprehensiveAbility":{"educationalBackground":4,"honorsReceived":5,"languageAbility":5,"leadership":4,"serviceYears":0,"skill":5},"educationTags":["华中师范大学","硕士","市场营销"],"jobTags":["副总监","市场及运营总监","市场营销","市场副总监"],"skillTags":["office","管理信息系统","消费者行为","品牌传播","数据分析","品牌策略","市场调查","logo","品牌策划","前端销售","媒体报道","商务谈判","宏观经济","营销策略","领导能力","财务管理","市场营销","推广策划","销售渠道","人际关系","市场开拓","团队建设","商业模式","公众号","策划","沟通","激励","推广","会计","公关","宣传","运营","营销","规划","目标","监督","管理","培训","团队","协调"]}',
+    '{"backgroundIndustry":{"administration":15,"advertisement":0,"build":3,"educationTranslate":0,"engineer":2,"finance":0,"internet":0,"legalAdvice":0,"logisticsProcure":1,"marketOperations":18,"medium":0,"product":1,"treatPharmacy":1},"comprehensiveAbility":{"educationalBackground":4,"honorsReceived":5,"languageAbility":5,"leadership":4,"serviceYears":0,"skill":5},"educationTags":["华中师范大学","硕士","市场营销"],"jobTags":["副总监","市场及运营总监","市场营销","市场副总监"],"skillTags":["office","管理信息系统","消费者行为","品牌传播","数据分析","品牌策略","市场调查","logo","品牌策划","前端销售","媒体报道","商务谈判","宏观经济","营销策略","领导能力","财务管理","市场营销","推广策划","销售渠道","人际关系","市场开拓","团队建设","商业模式","公众号","策划","沟通","激励","推广","会计","公关","宣传","运营","营销","规划","目标","监督","管理","培训","团队","协调"]}',
   createTime: "2023-07-06T15:14:07",
   updateTime: "2023-07-06T15:15:03",
 });
@@ -207,7 +229,7 @@ const userMsg = ref({
   expectedJob: "市场总监-专注品牌方",
   projectExperiences:
     "宇翰集团品牌升级发布会\nl 集团全新品牌logo及VI上线，在多渠道进行了传播；\nl 企业VIP客户群体逾60人，结合了线上发布、线下体验；\nl 后续媒体报道持续升温，子品牌结合明星代言人制造话题营销，为期3周；\n欧成商业模式发布会\nl 整场活动以会议+洽谈双重模式进行，首日以介绍欧成内部平台资源优势，政府背景优势等为主，一对多推介会\n进行推广普及；\nl 现场签署地方合作意向书，如：新疆、江西、浙江等优秀企业商户；\nl 以中国的波尔多为宣传点，主推旗下新疆大型项目，制造营销、品牌热点。\n锦伟投资控股集团6A自媒体生态圈建设\nl 本项目重构了公司现有微信企业号的功能与架构。\nl 提高公众号的关注粉丝量的同时，对于有客户进行统一宣传，统一管理。",
-  workYears: 0,
+  workYears: 14,
   workExperiences: [
     {
       startTime: "2015.12",
@@ -308,7 +330,7 @@ const userMsg = ref({
     jobTags: ["副总监", "市场及运营总监", "市场营销", "市场副总监"],
   },
 });
-
+const list = ref([])
 const labelProcessing = ref({
   backgroundIndustry: {
     administration: 15,
@@ -379,21 +401,43 @@ const labelProcessing = ref({
   ],
 });
 
+const logs = ref([])
 onMounted(() => {
+   apiFun.process.flowPathNotOrder().then(res=>{
+     state.selectItem=res.data
+   })
+  
   console.log(resumeId)
    apiFun.resume.analysis(resumeId).then(res=>{
     console.log(res.data)
-    resume.value=res.data
-   })
-   labelProcessing.value = JSON.parse(resume.value.labelProcessing)
+    resume.value=res.data 
+    labelProcessing.value = JSON.parse(resume.value.labelProcessing)
+    for (let key in labelProcessing.value.backgroundIndustry) {
+  if (labelProcessing.value.backgroundIndustry[key] < 8) {
+    labelProcessing.value.backgroundIndustry[key] = 8;
+  }
+}
    userMsg.value = JSON.parse(resume.value.content)
+   })
+
+   apiFun.log.getLogById(resumeId).then(res=>{
+    logs.value = res.data
+   })
+
+   apiFun.resume.graph(resumeId).then(res=>{
+        console.log(res.data)
+        list.value = res.data.schoolVoList
+  })
 });
 const updateResumeStatus = (value) => {
   if(value>8) value=0
   ElMessageBox.confirm('确定修改该简历状态吗？')
   .then(()=>{
-    resume.value.resumeStatus = value
-    ElMessage.success('修改成功！')
+    apiFun.process.updateStatus(resumeId,value).then(res=>{
+     resume.value.resumeStatus = value
+      ElMessage.success('修改成功！')
+    })
+   
   })
   .catch(()=>{})
 }
