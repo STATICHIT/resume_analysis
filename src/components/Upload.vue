@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 20:45:43
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-07 22:31:59
+ * @LastEditTime: 2023-07-10 16:32:32
  * @FilePath: \resume_analysis\src\components\Upload.vue
  * @Description: 简历分析上传组件
 -->
@@ -90,7 +90,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import axios from "axios";
-import { ElNotification } from 'element-plus'
+import { ElNotification } from "element-plus";
 const autoadd = ref(true); //自动纳入人才库
 const tableData = ref([]); //上传列表
 //文件上传调用的方法
@@ -143,51 +143,101 @@ const header = {
     "eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_oeyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o",
 };
 //上传文件
+// let uploadFile = (file) => {
+//   console.log(file);
+//   updateTableData(file.id, {
+//     status: 2,
+//     percent: 0,
+//   });
+//   const formData = new FormData();
+//   formData.append("file", file);
+//   console.log(formData);
+//   axios
+//     .post("http://192.168.50.159:5555/resume/upload", formData, {
+//       headers: header,
+//     })
+//     .then((res) => {
+//       console.log(res);
+//       if (res.data.code === 200) {
+//         updateTableData(file.id, {
+//           percent: 100,
+//         });
+//         setTimeout(() => {
+//           // 定时器回调函数中重新启用按钮
+//           updateTableData(file.id, {
+//             status: 5, // 已上传
+//           });
+//         }, 500);
+//       } else {
+//         updateTableData(file.id, {
+//           status: 4, // 上传失败
+//         });
+//       }
+//     });
+// };
 let uploadFile = (file) => {
-  console.log(file);
-  updateTableData(file.id, {
-    status: 2,
-    percent: 0,
-  });
-  const formData = new FormData();
-  formData.append("file", file);
-  console.log(formData);
-  axios
-    .post("http://192.168.50.159:5555/resume/upload", formData, {
-      headers: header,
-    })
-    .then((res) => {
-      console.log(res);
-      if (res.data.code === 200) {
-        updateTableData(file.id, {
-          percent: 100,
-        });
-        setTimeout(() => {
-          // 定时器回调函数中重新启用按钮
+  return new Promise((resolve, reject) => {
+    console.log(file);
+    updateTableData(file.id, {
+      status: 2,
+      percent: 0,
+    });
+    const formData = new FormData();
+    formData.append("file", file);
+    console.log(formData);
+    axios
+      .post("http://192.168.50.159:5555/resume/upload", formData, {
+        headers: header,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === 200) {
           updateTableData(file.id, {
-            status: 5, // 已上传
+            percent: 100,
           });
-        }, 500);
-      } else {
-        updateTableData(file.id, {
-          status: 4, // 上传失败
-        });
-      }
-    });
+          setTimeout(() => {
+            // 定时器回调函数中重新启用按钮
+            updateTableData(file.id, {
+              status: 5, // 已上传
+            });
+            resolve(); // 上传成功，将Promise标记为成功
+          }, 500);
+        } else {
+          updateTableData(file.id, {
+            status: 4, // 上传失败
+          });
+          reject(new Error("上传失败")); // 上传失败，将Promise标记为失败，可以传递错误对象或错误信息
+        }
+      })
+      .catch((error) => {
+        reject(error); // 捕获到错误，将Promise标记为失败，可以将错误对象传递给reject
+      });
+  });
 };
+
 //点击【开始分析】按钮
-let analysis = () => {
-  console.log("*******点击了开始分析按钮"); //输出测试
-  tableData.value
-    .forEach((f) => {
-      if (f.status === 1) {
-        const file = f.file; //获取到该列指向的文件本身
-        uploadFile(file);
-      }
-    })
-    .then(() => {
-      open();
-    });
+// let analysis = () => {
+//   console.log("*******点击了开始分析按钮"); //输出测试
+//   tableData.value
+//     .forEach((f) => {
+//       if (f.status === 1) {
+//         const file = f.file; //获取到该列指向的文件本身
+//         uploadFile(file);
+//       }
+//     })
+//     .then(() => {
+//       open();
+//     });
+// };
+let analysis = async () => {
+  console.log("*******点击了开始分析按钮"); // 输出测试
+  for (const f of tableData.value) {
+    if (f.status === 1) {
+      const file = f.file; // 获取到该列指向的文件本身
+      await uploadFile(file); // 等待uploadFile方法执行完成
+    }
+  }
+  open(); // 遍历操作完成后执行open方法
 };
 
 const open = () => {

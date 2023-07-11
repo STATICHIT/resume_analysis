@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-08 19:25:38
+ * @LastEditTime: 2023-07-11 16:37:06
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -19,11 +19,12 @@ let apiFun = {
   process: {},
   log: {},
   template: {},
+  job:{},
 };
 
 //测试接口（按需添加，可删）
 apiFun.test.test = () => {
-  return http.get('/resume/test1')
+  return http.get(`/resume/testES`)
 }
 
 //判重复
@@ -55,13 +56,14 @@ apiFun.upload.postUpload = () => {
  * 搜索接口
  */
 
+//zwy版本
 apiFun.search.getResumeList = (page, size) => {
   return http.get(`/resume/selectResume/${page}/${size}`)
 }
 
-//条件搜索（带分页）
+//条件搜索（带分页）cx版本
 apiFun.search.conditionSearch = (params) => {
-  return http.get(`/resume/search`, params)
+  return http.post(`/resume/search`, params)
 }
 
 
@@ -134,7 +136,9 @@ apiFun.template.deleteTemplate = (templateId) => {
   return http.post(`/template/${templateId}`)
 }
 
-
+/**
+ * 岗位接口
+ */
 
 
 

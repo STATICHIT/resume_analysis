@@ -208,10 +208,6 @@ function readExcel(file) {
   reader.readAsArrayBuffer(file);
 }
 
-function showMessage(message, type) {
-  console.warn(message);
-}
-
 const open = () => {
   ElNotification({
     title: "分析成功",
