@@ -1,8 +1,8 @@
 /*
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:07
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-11 16:12:49
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-07-11 20:45:03
  * @FilePath: \resume_analysis\src\utils\axios.js
  * @Description: 封装请求
  */
@@ -12,7 +12,8 @@ import qs from 'qs';//转json数据工具包
 import { ElMessage } from 'element-plus'
 import router from '../router/index'
 
-let baseURL = 'http://192.168.50.237:5555/'//后端开发环境地址(部署后端到本机后只需修改此地址)
+let baseURL = 'http://192.168.50.237:5555/'
+// 'http://192.168.50.159:5555/'//后端开发环境地址(部署后端到本机后只需修改此地址)
 
 let config = {
   baseURL: baseURL,

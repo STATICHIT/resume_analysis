@@ -18,12 +18,13 @@ import axios from 'axios'
 import animated from 'animate.css' 
 import './style/element-plus.scss'
 import "default-passive-events"; //添加事件管理者'passive'，来阻止'touchstart'事件，让页面更加流畅。 解决chrome下的warning问题
+import locale from 'element-plus/lib/locale/lang/zh-cn';
 
 
 // 生成 Vue 实例 app
 const app = createApp(App)
 app.use(router)
-app.use(ElementPlus)
+app.use(ElementPlus,{locale})
 app.use(createPinia())
 app.use(animated)
 

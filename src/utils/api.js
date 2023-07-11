@@ -107,6 +107,11 @@ apiFun.process.updateCurNode = (resumeId, nodeId, params) => {
   return http.put(`/flowPath/updateState/${resumeId}?nodeId=${nodeId}`, params)
 }
 
+//修改一份简历当前状态
+apiFun.process.updateStatus = (resumeId,nodeId) => {
+  return http.put(`/flowPath/updateState/${resumeId}?nodeId=${nodeId}`)
+}
+
 /**
  * 日志接口
  */
@@ -136,16 +141,20 @@ apiFun.template.deleteTemplate = (templateId) => {
   return http.post(`/template/${templateId}`)
 }
 
-/**
- * 岗位接口
- */
 
+/**
+ * 简历接口
+ */
 
 
 
 //简历分析
 apiFun.resume.analysis = (resumeId) => {
   return http.get(`/resume/analysisResults/${resumeId}`)
+}
+
+apiFun.resume.graph = (resumeId) => {
+  return http.get(`/resume/graph/${resumeId}`)
 }
 
 export default apiFun;
