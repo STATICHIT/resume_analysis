@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-07-07 16:14:16
+ * @LastEditTime: 2023-07-07 19:18:08
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
  * @Description: 自定义
 -->
@@ -13,9 +13,9 @@
       <el-dropdown>
         <el-button
           type="primary"
-          color="#626aef"
+          color="#8e95f8"
           size="large"
-          style="border-radius: 8px 0px 0px 8px; width: 130px"
+          style="border-radius: 8px 0px 0px 8px; width: 130px;color: #fff;box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.15);"
         >
           {{ state.selectItem[resume.resumeStatus].name
           }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
@@ -23,7 +23,7 @@
         <template #dropdown>
           <el-dropdown-menu @command="handleCommand">
             <el-dropdown-item
-              @click="state.resumeState = item.value"
+              @click="updateResumeStatus(item.value)"
               v-for="item in state.selectItem"
               :key="item.value"
               :command="item.value"
@@ -41,10 +41,10 @@
         <template #reference>
           <el-button
             type="primary"
-            color="#626aef"
-            @click="returnNextState"
+            color="#8e95f8"
+            @click="updateResumeStatus(resume.resumeStatus+1)"
             size="large"
-            style="border-radius: 0px 8px 8px 0px; width: 15px"
+            style="border-radius: 0px 8px 8px 0px; width: 15px;color: #fff;box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.15);"
           >
             <el-icon><ArrowRightBold /></el-icon>
           </el-button>
@@ -93,7 +93,7 @@
           label="中文简历"
           name="first"
         >
-          <resume-page :userMsg="userMsg"></resume-page>
+          <resume-page :userMsg="userMsg" :showReturn="true"></resume-page>
         </el-tab-pane>
         <el-tab-pane
           class="animate__animated animate__slideInRight"
@@ -124,10 +124,12 @@ import { onMounted, reactive, ref } from "vue";
 import router from "@/router";
 import { useRoute } from "vue-router";
 import { ArrowDown } from "@element-plus/icons-vue";
+import apiFun from "@/utils/api";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 const route = useRoute();
 const query = route.query;
-const id = query["id"];
+const resumeId = query["id"];
 
 /* 返回json数据 */
 const state = reactive({
@@ -175,10 +177,10 @@ const state = reactive({
   resumeState: 0,
 });
 
-const resume = reactive({
+let resume = ref({
   id: 14,
   userId: 1,
-  fullName: "黎芸贵",
+  fullName: "黎贵",
   email: "service@500d.me",
   phone: "13800138000",
   content:
@@ -193,7 +195,7 @@ const resume = reactive({
 
 const userMsg = ref({
   id: "",
-  name: "黎芸贵",
+  name: "贵",
   dateOfBirth: "1984.04.06",
   graduationInstitution: "华中师范大学",
   sex: "女",
@@ -378,12 +380,23 @@ const labelProcessing = ref({
 });
 
 onMounted(() => {
-  // userMsg.value = JSON.parse(resume.content)
-
-   labelProcessing.value = JSON.parse(resume.labelProcessing)
-   userMsg.value = JSON.parse(resume.content)
+  console.log(resumeId)
+   apiFun.resume.analysis(resumeId).then(res=>{
+    console.log(res.data)
+    resume.value=res.data
+   })
+   labelProcessing.value = JSON.parse(resume.value.labelProcessing)
+   userMsg.value = JSON.parse(resume.value.content)
 });
-
+const updateResumeStatus = (value) => {
+  if(value>8) value=0
+  ElMessageBox.confirm('确定修改该简历状态吗？')
+  .then(()=>{
+    resume.value.resumeStatus = value
+    ElMessage.success('修改成功！')
+  })
+  .catch(()=>{})
+}
 function handleCommand(command) {
   state.selectItem = command;
 }
@@ -446,6 +459,7 @@ const handleClick = (tab, event) => {};
   display: flex;
   flex-direction: column;
   gap: 10px;
+  color: #7880f8;
 }
 
 .user-tip {
