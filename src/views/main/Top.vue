@@ -73,6 +73,7 @@ let changeCom = () => {
   router.push({ path: "/mainPage" });
 };
 let self = () => {
+  navHeader.value="1";
   router.push({ path: "/self" });
 };
 let out = () => {

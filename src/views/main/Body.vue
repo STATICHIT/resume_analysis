@@ -15,7 +15,7 @@
         为HR提供智能化、个性化的人才招聘解决方案<br />
       </div>
       <div class="quick">
-        <a href="">快速开始</a>
+        <a href="" @click="router.push({ path:'/resumeAnalysis' })">快速开始</a>
       </div>
       <div class="description">-CloudAI-</div>
     </div>
@@ -37,6 +37,7 @@
 
 <script setup>
 import FlexCards from "../../components/FlexCards.vue";
+import router from "../../router";
 </script>
 
 <style lang="scss" scoped>

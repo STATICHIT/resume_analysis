@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-25 19:45:33
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-07 09:55:07
+ * @LastEditTime: 2023-07-10 22:12:03
  * @FilePath: \resume_analysis\src\components\SearchType.vue
  * @Description: 条件搜索选择栏
 -->
@@ -51,20 +51,6 @@
       </div>
       <div class="clear"></div>
 
-      <div class="lefttit">期望薪资</div>
-      <div class="rs">
-        <div
-          v-for="(item, i) in salaryList"
-          :key="i"
-          :class="item.name == salary ? 'li select' : 'li'"
-          @click="select4(item)"
-        >
-          <div>{{ item.name }}</div>
-        </div>
-        <div class="clear"></div>
-      </div>
-      <div class="clear"></div>
-
       <div class="lefttit">更多筛选</div>
       <div class="rs">
         <div class="bli" style="">
@@ -95,35 +81,226 @@
 
           <div class="clear"></div>
         </div>
-        <div class="bli" style="">
-          <el-select
-            v-model="value3"
-            placeholder="工作性质"
-            style="width: 200px"
-          >
-            <el-option
-              v-for="item in options3"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-          <div class="clear"></div>
-        </div>
-        <div class="clear"></div>
+        <button class="moreButton" @click="moreCheck">更多条件筛选</button>
       </div>
     </div>
+
+    <!-- 抽屉 -->
+    <el-drawer v-model="drawer" direction="ltr" size="27%">
+      <!-- 头部 -->
+      <template #header>
+        <h3 style="text-align: left">具名搜索(不填入即为不进行约束)</h3>
+      </template>
+      <!-- 内容 -->
+      <template #default>
+        <div class="content">
+          <div class="line">
+            <span class="text"><h3>基础信息</h3></span>
+          </div>
+
+          <div class="rows">
+            <span class="littleTitle">姓名</span>
+            <span v-if="disabled1">*</span>
+            <el-input style="width: 57%" v-model="condition.basic.name" />
+          </div>
+
+          <div class="rows">
+            <span class="littleTitle">性别</span>
+            <el-radio-group v-model="condition.basic.sex" class="ml-4">
+              <el-radio label="true" size="large" style="width: 90px"
+                >男</el-radio
+              >
+              <el-radio label="false" size="large" style="width: 130px"
+                >女</el-radio
+              >
+            </el-radio-group>
+          </div>
+
+          <div class="rows">
+            <span class="littleTitle">年龄</span>
+            <el-input
+              style="width: 24%"
+              v-model="condition.basic.minAge"
+              placeholder="年龄下限"
+            />
+            &nbsp; —— &nbsp;
+            <el-input
+              style="width: 24%"
+              v-model="condition.basic.maxAge"
+              placeholder="年龄上限"
+            />
+            岁
+          </div>
+
+          <div class="rows">
+            <span class="littleTitle">专业</span>
+            <el-input style="width: 57%" v-model="condition.basic.major" />
+          </div>
+
+          <div class="rows">
+            <span class="littleTitle">投递岗位</span>
+            <el-input
+              style="width: 50%"
+              v-model="condition.basic.expectedJob"
+            />
+          </div>
+          <div class="rows">
+            <span class="littleTitle">毕业学校</span>
+            <el-input
+              style="width: 50%"
+              v-model="condition.basic.graduationInstitution"
+            />
+          </div>
+          <br />
+
+          <div class="line">
+            <span class="text"><h3>联系方式</h3></span>
+          </div>
+
+          <div class="rows">
+            <span class="littleTitle">邮箱</span>
+            <el-input style="width: 57%" v-model="condition.contact.email" />
+          </div>
+          <div class="rows">
+            <span class="littleTitle">电话</span>
+            <el-input style="width: 57%" v-model="condition.contact.phone" />
+          </div>
+          <br />
+          <div class="line">
+            <span class="text"><h3>工作经验</h3></span>
+          </div>
+          <div class="rows">
+            <span class="littleTitle">工作经验</span>
+            <el-input
+              style="width: 24%"
+              v-model="condition.workYear.lowerLimit"
+              placeholder="最低年限"
+            />
+            &nbsp; —— &nbsp;
+            <el-input
+              style="width: 24%"
+              v-model="condition.workYear.upperLimit"
+              placeholder="最高年限"
+            />
+            年
+          </div>
+          <div class="rows">
+            <span class="littleTitle">就职公司</span>
+            <el-input
+              style="width: 50%"
+              v-model="condition.workExperience.company"
+            />
+          </div>
+          <div class="rows">
+            <span class="littleTitle">就职岗位</span>
+            <el-input
+              style="width: 50%"
+              v-model="condition.workExperience.jobName"
+            />
+          </div>
+          <div class="rows">
+            <span class="littleTitle">附加描述</span>
+            <el-input
+              style="width: 50%"
+              v-model="condition.workExperience.description"
+            />
+          </div>
+          <br />
+          <div class="line">
+            <span class="text"><h3>其他</h3></span>
+          </div>
+
+          <div class="rows">
+            <span class="littleTitle">技能证书</span>
+            <el-input
+              style="width: 52%"
+              v-model="condition.other.skillsCertificate"
+            />
+          </div>
+          <div class="rows">
+            <span class="littleTitle">荣誉奖项</span>
+            <el-input
+              style="width: 52%"
+              v-model="condition.other.awardsHonors"
+            />
+          </div>
+          <div class="rows">
+            <span class="littleTitle">项目经验</span>
+            <el-input
+              class="textarea"
+              v-model="condition.other.projectExperiences"
+              :rows="3"
+              type="textarea"
+              style="width: 350px"
+            />
+          </div>
+        </div>
+      </template>
+      <!-- 尾部 -->
+      <template #footer>
+        <div style="flex: auto">
+          <el-button @click="cancelClick">取消</el-button>
+          <el-button type="primary" @click="confirmClick">确定</el-button>
+        </div>
+      </template>
+    </el-drawer>
   </div>
 </template>
 
 <script setup>
-import { ref,onMounted } from "vue";
+import { ref, onMounted } from "vue";
 onMounted(() => {
   // Pre();
 });
 const value1 = ref([]); //性别
 const value2 = ref([]); //学历要求
-const value3 = ref([]); //任职时间类型
+const drawer = ref(false); //抽屉控件
+const sex = ref("");
+const condition = ref({
+  basic: {
+    name: "",
+    sex: null,
+    minAge: 0,
+    maxAge: 0,
+    major: "",
+    expectedJob: "",
+    graduationInstitution: "",
+  },
+  contact: {
+    email: "",
+    phone: "",
+  },
+  workYear: {
+    lowerLimit: 0,
+    upperLimit: 0,
+  },
+  workExperience: {
+    company: "",
+    jobName: "",
+    description: "",
+  },
+  other: {
+    skillsCertificate: "",
+    projectExperiences: "",
+    awardsHonors: "",
+  },
+  fullText: "",
+  processStage: 0,
+  pageNum: 0,
+  pageSize: 5,
+});
+function moreCheck() {
+  drawer.value = true;
+}
+function cancelClick() {
+  drawer.value = false;
+  condition.value = null;
+  console.log(condition.value);
+}
+function confirmClick() {
+  drawer.value = false;
+  console.log(condition.value);
+}
 //性别
 const options1 = [
   {
@@ -213,12 +390,6 @@ const age = ref("不限");
 let select3 = (item) => {
   age.value = item.name;
 };
-//期望薪资
-const salary = ref("不限");
-let select4 = (item) => {
-  salary.value = item.name;
-};
-
 //行业类型选项
 const curtypeList = [
   { name: "不限" },
@@ -261,24 +432,12 @@ const ageList = [
   { name: "46-50岁" },
   { name: "50岁以上" },
 ];
-
-//期望薪资选项
-const salaryList = [
-  { name: "不限" },
-  { name: "1.5K以下/月" },
-  { name: "1.5K~2K/月" },
-  { name: "2K~3K/月" },
-  { name: "3K~5K/月" },
-  { name: "5K~10K/月" },
-  { name: "10K~20k/月" },
-  { name: "20k以上/月" },
-];
 </script>
 
 <style lang="scss" scoped>
 .so_condition {
   width: 1200px;
-  height: 310px;
+  height: 260px;
   margin: 0 auto;
   margin-bottom: 20px;
   border: 1px #eeeeee solid;
@@ -341,18 +500,6 @@ const salaryList = [
   background-color: #fff7ee;
   color: #ff6600;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-form,
-p,
-ul,
-input {
-  margin: 0px;
-  padding: 0px;
-}
 ul {
   display: block;
   list-style-type: disc;
@@ -361,5 +508,39 @@ ul {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding-inline-start: 40px;
+}
+.moreButton {
+  line-height: 40px;
+  font-size: 15px;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+// 抽屉
+
+.rows {
+  margin-bottom: 15px;
+}
+.content {
+  text-align: left;
+}
+
+.littleTitle {
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+// 分界线
+.line {
+  border-top: 1px solid rgba(145, 143, 143, 0.308);
+  text-align: left;
+  margin-bottom: 10px;
+}
+.text {
+  position: relative;
+  top: -14px;
+  color: rgb(163, 159, 159);
 }
 </style>

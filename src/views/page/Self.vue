@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-08 19:55:50
+ * @LastEditTime: 2023-07-11 17:56:57
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -93,17 +93,67 @@
               <span style="color: #5959f1"> {{ num }} </span> 组简历可能重复
             </h2>
             <br />
-            <div v-for="(resume, index) in resumes" :key="index">
+            <div v-for="(resume, index) in resumedemo" :key="index">
               <div class="line">
                 <span class="text"
-                  ><h3>第{{ index + 1 }}组</h3></span
+                  ><h3>
+                    第{{ index + 1 }}组 &nbsp;&nbsp;<span style="color: #617eec"
+                      >相似度：{{ resume.score }}</span
+                    >
+                  </h3></span
                 >
               </div>
-              <div v-for="(re, idx) in resume" :key="idx" class="resume_show">
-                <img class="resumeImg" :src="re.imgSrc" alt="显示出错" />
+              <div class="resume_show">
+                <img
+                  class="resumeImg"
+                  src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?"
+                  alt="显示出错"
+                />
+                <img
+                  class="resumeImg"
+                  src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?"
+                  alt="显示出错"
+                />
+                <div class="describe">
+                  <div class="uppart" style="height: 100px">
+                    <div
+                      class="resume1"
+                      style="display: inline-block; margin-right: 100px"
+                    >
+                      <h3 style="color: #617eec; margin-bottom: 10px">
+                        Resume1
+                      </h3>
+                      <b>{{ resume.resume1.fullName }}</b>
+                      <br />
+                      <b>{{ resume.resume1.processStage }}</b>
+                    </div>
+                    <div class="resume2" style="display: inline-block">
+                      <h3 style="color: #617eec; margin-bottom: 10px">
+                        Resume2
+                      </h3>
+                      <b>{{ resume.resume2.fullName }}</b>
+                      <br />
+                      <b>{{ resume.resume2.processStage }}</b>
+                    </div>
+                  </div>
+                  <hr style="width: 70%" />
+                  <div class="downpart" style="height: 100px; padding: 20px">
+                    <ul v-for="(item, i) in resume.label" :key="i">
+                      <li>
+                        <div>
+                          <span>{{ item }}</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
+              <!-- <div v-for="(re, idx) in resume" :key="idx" class="resume_show">
+                <img class="resumeImg" :src="re.imgSrc" alt="显示出错" />
+              </div> -->
+
               <div class="mybutton">
-                <button class="detail">查看详细</button>
+                <button class="detail" @click="intoDetail">查看详细</button>
               </div>
             </div>
           </div>
@@ -139,13 +189,91 @@ import { onMounted, ref } from "vue";
 import * as echarts from "echarts"; //引入echarts
 import theme from "../../utils/echarts"; //引入主题
 import invite from "../../components/Invitation.vue";
-import log from "../../components/Log.vue"
+import log from "../../components/Log.vue";
 import apiFun from "../../utils/api";
-const activeName = ref("first");
+import router from "../../router";
+const activeName = ref("third");
 let num = ref(4);
 onMounted(() => {
   initEcharts();
 });
+const resumedemo = ref([
+  {
+    resume1: {
+      id: 1,
+      fullName: "黎芸贵",
+      processStage: "投递人选", //流程状态
+    },
+    resume2: {
+      id: 2,
+      fullName: "张子航",
+      processStage: "笔试阶段", //流程状态
+    },
+    label: ["项目经历相似", "工作经历相似"],
+    score: 9.2,
+  },
+  {
+    resume1: {
+      id: 3,
+      fullName: "吉茹定",
+      processStage: "笔试阶段", //流程状态
+    },
+    resume2: {
+      id: 4,
+      fullName: "江奕云",
+      processStage: "面试阶段", //流程状态
+    },
+    label: ["教育经历相似","项目经历相似","工作经历相似"],
+    score: 8.5,
+  },
+  {
+    resume1: {
+      id: 5,
+      fullName: "黄乙轩",
+      processStage: "offer阶段", //流程状态
+    },
+    resume2: {
+      id: 6,
+      fullName: "黄乙轩",
+      processStage: "候选人阶段", //流程状态
+    },
+    label: ["姓名相同", "工作经历相似"],
+    score: 7.3,
+  },
+  {
+    resume1: {
+      id: 7,
+      fullName: "陈翔",
+      processStage: "offer阶段", //流程状态
+    },
+    resume2: {
+      id: 8,
+      fullName: "陈翔",
+      processStage: "候选人阶段", //流程状态
+    },
+    label: ["姓名相同", "项目经历相似", "工作经历相似"],
+    score: 7.3,
+  },
+  {
+    resume1: {
+      id: 9,
+      fullName: "李珊",
+      processStage: "offer阶段", //流程状态
+    },
+    resume2: {
+      id: 10,
+      fullName: "李珊",
+      processStage: "候选人阶段", //流程状态
+    },
+    label: ["姓名相同", "项目经历相似"],
+    score: 7.3,
+  },
+]);
+
+//跳转到详细页
+function intoDetail(){
+  router.push({ path: "/sameResume" }); 
+}
 const resumes = [
   [
     {
@@ -516,9 +644,16 @@ const initEcharts = () => {
   top: -14px;
   color: rgb(163, 159, 159);
 }
+.resume_show .describe {
+  float: right;
+  background-color: rgba(242, 245, 245, 0.575);
+  width: 500px;
+  height: 250px;
+  padding: 40px 10px;
+  box-shadow: rgba(99, 99, 99, 0.252) 0px 2px 8px 0px;
+}
 .resumeImg {
-  height: 200px;
-  margin-right: 20px;
+  margin-right: 60px;
   height: 250px;
   box-shadow: rgba(99, 99, 99, 0.452) 0px 2px 8px 0px;
 }
@@ -541,7 +676,7 @@ const initEcharts = () => {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.14);
 }
 .resume_show {
-  height: 200px;
+  height: 250px;
   display: inline-block;
 }
 .mybutton {

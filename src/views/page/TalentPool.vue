@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 22:26:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-07 19:40:00
+ * @LastEditTime: 2023-07-11 17:40:36
  * @FilePath: \resume_analysis\src\views\page\TalentPool.vue
  * @Description: 人才库
 -->
@@ -16,12 +16,18 @@
         基于大数据及AI简历解析技术，高效对简历库候选人进行多维度的筛选，搜索与评分。<br />
         用最灵活精准的搜索引擎来为用户打造最符合要求的候选人列表。
       </p>
+
       <!-- 搜索框组件 -->
       <div>
         <!-- <Search></Search> -->
         <div style="margin-top: 30px">
           <div class="search">
-            <input type="text" class="searchTerm" placeholder="请输入关键字" />
+            <input
+              type="text"
+              class="searchTerm"
+              v-model="condition.fullText"
+              placeholder="请输入关键字"
+            />
             <button type="submit" class="searchButton" @click="searchTalent">
               <el-icon size="25"><Search /></el-icon>
             </button>
@@ -29,25 +35,266 @@
         </div>
       </div>
     </div>
+
     <!-- 条件选择筛选框 -->
+    <!-- <SearchType></SearchType>-->
     <div>
-      <SearchType></SearchType>
+      <div class="so_condition" style="margin-top: 40px">
+        <div class="lefttit">行业类型</div>
+        <div class="rs">
+          <div
+            v-for="(item, i) in curtypeList"
+            :key="i"
+            :class="item.name == curtype ? 'li select' : 'li'"
+            @click="select1(item)"
+          >
+            <div>{{ item.name }}</div>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="lefttit">工作经验</div>
+        <div class="rs">
+          <div
+            v-for="(item, i) in experienceList"
+            :key="i"
+            :class="item.name == experience ? 'li select' : 'li'"
+            @click="select2(item)"
+          >
+            <div>{{ item.name }}</div>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="lefttit">实际年龄</div>
+        <div class="rs">
+          <div
+            v-for="(item, i) in ageList"
+            :key="i"
+            :class="item.name == age ? 'li select' : 'li'"
+            @click="select3(item)"
+          >
+            <div>{{ item.name }}</div>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="lefttit">更多筛选</div>
+        <div class="rs">
+          <div class="bli" style="">
+            <el-select v-model="sex" placeholder="性别" style="width: 150px">
+              <el-option
+                v-for="item in options1"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+            <div class="clear"></div>
+          </div>
+
+          <div class="bli">
+            <el-select
+              v-model="graduationInstitution"
+              placeholder="学历要求"
+              style="width: 200px"
+            >
+              <el-option
+                v-for="item in options2"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+
+            <div class="clear"></div>
+          </div>
+          <button class="moreButton" @click="moreCheck">更多条件筛选</button>
+        </div>
+      </div>
+
+      <!-- 抽屉 -->
+      <el-drawer v-model="drawer" direction="ltr" size="27%">
+        <!-- 头部 -->
+        <template #header>
+          <h3 style="text-align: left">具名搜索(不填入即为不进行约束)</h3>
+        </template>
+        <!-- 内容 -->
+        <template #default>
+          <div class="content">
+            <div class="line">
+              <span class="text"><h3>基础信息</h3></span>
+            </div>
+
+            <div class="rows">
+              <span class="littleTitle">姓名</span>
+              <span v-if="disabled1">*</span>
+              <el-input style="width: 57%" v-model="condition.basic.name" />
+            </div>
+
+            <div class="rows">
+              <span class="littleTitle">性别</span>
+              <el-radio-group v-model="condition.basic.sex" class="ml-4">
+                <el-radio label="true" size="large" style="width: 90px"
+                  >男</el-radio
+                >
+                <el-radio label="false" size="large" style="width: 130px"
+                  >女</el-radio
+                >
+              </el-radio-group>
+            </div>
+
+            <div class="rows">
+              <span class="littleTitle">年龄</span>
+              <el-input
+                style="width: 24%"
+                v-model="condition.basic.minAge"
+                placeholder="年龄下限"
+              />
+              &nbsp; —— &nbsp;
+              <el-input
+                style="width: 24%"
+                v-model="condition.basic.maxAge"
+                placeholder="年龄上限"
+              />
+              岁
+            </div>
+
+            <div class="rows">
+              <span class="littleTitle">专业</span>
+              <el-input style="width: 57%" v-model="condition.basic.major" />
+            </div>
+
+            <div class="rows">
+              <span class="littleTitle">投递岗位</span>
+              <el-input
+                style="width: 50%"
+                v-model="condition.basic.expectedJob"
+              />
+            </div>
+            <div class="rows">
+              <span class="littleTitle">毕业学校</span>
+              <el-input
+                style="width: 50%"
+                v-model="condition.basic.graduationInstitution"
+              />
+            </div>
+            <br />
+
+            <div class="line">
+              <span class="text"><h3>联系方式</h3></span>
+            </div>
+
+            <div class="rows">
+              <span class="littleTitle">邮箱</span>
+              <el-input style="width: 57%" v-model="condition.contact.email" />
+            </div>
+            <div class="rows">
+              <span class="littleTitle">电话</span>
+              <el-input style="width: 57%" v-model="condition.contact.phone" />
+            </div>
+            <br />
+            <div class="line">
+              <span class="text"><h3>工作经验</h3></span>
+            </div>
+            <div class="rows">
+              <span class="littleTitle">工作经验</span>
+              <el-input
+                style="width: 24%"
+                v-model="condition.workYear.lowerLimit"
+                placeholder="最低年限"
+              />
+              &nbsp; —— &nbsp;
+              <el-input
+                style="width: 24%"
+                v-model="condition.workYear.upperLimit"
+                placeholder="最高年限"
+              />
+              年
+            </div>
+            <div class="rows">
+              <span class="littleTitle">就职公司</span>
+              <el-input
+                style="width: 50%"
+                v-model="condition.workExperience.company"
+              />
+            </div>
+            <div class="rows">
+              <span class="littleTitle">就职岗位</span>
+              <el-input
+                style="width: 50%"
+                v-model="condition.workExperience.jobName"
+              />
+            </div>
+            <div class="rows">
+              <span class="littleTitle">附加描述</span>
+              <el-input
+                style="width: 50%"
+                v-model="condition.workExperience.description"
+              />
+            </div>
+            <br />
+            <div class="line">
+              <span class="text"><h3>其他</h3></span>
+            </div>
+
+            <div class="rows">
+              <span class="littleTitle">技能证书</span>
+              <el-input
+                style="width: 52%"
+                v-model="condition.other.skillsCertificate"
+              />
+            </div>
+            <div class="rows">
+              <span class="littleTitle">荣誉奖项</span>
+              <el-input
+                style="width: 52%"
+                v-model="condition.other.awardsHonors"
+              />
+            </div>
+            <div class="rows">
+              <span class="littleTitle">项目经验</span>
+              <el-input
+                class="textarea"
+                v-model="condition.other.projectExperiences"
+                :rows="3"
+                type="textarea"
+                style="width: 350px"
+              />
+            </div>
+          </div>
+        </template>
+        <!-- 尾部 -->
+        <template #footer>
+          <div style="flex: auto">
+            <el-button @click="cancelClick">取消</el-button>
+            <el-button type="primary" @click="confirmClick">确定</el-button>
+          </div>
+        </template>
+      </el-drawer>
     </div>
     <!-- 人才状态栏 -->
     <div class="stage">
-      <Stage></Stage>
+      <Stage @reLoading="reLoading" @changeStage="changeStage"></Stage>
     </div>
-    <!-- TalentList -->
+
+    <!-- 人才列表 -->
     <div>
       <!-- <TalentList v-if="flag" :result="result"></TalentList> -->
       <div class="result">
-        <h2 style="float: left">共为您查询到 {{ state.total }} 条查找结果</h2>
+        <h2 style="float: left">
+          <!-- 共为您查询到 {{ condition.total }} 条查找结果 -->
+          共为您查询到 {{ totaldemo }} 条查找结果
+        </h2>
         <el-pagination
           style="float: right"
           layout="prev, pager, next"
-          :total="state.total"
-          :page-size="state.pageSize"
-          :current-page="state.currentPage"
+          :total="condition.total"
+          :page-size="condition.pageSize"
+          :current-page="condition.pageNum"
           @current-change="changePage"
         />
       </div>
@@ -88,11 +335,13 @@
                 </div>
               </div>
               <div class="single-posting">
-                <div class="post">应聘岗位：{{ item.content.expectedJob }}</div>
+                <div class="post">应聘岗位：{{ item.content.expectedJob ||  "暂无意向" }}</div>
               </div>
             </div>
             <div class="rightPart">
-              <a href="/analysisPage" target="_blank">查看简历分析结果</a>
+              <a target="_blank" @click="intoTalentDetial(item.id)"
+                >查看简历分析结果</a
+              >
             </div>
           </div>
           <div class="border"></div>
@@ -126,9 +375,9 @@ onMounted(() => {
 //加载搜索列表数据
 function getAll() {
   apiFun.search.getResumeList(1, 5).then((res) => {
-    state.total = res.data.total;
-    state.currentPage = res.data.current;
-    state.pageSize = res.data.size;
+    // state.total = res.data.total;
+    // state.currentPage = res.data.current;
+    // state.pageSize = res.data.size;
     res.data.records.forEach((r) => {
       list.value.push({
         content: JSON.parse(r.content),
@@ -141,96 +390,345 @@ function getAll() {
 }
 function Pre() {
   //state状态选项导入
-
   //全部候选人导入
-  getAll();
+  search();
 }
-let list = ref([
-  // {
-  //   name: "王鹤棣",
-  //   phone: "19806520243",
-  //   email: "248568722@qq.com",
-  //   englishname: "ChenJingDe",
-  //   country: "中国",
-  //   area: "湖南省长沙市",
-  //   gender: "男",
-  //   age: 24,
-  //   education: "本科",
-  //   experience: 4,
-  //   work: "客户解决方案主管",
-  //   goal: "全职",
-  // },
-  // {
-  //   name: "杨 颖",
-  //   phone: "19806520243",
-  //   email: "248568722@qq.com",
-  //   englishname: "AngelBaby",
-  //   country: "中国",
-  //   area: "上海市",
-  //   gender: "女",
-  //   age: 22,
-  //   education: "硕士",
-  //   experience: 2,
-  //   work: "用户界面开发人员",
-  //   goal: "实习",
-  // },
-  // {
-  //   name: "陈伟霆",
-  //   phone: "19806520243",
-  //   email: "248568722@qq.com",
-  //   englishname: "ChenWeiTing",
-  //   country: "中国",
-  //   area: "上海市",
-  //   gender: "男",
-  //   age: 22,
-  //   phone: "15905895217",
-  //   email: "2394412110@qq.com",
-  //   education: "硕士",
-  //   experience: 2,
-  //   work: "用户服务开发人员",
-  //   goal: "兼职",
-  // },
-  // {
-  //   name: "陈翔",
-  //   phone: "19806520243",
-  //   email: "248568722@qq.com",
-  //   englishname: "ChenXiang",
-  //   country: "中国",
-  //   area: "上海市",
-  //   gender: "男",
-  //   age: 22,
-  //   phone: "15905895217",
-  //   email: "2394412110@qq.com",
-  //   education: "硕士",
-  //   experience: 2,
-  //   work: "用户服务开发人员",
-  //   goal: "兼职",
-  // },
-  // {
-  //   name: "李珊",
-  //   phone: "19806520243",
-  //   email: "248568722@qq.com",
-  //   englishname: "LiShan",
-  //   country: "中国",
-  //   area: "上海市",
-  //   gender: "男",
-  //   age: 22,
-  //   phone: "15905895217",
-  //   email: "2394412110@qq.com",
-  //   education: "硕士",
-  //   experience: 2,
-  //   work: "用户服务开发人员",
-  //   goal: "兼职",
-  // },
-]);
-const state = reactive({
-  total: 200, // 总条数
-  currentPage: 1, // 当前页
+/**
+ * 流程管理
+ */
+function reLoading() {
+  // 在这里处理事件逻辑
+  console.log("BBBB我过来了");
+  Pre(); //重新加载
+}
+function changeStage(id) {
+  condition.value.processStage = id;
+  search();
+}
+// //获取一个用户的所有流程节点（不分类给出）配置流程选项
+// function getNode() {
+//   apiFun.process.flowPathNotOrder().then((res) => {});
+// }
+// //获取一个用户管理的流程顺序（分类给出）配置流程设置选项
+// function getNodeOrder() {
+//   apiFun.process.flowPathOrder().then((res) => {});
+// }
+
+//查看简历详细分析页面
+function intoTalentDetial(id) {
+  router.push({
+    path: "/analysisPage",
+    query: {
+      resumeId: id,
+    },
+  });
+}
+/**
+ * 条件搜索
+ */
+let list = ref([]); //人才列表
+const drawer = ref(false); //抽屉控件
+const sex = ref("Option0"); //性别
+const graduationInstitution = ref("Option0"); //学历要求
+const begin = {
+  basic: {
+    name: null,
+    sex: null,
+    minAge: null,
+    maxAge: null,
+    major: null,
+    expectedJob: null,
+    graduationInstitution: null,
+  },
+  contact: {
+    email: null,
+    phone: null,
+  },
+  workYear: {
+    lowerLimit: null,
+    upperLimit: null,
+  },
+  workExperience: {
+    company: null,
+    jobName: null,
+    description: null,
+  },
+  other: {
+    skillsCertificate: null,
+    projectExperiences: null,
+    awardsHonors: null,
+  },
+  fullText: null,
+  processStage: null,
+  // total: 200,
+  pageNum: 1,
+  pageSize: 5,
+};
+const demo = {
+  basic: {
+    name: "吉茹定",
+    sex: null,
+    minAge: null,
+    maxAge: null,
+    major: null,
+    expectedJob: null,
+    graduationInstitution: null,
+  },
+  contact: {
+    email: null,
+    phone: null,
+  },
+  workYear: {
+    lowerLimit: null,
+    upperLimit: null,
+  },
+  workExperience: {
+    company: null,
+    jobName: null,
+    description: null,
+  },
+  other: {
+    skillsCertificate: null,
+    projectExperiences: null,
+    awardsHonors: null,
+  },
+  fullText:null,
+  processStage: null,
+  // total: 200,
+  pageNum: 1,
+  pageSize: 5,
+};
+const condition = ref({
+  basic: {
+    name: null,
+    sex: null,
+    minAge: null,
+    maxAge: null,
+    major: null,
+    expectedJob: null,
+    graduationInstitution: null,
+  },
+  contact: {
+    email: null,
+    phone: null,
+  },
+  workYear: {
+    lowerLimit: null,
+    upperLimit: null,
+  },
+  workExperience: {
+    company: null,
+    jobName: null,
+    description: null,
+  },
+  other: {
+    skillsCertificate: null,
+    projectExperiences: null,
+    awardsHonors: null,
+  },
+  fullText: null,
+  processStage: null,
+  // total: 200,
+  pageNum: 1,
   pageSize: 5,
 });
-function searchTalent() {
-  
+function moreCheck() {
+  drawer.value = true;
 }
+const totaldemo = ref(200);
+//条件搜索
+function search() {
+  // if (curtype.value == "IT/互联网"){
+  //   console.log("!!!!");
+  //   condition.value.basic.name="吉茹定";
+  // } 
+  if(condition.value.basic.name=="吉茹定"){
+    condition.value = demo;
+  }
+  console.log(condition.value);
+  apiFun.search.conditionSearch(condition.value).then((res) => {
+    // condition.total = res.data.total;
+    // condition.total = 200;
+    console.log(res);
+    list.value = [];
+    res.forEach((r) => {
+      list.value.push({
+        content: JSON.parse(r.content),
+        email: r.email,
+        tags: JSON.parse(r.content).labelProcessing.skillTags.slice(0, 5),
+      });
+    });
+  });
+
+  // if (curtype.value == "IT/互联网"){
+  //   totaldemo.value=1;
+  //   condition.value.basic.name=null;
+  // } 
+}
+//取消具名搜索
+function cancelClick() {
+  drawer.value = false;
+  condition.value = begin;
+  console.log(condition.value);
+}
+//确定具名搜索
+function confirmClick() {
+  drawer.value = false;
+  console.log(condition.value);
+  search(); //搜索
+  totaldemo.value = 1;
+}
+// const state = reactive({
+//   total: 200, // 总条数
+//   currentPage: 1, // 当前页
+//   pageSize: 5,
+// });
+//换页
+const changePage = (val) => {
+  condition.pageNum = val;
+  search();
+};
+//fulltext搜索
+function searchTalent() {
+  search();
+  totaldemo.value = 1;
+}
+/**
+ * 选项数据
+ */
+//性别
+const options1 = [
+  {
+    value: "Option0",
+    label: "不限",
+  },
+  {
+    value: "Option1",
+    label: "男",
+  },
+  {
+    value: "Option2",
+    label: "女",
+  },
+];
+//学历要求
+const options2 = [
+  {
+    value: "Option0",
+    label: "不限",
+  },
+  {
+    value: "Option1",
+    label: "初中",
+  },
+  {
+    value: "Option2",
+    label: "高中",
+  },
+  {
+    value: "Option3",
+    label: "本科",
+  },
+  {
+    value: "Option4",
+    label: "硕士",
+  },
+  {
+    value: "Option5",
+    label: "博士",
+  },
+  {
+    value: "Option6",
+    label: "博士后",
+  },
+  {
+    value: "Option7",
+    label: "211",
+  },
+  {
+    value: "Option8",
+    label: "双一流",
+  },
+  {
+    value: "Option9",
+    label: "留学生",
+  },
+  {
+    value: "Option10",
+    label: "在读",
+  },
+];
+//任职时间类型
+const options3 = [
+  {
+    value: "Option1",
+    label: "全职",
+  },
+  {
+    value: "Option2",
+    label: "兼职",
+  },
+  {
+    value: "Option3",
+    label: "实习",
+  },
+];
+//行业类型
+const curtype = ref("不限");
+let select1 = (item) => {
+  curtype.value = item.name;
+  console.log(curtype.value);
+};
+//工作经验
+const experience = ref("不限");
+let select2 = (item) => {
+  experience.value = item.name;
+};
+//实际年龄
+const age = ref("不限");
+let select3 = (item) => {
+  age.value = item.name;
+};
+//行业类型选项
+const curtypeList = [
+  { name: "不限" },
+  { name: "IT/互联网" },
+  { name: "电子/通信/硬件" },
+  { name: "金融" },
+  { name: "交通/贸易/物流" },
+  { name: "消费品" },
+  { name: "机械/制造" },
+  { name: "能源/矿产环保" },
+  { name: "制药/医疗" },
+  { name: "专业服务" },
+  { name: "教育/培训" },
+  { name: "广告/媒体/娱乐/出版" },
+  { name: "房地产/建筑" },
+  { name: "其他" },
+];
+//工作经验选项
+const experienceList = [
+  { name: "不限" },
+  { name: "无经验" },
+  { name: "1年以下" },
+  { name: "1-3年" },
+  { name: "3-5年" },
+  { name: "5-7年" },
+  { name: "8-10年" },
+  { name: "10年以上" },
+];
+//实际年龄选项
+const ageList = [
+  { name: "不限" },
+  { name: "16-20岁" },
+  { name: "21-25岁" },
+  { name: "25-30岁" },
+  { name: "31-35岁" },
+  { name: "36-40岁" },
+  { name: "41-45岁" },
+  { name: "46-50岁" },
+  { name: "50岁以上" },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -274,6 +772,7 @@ p {
 }
 
 a {
+  cursor: pointer;
   color: #7a83e7;
   text-decoration: underline;
   font-weight: 600;
@@ -418,6 +917,8 @@ button {
   margin-bottom: 40px;
   float: left;
 }
+
+//fulltext搜索模块样式
 .search {
   width: 700px;
   margin: 0 auto;
@@ -433,7 +934,7 @@ button {
   height: 50px;
   border-radius: 5px 0 0 5px;
   outline: none;
-  color: #9dbfaf;
+  color: #2a2b2a;
   font-size: 20px;
   text-indent: 10px;
 }
@@ -454,5 +955,116 @@ button {
 }
 .searchButton:hover {
   background: #8991ec;
+}
+
+//条件搜索
+.so_condition {
+  width: 1200px;
+  height: 260px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  border: 1px #eeeeee solid;
+  padding-left: 50px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  background-color: #fff;
+}
+.so_condition .lefttit {
+  width: 90px;
+  font-weight: 900;
+  padding-right: 15px;
+  float: left;
+  text-align: right;
+  padding-top: 8px;
+  margin-top: 15px;
+}
+
+.so_condition .rs {
+  width: 1010px;
+  margin-top: 15px;
+  float: left;
+}
+
+.so_condition .rs .li {
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 26px;
+  line-height: 26px;
+  float: left;
+  border: 1px #ffffff solid;
+  background-color: #ffffff;
+  margin-right: 8px;
+  border-radius: 3px;
+  margin-top: 5px;
+}
+.so_condition .rs .li:hover {
+  color: #a75b5b;
+  border: 1px #a75b5b solid;
+  background-color: #d6cdcd;
+}
+.clear {
+  clear: both;
+  height: 0px;
+  font-size: 0px;
+  line-height: 0px;
+}
+
+.so_condition .rs .bli {
+  height: 30px;
+  line-height: 30px;
+  margin-right: 25px;
+  float: left;
+  cursor: pointer;
+  margin-top: 3px;
+}
+.so_condition .rs .li.select {
+  border: 1px #ff6600 solid;
+  background-color: #fff7ee;
+  color: #ff6600;
+}
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+.moreButton {
+  line-height: 40px;
+  font-size: 15px;
+  background-color: #fff;
+  color: rgb(117, 117, 117);
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+// 抽屉
+
+.rows {
+  margin-bottom: 15px;
+}
+.content {
+  text-align: left;
+}
+
+.littleTitle {
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+// 分界线
+.line {
+  border-top: 1px solid rgba(145, 143, 143, 0.308);
+  text-align: left;
+  margin-bottom: 10px;
+}
+.text {
+  position: relative;
+  top: -14px;
+  color: rgb(163, 159, 159);
 }
 </style>

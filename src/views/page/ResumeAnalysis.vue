@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-19 21:50:15
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-07 21:43:55
+ * @LastEditTime: 2023-07-10 16:21:15
  * @FilePath: \resume_analysis\src\views\page\ResumeAnalysis.vue
  * @Description: 简历分析入口
 -->
@@ -35,7 +35,7 @@ import { ref, onMounted } from "vue";
 import apiFun from "../../utils/api";
 import router from "../../router";
 const curcolor = ref("#eafaf7");
-const activeName = ref("second");
+const activeName = ref("first");
 let handleClick = () => {
   if (activeName.value === "first") {
     curcolor.value = "#fff";
@@ -62,11 +62,10 @@ let handleClick = () => {
 .box {
   background-color: #eafaf7;
   height: 100%;
-  padding: 50px;
+  padding: 100px;
 }
 .bigTitle {
-  margin-top: 20px;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   text-align: center;
   font-size: 40px;
   font-weight: 600;
