@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-11 17:56:57
+ * @LastEditTime: 2023-07-11 21:26:42
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -159,25 +159,17 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="邀约模板" name="fourth">
-          <div
+          <!-- <div
             style="height: 100%; min-height: 800px; padding: 20px; float: left"
-          >
+          > -->
             <invite></invite>
-          </div>
-          <div
-            style="
-              width: 350px;
-              height: 100%;
-              min-height: 800px;
-              padding: 20px;
-              float: right;
-            "
-          >
+          <!-- </div> -->
+          <!-- <div class="tembutton">
             <div class="mybutton2">
-              <button class="detail" style="margin-top: 20px">切换模板</button>
-              <button class="detail" style="margin-top: 20px">确认模板</button>
+              <button class="detail">切换模板</button>
+              <button class="detail">确认模板</button>
             </div>
-          </div>
+          </div> -->
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -192,7 +184,7 @@ import invite from "../../components/Invitation.vue";
 import log from "../../components/Log.vue";
 import apiFun from "../../utils/api";
 import router from "../../router";
-const activeName = ref("third");
+const activeName = ref("fourth");
 let num = ref(4);
 onMounted(() => {
   initEcharts();
@@ -223,7 +215,7 @@ const resumedemo = ref([
       fullName: "江奕云",
       processStage: "面试阶段", //流程状态
     },
-    label: ["教育经历相似","项目经历相似","工作经历相似"],
+    label: ["教育经历相似", "项目经历相似", "工作经历相似"],
     score: 8.5,
   },
   {
@@ -271,8 +263,8 @@ const resumedemo = ref([
 ]);
 
 //跳转到详细页
-function intoDetail(){
-  router.push({ path: "/sameResume" }); 
+function intoDetail() {
+  router.push({ path: "/sameResume" });
 }
 const resumes = [
   [
@@ -657,24 +649,22 @@ const initEcharts = () => {
   height: 250px;
   box-shadow: rgba(99, 99, 99, 0.452) 0px 2px 8px 0px;
 }
-.detial {
-  margin-right: 80px;
-}
-.detail {
-  width: 200px;
-  background: #1de9b6;
-  padding: 8px 16px;
-  color: white;
-  font-weight: bold;
-  border-radius: 4px;
-  border: none;
-  outline: none;
-}
+// .detail {
+//   margin-top: 20px;
+//   width: 200px;
+//   background: #1de9b6;
+//   padding: 8px 16px;
+//   color: white;
+//   font-weight: bold;
+//   border-radius: 4px;
+//   border: none;
+//   outline: none;
+// }
 
-.detail:hover {
-  background: #64ffda;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.14);
-}
+// .detail:hover {
+//   background: #64ffda;
+//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.14);
+// }
 .resume_show {
   height: 250px;
   display: inline-block;
@@ -683,8 +673,15 @@ const initEcharts = () => {
   float: right;
   margin-top: -220px;
 }
-.mybutton2 {
-  height: 200px;
-  margin-top: 160%;
-}
+// .mybutton2 {
+//   height: 200px;
+//   margin-top: 160%;
+// }
+// .tembutton {
+//   width: 350px;
+//   height: 100%;
+//   min-height: 800px;
+//   padding: 20px;
+//   float: right;
+// }
 </style>

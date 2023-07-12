@@ -90,6 +90,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import * as XLSX from "xlsx";
+import { ElNotification } from 'element-plus'
 const autoadd = ref(true); //自动录入岗位库
 const tableData = ref([]); //上传列表
 
