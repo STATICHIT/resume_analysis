@@ -139,7 +139,8 @@ import * as echarts from "echarts";
 
 const prop = defineProps({
   labelProcessing:{
-    type:Object
+    type:Object,
+    default:()=>{}
   }
 })
 
@@ -201,15 +202,16 @@ onMounted(()=>{
   console.log(prop.labelProcessing.comprehensiveAbility.leadership)
 })
 const option = reactive({
-    option1 : {
+    
+  option1: {
   radar: {
     indicator: [
-      { name: "语言能力" , color: "#6873E3" },
-      { name: "所获荣誉" , color: "#6873E3" },
-      { name: "教育背景" , color: "#6873E3" },
-      { name: "工作时间" , color: "#6873E3" },
+      { name: "语言能力", color: "#6873E3" },
+      { name: "所获荣誉", color: "#6873E3" },
+      { name: "教育背景", color: "#6873E3" },
+      { name: "工作时间", color: "#6873E3" },
       { name: "领导力", color: "#6873E3" },
-      { name: "技能" , color: "#6873E3" },
+      { name: "技能", color: "#6873E3" },
     ],
   },
   series: [
@@ -221,15 +223,22 @@ const option = reactive({
           value: [prop.labelProcessing.comprehensiveAbility.languageAbility, prop.labelProcessing.comprehensiveAbility.honorsReceived, prop.labelProcessing.comprehensiveAbility.educationalBackground,
           prop.labelProcessing.comprehensiveAbility.serviceYears, prop.labelProcessing.comprehensiveAbility.leadership, prop.labelProcessing.comprehensiveAbility.skill],
           name: "Allocated Budget",
+          itemStyle: {
+            opacity: 0
+          }
         },
       ],
-      lineStyle:{
-        color:'#6873E3'
+      lineStyle: {
+        color: '#6873E3',
+        width: 4, // 设置线条粗细为2像素
+      },
+      areaStyle: {
+        color: '#CFD2F5',
+        opacity:0.6
       }
     },
   ],
 },
-
   option2: {
     radar: {
       startAngle: 20, // 设置起点位置为右侧
@@ -260,11 +269,20 @@ const option = reactive({
             ,prop.labelProcessing.backgroundIndustry.logisticsProcure,prop.labelProcessing.backgroundIndustry.administration,prop.labelProcessing.backgroundIndustry.marketOperations,prop.labelProcessing.backgroundIndustry.engineer,
             prop.labelProcessing.backgroundIndustry.educationTranslate,prop.labelProcessing.backgroundIndustry.treatPharmacy,prop.labelProcessing.backgroundIndustry.legalAdvice,prop.labelProcessing.backgroundIndustry.build
             ,prop.labelProcessing.backgroundIndustry.advertisement,prop.labelProcessing.backgroundIndustry.medium],
+            itemStyle: {
+            opacity: 0
+          }
         }
         ],
         lineStyle:{
-            color:'#6873E3'
-        }
+            color:'#6873E3',
+            width: 4, // 设置线条粗细为2像素
+
+        },
+        areaStyle: {
+        color: '#CFD2F5',
+        opacity:0.6
+      },
       },
     ],
     label: {
