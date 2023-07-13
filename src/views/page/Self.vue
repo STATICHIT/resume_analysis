@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-11 21:26:42
+ * @LastEditTime: 2023-07-12 09:20:30
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -595,16 +595,6 @@ const initEcharts = () => {
   border-radius: 3px;
   background-color: rgba(242, 242, 253, 0.295);
 }
-.card1 {
-  width: 300px;
-  height: 110px;
-}
-.num {
-  font-size: 35px;
-  font-weight: 550;
-  margin-top: 7px;
-  text-align: center;
-}
 #mychart1 {
   width: 100%;
   height: 250px;
@@ -649,22 +639,22 @@ const initEcharts = () => {
   height: 250px;
   box-shadow: rgba(99, 99, 99, 0.452) 0px 2px 8px 0px;
 }
-// .detail {
-//   margin-top: 20px;
-//   width: 200px;
-//   background: #1de9b6;
-//   padding: 8px 16px;
-//   color: white;
-//   font-weight: bold;
-//   border-radius: 4px;
-//   border: none;
-//   outline: none;
-// }
+.detail {
+  margin-top: 20px;
+  width: 200px;
+  background: #1de9b6;
+  padding: 8px 16px;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
 
-// .detail:hover {
-//   background: #64ffda;
-//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.14);
-// }
+.detail:hover {
+  background: #64ffda;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.14);
+}
 .resume_show {
   height: 250px;
   display: inline-block;

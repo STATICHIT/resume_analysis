@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-11 20:46:15
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-08 17:27:03
+ * @LastEditTime: 2023-07-12 19:09:05
  * @FilePath: \resume_analysis\src\components\Upload2.vue
  * @Description: 岗位批量上传组件
 -->
@@ -101,6 +101,7 @@ let beforeUpload = (file) => {
 //添加文件到列表,并计算其基础属性
 let addFile = (file) => {
   const id = uuidv4(); // 生成唯一 ID
+  console.log("Xxx")
   let size = (file.size / 1024).toFixed(2); //Byte转KB并四舍五入到3位小数
   size = size < 1024 ? size + " KB" : (size / 1024).toFixed(2) + " MB";
   tableData.value.push({
@@ -174,6 +175,7 @@ let uploadFile = (file) => {
 //点击【开始分析】按钮
 let analysis = () => {
   tableData.value.forEach((f) => {
+    console.log("11")
     if (f.status === 1) {
       const file = f.file; //获取到该列指向的文件本身
       uploadFile(file);
@@ -188,9 +190,6 @@ let uuidv4 = () => {
         v = c == "x" ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     })
-    .then(() => {
-      open();
-    });
 };
 
 function readExcel(file) {

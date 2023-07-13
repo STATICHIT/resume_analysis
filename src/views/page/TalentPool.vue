@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 22:26:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-11 17:40:36
+ * @LastEditTime: 2023-07-13 15:57:12
  * @FilePath: \resume_analysis\src\views\page\TalentPool.vue
  * @Description: 人才库
 -->
@@ -276,6 +276,7 @@
         </template>
       </el-drawer>
     </div>
+    
     <!-- 人才状态栏 -->
     <div class="stage">
       <Stage @reLoading="reLoading" @changeStage="changeStage"></Stage>
@@ -290,11 +291,11 @@
           共为您查询到 {{ totaldemo }} 条查找结果
         </h2>
         <el-pagination
-          style="float: right"
+          style="float: right;"
           layout="prev, pager, next"
-          :total="condition.total"
-          :page-size="condition.pageSize"
-          :current-page="condition.pageNum"
+          :total="state.total"
+          page-size="state.pageSize"
+          current-page="state.currentPage"
           @current-change="changePage"
         />
       </div>
@@ -542,9 +543,9 @@ function search() {
   //   console.log("!!!!");
   //   condition.value.basic.name="吉茹定";
   // } 
-  if(condition.value.basic.name=="吉茹定"){
-    condition.value = demo;
-  }
+  // if(condition.value.basic.name=="吉茹定"){
+  //   condition.value = demo;
+  // }
   console.log(condition.value);
   apiFun.search.conditionSearch(condition.value).then((res) => {
     // condition.total = res.data.total;
@@ -578,11 +579,11 @@ function confirmClick() {
   search(); //搜索
   totaldemo.value = 1;
 }
-// const state = reactive({
-//   total: 200, // 总条数
-//   currentPage: 1, // 当前页
-//   pageSize: 5,
-// });
+const state = ref({
+  total: 200, // 总条数
+  currentPage: 1, // 当前页
+  pageSize: 5,
+});
 //换页
 const changePage = (val) => {
   condition.pageNum = val;
