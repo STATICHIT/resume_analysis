@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-07-11 15:26:38
+ * @LastEditTime: 2023-07-13 21:24:07
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
  * @Description: 简历分析页面
 -->
@@ -10,12 +10,18 @@
 <template>
   <div class="box">
     <div class="selector">
+       
       <el-dropdown>
         <el-button
           type="primary"
           color="#8e95f8"
           size="large"
-          style="border-radius: 8px 0px 0px 8px; width: 130px;color: #fff;box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.15);"
+          style="
+            border-radius: 8px 0px 0px 8px;
+            width: 130px;
+            color: #fff;
+            box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.15);
+          "
         >
           {{ state.selectItem[resume.resumeStatus].name
           }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
@@ -42,14 +48,35 @@
           <el-button
             type="primary"
             color="#8e95f8"
-            @click="updateResumeStatus(resume.resumeStatus+1)"
+            @click="updateResumeStatus(resume.resumeStatus + 1)"
             size="large"
-            style="border-radius: 0px 8px 8px 0px; width: 15px;color: #fff;box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.15);"
+            style="
+              border-radius: 0px 8px 8px 0px;
+              width: 15px;
+              color: #fff;
+              box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.15);
+            "
           >
             <el-icon><ArrowRightBold /></el-icon>
           </el-button>
         </template>
       </el-popover>
+      <el-button
+      v-show="resume.resumeStatus === 5"
+      color="#8E95F8"
+      size="large"
+      style="font-weight: bold;color: #fff;margin-left: 39%;"
+      @click="sendEmail"
+      ><el-icon><Position /></el-icon>发送入职邀约</el-button
+    >
+    <el-button
+      v-show="resume.resumeStatus === 3"
+      color="#8E95F8"
+      size="large"
+      style="font-weight: bold;color: #fff;margin-left: 39%;"
+      @click="sendEmail"
+      ><el-icon><Position /></el-icon>发送面试邀约</el-button
+    >
     </div>
     <div class="page animate__animated animate__fadeIn">
       <div class="avatar">
@@ -76,7 +103,7 @@
             <el-icon><Message /></el-icon>
             <span>{{ resume.email }}</span>
             <el-icon><Briefcase /></el-icon>
-            <span> {{userMsg.workYears}}年工作经验</span>
+            <span> {{ userMsg.workYears }}年工作经验</span>
             <img src="..\..\assets\student-icon.png" />
             <span>{{ userMsg.education }}</span>
           </div>
@@ -93,7 +120,11 @@
           label="中文简历"
           name="first"
         >
-          <resume-page :userMsg="userMsg" :showReturn="true" :schoolList="list"></resume-page>
+          <resume-page
+            :userMsg="userMsg"
+            :showReturn="true"
+            :schoolList="list"
+          ></resume-page>
         </el-tab-pane>
         <el-tab-pane
           class="animate__animated animate__slideInRight"
@@ -101,7 +132,9 @@
           label="候选人画像"
           name="second"
         >
-          <ResumePortraitVue :labelProcessing="labelProcessing"></ResumePortraitVue>
+          <ResumePortraitVue
+            :labelProcessing="labelProcessing"
+          ></ResumePortraitVue>
         </el-tab-pane>
         <el-tab-pane
           class="animate__animated animate__slideInRight"
@@ -109,16 +142,16 @@
           label="推荐岗位"
           name="third"
         >
-        <postPage></postPage>
-      </el-tab-pane>
+          <postPage></postPage>
+        </el-tab-pane>
         <el-tab-pane
           class="animate__animated animate__slideInRight"
           :lazy="true"
           label="操作日志"
           name="forth"
         >
-      <Log :logs="logs"></Log>
-      </el-tab-pane>
+          <Log :logs="logs"></Log>
+        </el-tab-pane>
       </el-tabs>
     </div>
     <el-button
@@ -142,8 +175,10 @@ import { useRoute } from "vue-router";
 import { ArrowDown } from "@element-plus/icons-vue";
 import apiFun from "@/utils/api";
 import { ElMessage, ElMessageBox } from "element-plus";
-import Log from "@/components/Log.vue"
-import postPage from '@/components/PostPage.vue'
+import Log from "@/components/Log.vue";
+import postPage from "@/components/PostPage.vue";
+import axios from "axios";
+import { ElNotification } from 'element-plus'
 
 const route = useRoute();
 const query = route.query;
@@ -156,45 +191,45 @@ const state = reactive({
   isVisit: "first",
   selectItem: [
     {
-      value: 1,
+      value: 0,
       name: "投递人选",
-      color:'',
-      userId:''
+      color: "",
+      userId: "",
     },
     {
       value: 1,
       name: "简历推荐",
-      color:'',
-      userId:''
+      color: "",
+      userId: "",
     },
-     {
-       value: 2,
-       name: "笔试阶段",
-     },
-     {
-       value: 3,
-       name: "面试阶段",
-     },
-     {
-       value: 4,
-       name: "轮岗",
-     },
-     {
-       value: 5,
-       name: "offer阶段",
-     },
-     {
-       value: 6,
-       name: "入职",
-     },
-     {
-       value: 7,
-       name: "已转正",
-     },
-     {  
-       value: 8,
-       name: "淘汰",
-     },
+    {
+      value: 2,
+      name: "笔试阶段",
+    },
+    {
+      value: 3,
+      name: "面试阶段",
+    },
+    {
+      value: 4,
+      name: "轮岗",
+    },
+    {
+      value: 5,
+      name: "offer阶段",
+    },
+    {
+      value: 6,
+      name: "入职",
+    },
+    {
+      value: 7,
+      name: "已转正",
+    },
+    {
+      value: 8,
+      name: "淘汰",
+    },
   ],
   resumeState: 0,
 });
@@ -330,7 +365,7 @@ const userMsg = ref({
     jobTags: ["副总监", "市场及运营总监", "市场营销", "市场副总监"],
   },
 });
-const list = ref([])
+const list = ref([]);
 const labelProcessing = ref({
   backgroundIndustry: {
     administration: 15,
@@ -401,46 +436,77 @@ const labelProcessing = ref({
   ],
 });
 
-const logs = ref([])
+const logs = ref([
+  {
+    id: 1,
+    action: '应聘人状态修改',
+    detail: "从投递人选切换至简历推荐",
+    time: "2023-07-08 17:11:46",
+    resumeId: 22,
+  },
+  {
+    id: 2,
+    action: '应聘人状态修改',
+    detail: "从简历推荐切换至笔试阶段",
+    time: "2023-07-09 19:24:58",
+    resumeId: 22,
+  },
+  {
+    id: 3,
+    action: '应聘人状态修改',
+    detail: "从笔试阶段切换至面试阶段",
+    time: "2023-07-11 22:23:38",
+    resumeId: 22,
+  },
+  {
+    id: 4,
+    action: '发送面试邀约',
+    detail: "从笔试阶段切换至面试阶段",
+    time: "2023-07-11 22:23:45",
+    resumeId: 22,
+  },
+
+]);
 onMounted(() => {
-   apiFun.process.flowPathNotOrder().then(res=>{
-     state.selectItem=res.data
-   })
-  
-  console.log(resumeId)
-   apiFun.resume.analysis(resumeId).then(res=>{
-    console.log(res.data)
-    resume.value=res.data 
-    labelProcessing.value = JSON.parse(resume.value.labelProcessing)
+  // apiFun.process.flowPathNotOrder().then((res) => {
+  //   state.selectItem = res.data;
+  // });
+
+  // axios.get(`http://192.168.50.237:5555/log/${resumeId}`).then((res) => {
+  //   console.log(res.data);
+  // });
+
+  console.log(resumeId);
+  apiFun.resume.analysis(resumeId).then((res) => {
+    console.log(res.data);
+    resume.value = res.data;
+    labelProcessing.value = JSON.parse(resume.value.labelProcessing);
     for (let key in labelProcessing.value.backgroundIndustry) {
-  if (labelProcessing.value.backgroundIndustry[key] < 8) {
-    labelProcessing.value.backgroundIndustry[key] = 8;
-  }
-}
-   userMsg.value = JSON.parse(resume.value.content)
-   })
-
-   apiFun.log.getLogById(resumeId).then(res=>{
-    logs.value = res.data
-   })
-
-   apiFun.resume.graph(resumeId).then(res=>{
-        console.log(res.data)
-        list.value = res.data.schoolVoList
-  })
+      if (labelProcessing.value.backgroundIndustry[key] < 8) {
+        labelProcessing.value.backgroundIndustry[key] = 8;
+      }
+    }
+    userMsg.value = JSON.parse(resume.value.content);
+  });
+  apiFun.resume.graph(resumeId).then((res) => {
+    console.log(res.data);
+    list.value = res.data.schoolVoList;
+  });
 });
 const updateResumeStatus = (value) => {
-  if(value>8) value=0
-  ElMessageBox.confirm('确定修改该简历状态吗？')
-  .then(()=>{
-    apiFun.process.updateStatus(resumeId,value).then(res=>{
-     resume.value.resumeStatus = value
-      ElMessage.success('修改成功！')
+  if (value > 8) value = 0;
+  ElMessageBox.confirm("确定修改该简历状态吗？")
+    .then(() => {
+      console.log(value)
+      resume.value.resumeStatus = value;
+      // apiFun.process.updateStatus(resumeId, value).then((res) => {
+        
+      //   console.log(resume.value.resumeStatus)
+      open1()
+      // });
     })
-   
-  })
-  .catch(()=>{})
-}
+    .catch(() => {});
+};
 function handleCommand(command) {
   state.selectItem = command;
 }
@@ -449,6 +515,28 @@ const returnNextState = () => {
   state.resumeState++;
   console.log(state.content);
 };
+
+const open = () => {
+  ElNotification({
+    title: "发送邀约成功",
+    type: "success",
+  });
+};
+const open1 = () => {
+  ElNotification({
+    title: "修改状态成功",
+    type: "success",
+  });
+};
+
+const sendEmail = ()  => {
+  ElMessageBox.confirm("确定对该候选人发送邀约吗？")
+    .then(() => {
+      open()
+    })
+    .catch(() => {});
+}
+
 
 const handleClick = (tab, event) => {};
 </script>

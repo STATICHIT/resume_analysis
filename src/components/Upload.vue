@@ -186,7 +186,7 @@ let uploadFile = (file) => {
     formData.append("file", file);
     console.log(formData);
     axios
-      .post("http://192.168.50.159:5555/resume/upload", formData, {
+      .post("http://192.168.83.9:5555/resume/upload", formData, {
         headers: header,
       })
       .then((res) => {
