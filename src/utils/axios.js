@@ -1,8 +1,8 @@
 /*
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:07
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-13 22:53:13
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-07-11 22:00:43
  * @FilePath: \resume_analysis\src\utils\axios.js
  * @Description: 封装请求
  */

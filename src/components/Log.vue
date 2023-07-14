@@ -5,8 +5,8 @@
       class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2"
       style="padding: 30px 80px"
     >
-      <ul class="timeline" v-for="(item, i) in logs" :key="i">
-        <li class="timeline-item">
+      <ul class="timeline">
+        <li class="timeline-item" v-for="(item, i) in getReverse" :key="i">
           <div>
             <span>{{ item.time }}</span>
           </div>
@@ -26,11 +26,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import apiFun from "@/utils/api";
+import { computed, onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 const props = defineProps({
   logs:{
     type:Array,
-    default:[{
+    default:()=>[{
     time: "2023年6月18日 22点17分",
     action: "发送面试邀约",
     detail:
@@ -69,6 +71,17 @@ const props = defineProps({
   }
 });
 
+const getReverse = computed(()=>{
+  return [...props.logs].reverse();
+})
+
+const getAction = computed(()=>{
+  return()=>{
+  if(item.action===1) return "应聘人状态修改"
+  else if(item.action===2) return "发送面试邀约";
+  else return "发送入职邀约"
+  }
+})
 
 </script>
 
@@ -91,7 +104,7 @@ const props = defineProps({
   display: block;
   height: 15px;
   position: absolute;
-  top: 4px;
+  top: 0px;
   left: 0;
   width: 15px;
 }
@@ -102,9 +115,9 @@ const props = defineProps({
   background: #ccd5db;
   display: block;
   position: absolute;
-  top: 24px;
+  top: 20px;
   bottom: 0;
-  left: 6px;
+  left: 9px;
 }
 
 .timeline-content {

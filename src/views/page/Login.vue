@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-05-23 19:43:35
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-08 19:40:38
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-07-13 20:51:37
  * @FilePath: \resume_analysis\src\views\page\Login.vue
  * @Description: 登录注册
 -->
@@ -87,31 +87,31 @@ let change = () => {
 };
 let login = () => {
   // 登录
-  if (username.value == "" || password.value == "") {
-    ElMessage.error("账号或密码不能为空");
-  } else {
-    apiFun.user
-      .login({
-        username: username.value,
-        password: password.value,
-      })
-      .then((res) => {
-        console.log(res);
-        // var token = res.data.token;
-        // localStorage.setItem("token", token);
-        // //解析token
-        // const decode = jwt_decode(token);
-        // console.log("token解析内容", decode); //decode是一个对象
-        // //把解析后的token内容放进store中
-        // useStore.id = decode.id;
-        // useStore.username = decode.username;
-        // useStore.token = token;
-        // let admin = res.data.admin
-        // console.log(admin)
+  // if (username.value == "" || password.value == "") {
+  //   ElMessage.error("账号或密码不能为空");
+  // } else {
+  //   apiFun.user
+  //     .login({
+  //       username: username.value,
+  //       password: password.value,
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //       // var token = res.data.token;
+  //       // localStorage.setItem("token", token);
+  //       // //解析token
+  //       // const decode = jwt_decode(token);
+  //       // console.log("token解析内容", decode); //decode是一个对象
+  //       // //把解析后的token内容放进store中
+  //       // useStore.id = decode.id;
+  //       // useStore.username = decode.username;
+  //       // useStore.token = token;
+  //       // let admin = res.data.admin
+  //       // console.log(admin)
         ElMessage.success("登录成功");
-        router.push({ path: "/main" }); //跳转到主页面
-      });
-  }
+        router.push({ path: "/mainPage" }); //跳转到主页面
+  //     });`
+  // }`
 };
 
 let register = () => {

@@ -165,14 +165,7 @@ const header = {
   Authorization:
     "eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o",
 };
-//上传文件
-let uploadFile = (file) => {
-  // updateTableData(file.id, {
-  //   status: 5,
-  //   percent: 100,
-  // });
 
-};
 //上传文件!!
 // let uploadFile = (file) => {
 //   console.log(file);
@@ -245,6 +238,46 @@ let uploadFile = (file) => {
 //       });
 //   });
 // };
+
+let uploadFile = (file) => {
+  return new Promise((resolve, reject) => {
+    console.log(file);
+    updateTableData(file.id, {
+      status: 2,
+      percent: 0,
+    });
+    const formData = new FormData();
+    formData.append("file", file);
+    console.log(formData);
+    axios
+      .post("http://192.168.83.9:5555/resume/upload", formData, {
+        headers: header,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.code === 200) {
+          updateTableData(file.id, {
+            percent: 100,
+          });
+          setTimeout(() => {
+            // 定时器回调函数中重新启用按钮
+            updateTableData(file.id, {
+              status: 5, // 已上传
+            });
+            resolve(); // 上传成功，将Promise标记为成功
+          }, 500);
+        } else {
+          updateTableData(file.id, {
+            status: 4, // 上传失败
+          });
+          reject(new Error("上传失败")); // 上传失败，将Promise标记为失败，可以传递错误对象或错误信息
+        }
+      })
+      .catch((error) => {
+        reject(error); // 捕获到错误，将Promise标记为失败，可以将错误对象传递给reject
+      });
+  });
+};
 
 //点击【开始分析】按钮
 let analysis = () => {
