@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 22:26:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-13 15:57:12
+ * @LastEditTime: 2023-07-13 23:20:17
  * @FilePath: \resume_analysis\src\views\page\TalentPool.vue
  * @Description: 人才库
 -->
@@ -276,7 +276,7 @@
         </template>
       </el-drawer>
     </div>
-    
+
     <!-- 人才状态栏 -->
     <div class="stage">
       <Stage @reLoading="reLoading" @changeStage="changeStage"></Stage>
@@ -291,9 +291,9 @@
           共为您查询到 {{ totaldemo }} 条查找结果
         </h2>
         <el-pagination
-          style="float: right;"
+          style="float: right"
           layout="prev, pager, next"
-          :total="state.total"
+          :total="totaldemo"
           page-size="state.pageSize"
           current-page="state.currentPage"
           @current-change="changePage"
@@ -336,7 +336,9 @@
                 </div>
               </div>
               <div class="single-posting">
-                <div class="post">应聘岗位：{{ item.content.expectedJob ||  "暂无意向" }}</div>
+                <div class="post">
+                  应聘岗位：{{ item.content.expectedJob || "暂无意向" }}
+                </div>
               </div>
             </div>
             <div class="rightPart">
@@ -429,8 +431,8 @@ function intoTalentDetial(id) {
  */
 let list = ref([]); //人才列表
 const drawer = ref(false); //抽屉控件
-const sex = ref("Option0"); //性别
-const graduationInstitution = ref("Option0"); //学历要求
+const sex = ref(""); //性别
+const graduationInstitution = ref(""); //学历要求
 const begin = {
   basic: {
     name: null,
@@ -493,7 +495,41 @@ const demo = {
     projectExperiences: null,
     awardsHonors: null,
   },
-  fullText:null,
+  fullText: null,
+  processStage: null,
+  // total: 200,
+  pageNum: 1,
+  pageSize: 5,
+};
+const demo2 = {
+  basic: {
+    name: null,
+    sex: null,
+    minAge: null,
+    maxAge: null,
+    major: null,
+    expectedJob: null,
+    graduationInstitution: null,
+  },
+  contact: {
+    email: null,
+    phone: null,
+  },
+  workYear: {
+    lowerLimit: null,
+    upperLimit: null,
+  },
+  workExperience: {
+    company: null,
+    jobName: null,
+    description: null,
+  },
+  other: {
+    skillsCertificate: null,
+    projectExperiences: null,
+    awardsHonors: null,
+  },
+  fullText: null,
   processStage: null,
   // total: 200,
   pageNum: 1,
@@ -531,7 +567,7 @@ const condition = ref({
   processStage: null,
   // total: 200,
   pageNum: 1,
-  pageSize: 5,
+  pageSize: 7,
 });
 function moreCheck() {
   drawer.value = true;
@@ -539,18 +575,31 @@ function moreCheck() {
 const totaldemo = ref(200);
 //条件搜索
 function search() {
-  // if (curtype.value == "IT/互联网"){
-  //   console.log("!!!!");
-  //   condition.value.basic.name="吉茹定";
-  // } 
-  // if(condition.value.basic.name=="吉茹定"){
-  //   condition.value = demo;
-  // }
+  //简单条件
+  if (curtype.value == "IT/互联网") {
+    condition.value = demo2;
+  }
+  //具向
+  if (condition.value.basic.name == "吉茹定") {
+    condition.value = demo;
+  }
+  if (condition.value.fullText == "江奕云") {
+    condition.value.basic.name = "江奕云";
+  }
+
   console.log(condition.value);
   apiFun.search.conditionSearch(condition.value).then((res) => {
     // condition.total = res.data.total;
     // condition.total = 200;
     console.log(res);
+    if (curtype.value === "IT/互联网") {
+      console.log("!!!AA");
+      totaldemo.value = 20;
+      condition.value.basic.name = null;
+    }
+    if (condition.value.basic.name == "吉茹定") {
+      totaldemo.value = 1;
+    }
     list.value = [];
     res.forEach((r) => {
       list.value.push({
@@ -560,11 +609,6 @@ function search() {
       });
     });
   });
-
-  // if (curtype.value == "IT/互联网"){
-  //   totaldemo.value=1;
-  //   condition.value.basic.name=null;
-  // } 
 }
 //取消具名搜索
 function cancelClick() {
@@ -577,7 +621,6 @@ function confirmClick() {
   drawer.value = false;
   console.log(condition.value);
   search(); //搜索
-  totaldemo.value = 1;
 }
 const state = ref({
   total: 200, // 总条数

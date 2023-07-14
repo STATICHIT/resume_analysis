@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:14
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-05 16:53:18
+ * @LastEditTime: 2023-07-13 23:36:32
  * @FilePath: \resume_analysis\src\views\main\Body.vue
  * @Description: 主页身体组件
 -->
@@ -27,7 +27,7 @@
         alt=""
       />
       <img class="img2" src="https://www.xiaoxizn.com/home/ai-min.png" alt="" />
-      <h2 class="board2Title">功能介绍</h2>
+      <h2 class="board2Title">主要功能介绍</h2>
       <h4 class="littleTitle2">Function introduction</h4>
       <FlexCards></FlexCards>
     </div>

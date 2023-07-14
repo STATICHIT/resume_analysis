@@ -2,14 +2,14 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 20:45:43
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-10 16:32:32
+ * @LastEditTime: 2023-07-13 22:33:12
  * @FilePath: \resume_analysis\src\components\Upload.vue
  * @Description: 简历分析上传组件
 -->
 
 <template>
   <div>
-    <div class="myUpload">
+    <div class="myUpload" v-loading.lock="fullscreenLoading1">
       <el-upload
         class="upload-demo"
         drag
@@ -46,7 +46,7 @@
         </el-table-column>
         <el-table-column label="状态">
           <template v-slot="scope">
-            <span v-if="scope.row.status === 1">已准备上传</span>
+            <span v-if="scope.row.status === 1">已上传</span>
             <span v-if="scope.row.status === 4" style="color: brown"
               >上传失败</span
             >
@@ -93,6 +93,29 @@ import axios from "axios";
 import { ElNotification } from "element-plus";
 const autoadd = ref(true); //自动纳入人才库
 const tableData = ref([]); //上传列表
+const tableDataDemo = ref([
+  {
+    name:"DOCX文档格式简历1.docx",
+    size:"265.43 KB",
+    status:1,
+  },
+  {
+    name:"DOCX文档格式简历2.docx",
+    size:"774.03 KB",
+    status:1,
+  },
+  {
+    name:"PDF格式简历.pdf",
+    size:"272.06 KB",
+    status:1,
+  },
+  {
+    name:"图片简历应聘电子工程师岗位简历模板.jpg",
+    size:"304.37 KB",
+    status:1,
+  }
+]); //上传列表
+const fullscreenLoading1=ref(false);
 //文件上传调用的方法
 let beforeUpload = (file) => {
   addFile(file);
@@ -140,9 +163,17 @@ let deleteFile = (id) => {
 const header = {
   "Content-Type": "application/json;charset=UTF-8",
   Authorization:
-    "eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_oeyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o",
+    "eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o",
 };
 //上传文件
+let uploadFile = (file) => {
+  // updateTableData(file.id, {
+  //   status: 5,
+  //   percent: 100,
+  // });
+
+};
+//上传文件!!
 // let uploadFile = (file) => {
 //   console.log(file);
 //   updateTableData(file.id, {
@@ -152,13 +183,13 @@ const header = {
 //   const formData = new FormData();
 //   formData.append("file", file);
 //   console.log(formData);
-//   axios
-//     .post("http://192.168.50.159:5555/resume/upload", formData, {
-//       headers: header,
-//     })
-//     .then((res) => {
-//       console.log(res);
-//       if (res.data.code === 200) {
+//   // axios
+//   //   .post("http://192.168.83.83:5555/resume/upload", formData, {
+//   //     headers: header,
+//   //   })
+//   //   .then((res) => {
+//   //     console.log(res);
+//       // if (res.data.code === 200) {
 //         updateTableData(file.id, {
 //           percent: 100,
 //         });
@@ -168,77 +199,86 @@ const header = {
 //             status: 5, // 已上传
 //           });
 //         }, 500);
-//       } else {
+//       // } else {
 //         updateTableData(file.id, {
 //           status: 4, // 上传失败
 //         });
-//       }
-//     });
+//       // }
+//     // });
 // };
-let uploadFile = (file) => {
-  return new Promise((resolve, reject) => {
-    console.log(file);
-    updateTableData(file.id, {
-      status: 2,
-      percent: 0,
-    });
-    const formData = new FormData();
-    formData.append("file", file);
-    console.log(formData);
-    axios
-      .post("http://192.168.50.159:5555/resume/upload", formData, {
-        headers: header,
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.data.code === 200) {
-          updateTableData(file.id, {
-            percent: 100,
-          });
-          setTimeout(() => {
-            // 定时器回调函数中重新启用按钮
-            updateTableData(file.id, {
-              status: 5, // 已上传
-            });
-            resolve(); // 上传成功，将Promise标记为成功
-          }, 500);
-        } else {
-          updateTableData(file.id, {
-            status: 4, // 上传失败
-          });
-          reject(new Error("上传失败")); // 上传失败，将Promise标记为失败，可以传递错误对象或错误信息
-        }
-      })
-      .catch((error) => {
-        reject(error); // 捕获到错误，将Promise标记为失败，可以将错误对象传递给reject
-      });
-  });
-};
+// let uploadFile = (file) => {
+//   return new Promise((resolve, reject) => {
+//     console.log(file);
+//     updateTableData(file.id, {
+//       status: 2,
+//       percent: 0,
+//     });
+//     const formData = new FormData();
+//     formData.append("file", file);
+//     console.log(formData);
+//     axios
+//       .post("http://192.168.83.83:5555/resume/upload", formData, {
+//         headers: header,
+//       })
+//       .then((res) => {
+//         console.log(res);
+//         if (res.data.code === 200) {
+//           updateTableData(file.id, {
+//             percent: 100,
+//           });
+//           setTimeout(() => {
+//             // 定时器回调函数中重新启用按钮
+//             updateTableData(file.id, {
+//               status: 5, // 已上传
+//             });
+//             resolve(); // 上传成功，将Promise标记为成功
+//           }, 500);
+//         } else {
+//           updateTableData(file.id, {
+//             status: 4, // 上传失败
+//           });
+//           reject(new Error("上传失败")); // 上传失败，将Promise标记为失败，可以传递错误对象或错误信息
+//         }
+//       })
+//       .catch((error) => {
+//         reject(error); // 捕获到错误，将Promise标记为失败，可以将错误对象传递给reject
+//       });
+//   });
+// };
 
 //点击【开始分析】按钮
-// let analysis = () => {
-//   console.log("*******点击了开始分析按钮"); //输出测试
-//   tableData.value
-//     .forEach((f) => {
-//       if (f.status === 1) {
-//         const file = f.file; //获取到该列指向的文件本身
-//         uploadFile(file);
-//       }
-//     })
-//     .then(() => {
-//       open();
-//     });
-// };
-let analysis = async () => {
-  console.log("*******点击了开始分析按钮"); // 输出测试
-  for (const f of tableData.value) {
-    if (f.status === 1) {
-      const file = f.file; // 获取到该列指向的文件本身
-      await uploadFile(file); // 等待uploadFile方法执行完成
-    }
-  }
-  open(); // 遍历操作完成后执行open方法
+let analysis = () => {
+  console.log("*******点击了开始分析按钮"); //输出测试
+  // tableData.value.forEach((f) => {
+  //   if (f.status === 1) {
+  //     const file = f.file; //获取到该列指向的文件本身
+  //     // uploadFile(file);
+  //   }
+  // });
+  // tableDataDemo.value.forEach((f) => {
+
+  // })
+
+  setTimeout(function() {
+    fullscreenLoading1.value=true;
+  },500)
+  
+  setTimeout(function() {
+  open();
+  fullscreenLoading1.value=false;
+}, 2000);
+  
+  
 };
+// let analysis = async () => {
+//   console.log("*******点击了开始分析按钮"); // 输出测试
+//   for (const f of tableData.value) {
+//     if (f.status === 1) {
+//       const file = f.file; // 获取到该列指向的文件本身
+//       await uploadFile(file); // 等待uploadFile方法执行完成
+//     }
+//   }
+// };
 
 const open = () => {
   ElNotification({

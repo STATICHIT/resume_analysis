@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-21 21:03:37
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-05 15:12:59
+ * @LastEditTime: 2023-07-13 23:36:14
  * @FilePath: \resume_analysis\src\components\FlexCards.vue
  * @Description: 介绍卡片
 -->
@@ -60,10 +60,10 @@ const options = ref([
     background:
       "url(https://pic4.zhimg.com/80/v2-c5880f5a6d44766feb085c3ae94899c7_720w.webp)",
     icon: "fas fa-tree",
-    main: "人岗匹配",
+    main: "双向人岗匹配",
     sub: "Omuke trughte a otufta",
     active: false,
-    sign: "自动快速，精准匹配最合适的岗位人选。",
+    sign: "通过综合分析候选人和岗位的信息，进行双向的匹配，帮助企业快速找到最合适的候选人或岗位。",
   },
   {
     background:
@@ -72,7 +72,7 @@ const options = ref([
     main: "人才库",
     sub: "Omuke trughte a otufta",
     active: false,
-    sign: "企业经过标签筛选以及搜索和评分更有效的定位最符合要求的候选人列表。",
+    sign: "集中管理和存储招聘过程中收集的候选人信息，方便企业进行人才搜索、筛选和匹配。",
   },
   {
     background:
@@ -81,7 +81,16 @@ const options = ref([
     main: "岗位分析",
     sub: "Omuke trughte a otufta",
     active: false,
-    sign: "利用机器阅读理解技术自动解析岗位要求，岗位诱惑，公司介绍等主要信息，并生成标准岗位画像标签。",
+    sign: "分析岗位需求和职责，并生成相应的岗位描述和要求，为招聘流程提供指导和参考。",
+  },
+  {
+    background:
+    "url(https://pic1.zhimg.com/v2-1efe80bc7c4b00e9aa6eb8d98423737f_1440w.jpg?source=172ae18b)",
+    icon: "fas fa-snowflake",
+    main: "知识图谱",
+    sub: "Omuke trughte a otufta",
+    active: false,
+    sign: "构建了招聘领域的知识库，提供企业、院校、技能、职能和行业等实体信息，辅助招聘流程中的决策和分析。",
   },
 ]);
 
