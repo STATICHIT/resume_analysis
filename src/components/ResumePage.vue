@@ -2,15 +2,16 @@
 <template>
   <div>
     <div v-show="isVisited" class="container">
-      <el-button
+
+      <div>
+        <span class="title">基本信息</span>     
+         <el-button
         type="success"
         class="return"
         @click="lookJson"
         v-show="showReturn"
         >查看返回数据</el-button
       >
-      <div>
-        <span class="title">基本信息</span>
         <ul class="ul-list">
           <li><span>姓名：</span>{{ userMsg.name }}</li>
           <li><span>邮箱：</span>{{ userMsg.mailBox }}</li>
@@ -21,9 +22,9 @@
           <li><span>年龄：</span>{{ userMsg.age ? userMsg.age:24 }}</li>
           <li><span>出生年月：</span>{{ userMsg.dateOfBirth }}</li>
         </ul>
-        <!-- <div v-show="showTags" class="same-tags">姓名相同</div> -->
+        <div v-show="showTags" class="same-tags">姓名相同</div>
       </div>
-      <div v-show="!showText">
+      <div>
         <span class="title">教育背景</span>
         <div class="education">
           <div style="display: flex; flex-direction: row">
@@ -93,21 +94,7 @@
         </div>
         <div v-show="showTags" class="same-tags">教育背景相似</div>
       </div>
-      <div v-show="showText" style="color: rgb(219, 0, 0);">
-        <span class="title">教育背景</span>
-        <div class="education">
-          <div style="display: flex; flex-direction: row">
-            <span class="m-2">{{ userMsg.graduationInstitution }}</span>
-          </div>
-          <ul>
-            <li style="color:rgb(219, 0, 0)"><span>学位：</span>{{ userMsg.education }}</li>
-            <li style="color:rgb(219, 0, 0)"><span>专业：</span>{{ userMsg.major }}</li>
-            <li style="color:rgb(219, 0, 0)"><span>学校名：</span>{{ userMsg.graduationInstitution }}</li>
-          </ul>
-        </div>
-        <div v-show="showTags" class="same-tags">教育背景相似</div>
-      </div>
-      <div v-show="!showText">
+      <div>
         <span class="title">工作经历</span>
         <div v-for="(item, index) in userMsg.workExperiences" :key="index">
           <span class="m-2">{{ item.companyName }}</span>
@@ -125,110 +112,7 @@
         </div>
         <div v-show="showTags" class="same-tags">工作经历相似</div>
       </div>
-      <div v-show="showText">
-        <span class="title">工作经历</span>
-        <div  v-show="!showTags" style="color: rgb(219, 0, 0);">
-          <span class="m-2">锦伟控股集团</span>
-          <ul>
-            <li><span>开始时间：</span>2015.12</li>
-            <li style="color: rgb(219, 0, 0);"><span>结束时间：</span>至今</li>
-            <!-- <li><span>地点：</span>湘西土家族苗族自治州</li> -->
-            <li style="color: rgb(219, 0, 0);"><span>公司名：</span>锦伟控股集团</li>
-            <li style="color: rgb(219, 0, 0);"><span>职位名称：</span>副总监</li>
-            <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;">
-              <span>工作描述：</span>
-              <span style="color: rgb(219, 0, 0);"> l 负责协助集团旗下事业部开展各项工作，制定品牌传播方案；<br/></span>
-              <span style="color: rgb(219, 0, 0);">l 结合集团与事业部发展，制定营销策略、广告策略、品牌策略和公关策略，并组织推进执行；<br/></span>
-              <span style="color: rgb(219, 0, 0);">l 制定和执行媒体投放计划，跟踪和监督媒体投放效果，进行数据分析与撰写报告；<br/></span>
-              <span style="color: rgb(219, 0, 0);">l 研究行业发展动态，定期进行市场调查,为产品更新提供建议。<br/></span>
-            </li>
-          </ul>
-        </div>
-        <div v-show="!showTags" style="color: rgb(219, 0, 0);">
-          <span class="m-2">欧成有限公司</span>
-          <ul>
-            <li><span>开始时间：</span>2013.12</li>
-            <li><span>结束时间：</span>2015.12</li>
-            <!-- <li><span>地点：</span>湘西土家族苗族自治州</li> -->
-            <li style="color: rgb(219, 0, 0);"><span>公司名：</span>欧成有限公司</li>
-            <li style="color: rgb(219, 0, 0);"><span>职位名称：</span>市场及运营总监</li>
-            <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;">
-              <span>工作描述：</span>
-              <span>l 负责协助集团旗下事业部开展各项工作，制定品牌传播方案；<br /></span>
-              <span> l 结合集团与事业部发展，制定营销策略、广告策略、品牌策略和公关策略，并组织推进执行；<br /></span>
-              <span> l 制定和执行媒体投放计划，跟踪和监督媒体投放效果，进行数据分析与撰写报告；<br /></span>
-              <span style="color: rgb(219, 0, 0);"> l 研究行业发展动态，定期进行市场调查,为产品更新提供建议。<br /></span>
-              <span> l 根据公司发展情况进行战略调整，配合前端销售部门搭建销售渠道；<br /></span>
-              <span style="color: rgb(219, 0, 0);">l 负责公司部门(营运、品牌策划)制度规范，负责组织及监管市场部关于对外合作、推广策划以相关工作的落实。<br /></span>
-                          </li>
-          </ul>
-        </div>
-        <div v-show="showTags" style="color: rgb(219, 0, 0);">
-          <span class="m-2">锦伟控股集团</span>
-          <ul>
-            <li><span>开始时间：</span>2016.11</li>
-            <li style="color: rgb(219, 0, 0);"><span>结束时间：</span>至今</li>
-            <!-- <li><span>地点：</span>湘西土家族苗族自治州</li> -->
-            <li style="color: rgb(219, 0, 0);"><span>公司名：</span>锦伟控股集团</li>
-            <li style="color: rgb(219, 0, 0);"><span>职位名称：</span>副总监</li>
-            <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;">
-              <span>工作描述：</span>
-              <span style="color: rgb(219, 0, 0);"> l 负责协助集团旗下事业部开展各项工作，制定品牌传播方案；<br/></span>
-              <span>| 负责公司品牌形象和价值提升的持续优化，提高品牌知名度；<br /></span>
-              <span style="color: rgb(219, 0, 0);">l 结合集团与事业部发展，制定营销策略、广告策略、品牌策略和公关策略，并组织推进执行；<br/></span>
-              <span style="color: rgb(219, 0, 0);">l 制定和执行媒体投放计划，跟踪和监督媒体投放效果，进行数据分析与撰写报告；<br/></span>             
-              <span style="color: rgb(219, 0, 0);">l 研究行业发展动态，定期进行市场调查,为产品更新提供建议。<br/></span>
-              
-            </li>
-          </ul>
-        </div>
-        <div v-show="showTags" style="color: rgb(219, 0, 0);">
-          <span class="m-2">欧成有限公司</span>
-          <ul>
-            <li><span>开始时间：</span>2013.12</li>
-            <li><span>结束时间：</span>2016.11</li>
-            <!-- <li><span>地点：</span>湘西土家族苗族自治州</li> -->
-            <li style="color: rgb(219, 0, 0);"><span>公司名：</span>欧成有限公司</li>
-            <li style="color: rgb(219, 0, 0);"><span>职位名称：</span>市场及运营总监</li>
-            <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;">
-              <span>工作描述：</span>
-              <span>l 负责公司品牌形象和价值提升的持续优化，提高品牌知名度；<br /></span>
-              <span style="color: rgb(219, 0, 0);"> l 研究行业发展动态，定期进行市场调查,为产品更新提供建议。<br /></span>
-              <span style="color: rgb(219, 0, 0);"> 负责公司部门(营运、品牌策划)制度规范，负责组织及监管市场部关于对外合作、渠道管理、媒体合作、推广策划以相关工作的落实。<br /></span>
-            </li>
-          </ul>
-        </div>
-        <!-- <div style="color: rgb(219, 0, 0);" v-for="(item, index) in userMsg.workExperiences" :key="index">
-          <span class="m-2">{{ item.companyName }}</span>
-          <ul>
-            <li><span>开始时间：</span>{{ item.startTime }}</li>
-            <li><span>结束时间：</span>{{ item.endTime }}</li>
-            <li style="color: rgb(219, 0, 0);"><span>公司名：</span>{{ item.companyName }}</li>
-            <li style="color: rgb(219, 0, 0);"><span>职位名称：</span>{{ item.jobName }}</li>
-            <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;">
-              {{ item.workExperiences }}
-            </li>
-          </ul>
-        </div> -->
-        <div v-show="!showTags">
-          <span class="m-2">宇翰俱乐部</span>
-          <ul>
-            <li><span>开始时间：</span>2013.12</li>
-            <li><span>结束时间：</span>2015.12</li>
-            <!-- <li><span>地点：</span>湘西土家族苗族自治州</li> -->
-            <li><span>公司名：</span>宇翰俱乐部</li>
-            <li><span>职位名称：</span>总监</li>
-            <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;">
-              <span>工作描述：</span>
-              l 负责事业部产品对外推广和宣传，制定各种整合营销的活动；<br/>
-l 执行媒体投放计划，跟踪和监督媒体投放效果，进行数据分析撰写报告；<br/>
-l 向市场总监提供营销支持，并协助相关的公关事宜。<br/>
-            </li>
-          </ul>
-        </div>
-        <div v-show="showTags" class="same-tags">工作经历相似</div>
-      </div>
-      <div v-show="!showText">
+      <div>
         <span class="title">项目经历</span>
         <span
           style="
@@ -239,32 +123,7 @@ l 向市场总监提供营销支持，并协助相关的公关事宜。<br/>
           "
           >{{ userMsg.projectExperiences }}</span
         >
-      </div>
-       <div v-show="showText">
         <div v-show="showTags" class="same-tags">项目经历相似</div>
-        <span class="title">项目经历</span>
-        <span
-          style="
-            font-size: 15px;
-            color: #232323;
-            font-weight: lighter;
-            white-space: pre-line;
-          "
-          v-show="!showTags" 
-          >宇翰集团品牌升级发布会</span
-        > <span
-          style="
-            font-size: 15px;
-            color: #232323;
-            font-weight: lighter;
-            white-space: pre-line;
-          "
-          v-show="showTags" 
-          >华拓科技有限公司品牌升级发布会</span
-        >
-        <span style="white-space: pre-line;
-            font-weight: lighter;
-        font-size: 15px;color: red;">{{str}}</span>
       </div>
       <div>
         <span class="title" style="margin-top: 30px">补充信息</span>

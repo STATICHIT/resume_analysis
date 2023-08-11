@@ -12,7 +12,7 @@
           </div>
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <h3 class="timeline-title">{{ item.action }}</h3>
+            <h3 class="timeline-title">{{ logStatus[item.action-1].value }}</h3>
             <div>
               <p>
                 {{ item.detail }}
@@ -71,6 +71,25 @@ const props = defineProps({
   }
 });
 
+const logStatus = ref([
+  {
+    key:1,
+    value:'应聘人状态修改'
+  },
+  {
+    key:2,
+    value:'发送面试邀约'
+  },
+  {
+    key:3,
+    value:'发送入职邀约'    
+  },
+  {
+    key:4,
+    value:'面评'
+  }
+]
+)
 const getReverse = computed(()=>{
   return [...props.logs].reverse();
 })

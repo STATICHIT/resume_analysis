@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-07-03 21:52:10
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-11 19:45:52
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-08-11 21:31:33
  * @FilePath: \resume_analysis\src\components\Invitation.vue
  * @Description: 自定义
 -->
@@ -58,8 +58,7 @@
               <span style="margin-left: 700px"><b>2023年7月5日</b></span>
               <br />
               <span style="margin-left: 700px"
-                ><b>字节跳动服务有限公司</b></span
-              >
+                ><b>腾达科技服务有限公司</b></span>
             </span>
             <span style="color: rgb(148, 147, 147)"
               >tip：加粗部分在邮件发出时将由系统自动配置</span
@@ -90,7 +89,7 @@
             >
               <h4>亲爱的 李明：</h4>
               <br />
-              跨越山海，终于找到最优秀的你!恭喜你以出色的表现通过了所有面试，现在我们非常荣幸地邀请你加入字节跳动大家庭。多元业务，等你飞奔疾驰;广阔舞台，待你大展身手。未来，我们一起成长，一起更好!
+              跨越山海，终于找到最优秀的你!恭喜你以出色的表现通过了所有面试，现在我们非常荣幸地邀请你加入腾达科技大家庭。多元业务，等你飞奔疾驰;广阔舞台，待你大展身手。未来，我们一起成长，一起更好!
               <br /><br />
               <h3>职位：后台开发</h3>
               <br />
@@ -105,7 +104,7 @@
               <span style="margin-left: 700px"><b>2023年7月5日</b></span>
               <br />
               <span style="margin-left: 700px"
-                ><b>字节跳动 人力资源平台</b></span
+                ><b>腾达科技 人力资源平台</b></span
               >
             </span>
             <span style="color: rgb(148, 147, 147)"
@@ -239,7 +238,7 @@ const activeName = ref("1");
 
 const form = ref({
   time: "2023年7月4日 21点27分",
-  area: "北京字节跳动科技园",
+  area: "北京腾达科技有限公司",
   type: "线下面试",
   data: "1份个人简历、身份证、签字笔",
   contact: "Cherry 188********（微信同号）",

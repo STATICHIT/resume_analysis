@@ -1,8 +1,8 @@
 /*
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:07
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-11 17:13:25
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-08-11 21:29:14
  * @FilePath: \resume_analysis\src\utils\axios.js
  * @Description: 封装请求
  */
@@ -17,29 +17,30 @@ let baseURL = 'http://192.168.50.237:5555/'
 
 let config = {
   baseURL: baseURL,
-  timeout: 30000    //设置最大请求时间
+  timeout: 300000    //设置最大请求时间
 }
 
 const _axios = axios.create(config);
 
 // 接收请求拦截器，内部根据返回值，重新组装，统一管理。
-/*
-_axios.interceptors.response.use(res => {
-  if (typeof res.data !== 'object') {
-    ElMessage.error('服务端异常！')
-    return Promise.reject(res)
-  }
-  if (res.data.code != 200) {
-    console.log(res.data);
-    if (res.data.msg) ElMessage.error(res.data.msg)
-    if (res.data.resultCode == 419) {
-      router.push({ path: '/login' })
-    }
-    return Promise.reject(res.data)
-  }
-  return res.data//返回的是数据
-})
-*/
+
+// _axios.interceptors.response.use(res => {
+//   if (typeof res.data !== 'object') {
+//     ElMessage.error('服务端异常！')
+//     return Promise.reject(res)
+//   }
+//   if (res.data.code != 200) {
+//     console.log(res.data);
+//     if (res.data.msg) ElMessage.error(res.data.msg)
+//     if (res.data.resultCode == 419) {
+//       router.push({ path: '/login' })
+//     }
+//     return Promise.reject(res.data)
+//   }
+//   return res.data//返回的是数据
+// })
+
+
 
 const header = {
   'Content-Type': 'application/json;charset=UTF-8',

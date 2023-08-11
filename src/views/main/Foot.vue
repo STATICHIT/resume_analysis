@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:07
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-05 16:49:55
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-08-11 21:29:24
  * @FilePath: \resume_analysis\src\views\main\Foot.vue
  * @Description: 底部组件
 -->

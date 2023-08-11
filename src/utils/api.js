@@ -1,8 +1,8 @@
 /*
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-11 20:48:36
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-08-11 21:28:55
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -27,7 +27,13 @@ apiFun.test.test = () => {
   return http.get(`/resume/testES`)
 }
 
-//查询相似简历
+apiFun.test.test1 = () => {
+  return http.get(`/user/test1`)
+}
+
+
+
+//判重复
 apiFun.similarity = () => {
   return http.get(`/resume/similarity`)
 }
@@ -115,9 +121,16 @@ apiFun.process.updateStatus = (resumeId,nodeId) => {
 /**
  * 日志接口
  */
+//查询一个简历的日志
 apiFun.log.getLogById = (resumeId) => {
   return http.get(`/log/${resumeId}`)
 }
+
+//查询一个用户所有的操作日志
+apiFun.log.getLogByUser = () => {
+  return http.get(`/log`)
+}
+
 
 /**
  * 模板接口
@@ -174,5 +187,12 @@ apiFun.job.jobAnalysis = (jobContent)=>{
 apiFun.job.getAll =()=>{
   return http.get(`/job/list`)
 }
+
+
+//给简历推荐岗位
+apiFun.job.matchJob = (resumeId) => {
+  return http.get(`/job/JPMatch/${resumeId}`)
+}
+
 
 export default apiFun;
