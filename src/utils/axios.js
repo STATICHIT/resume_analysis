@@ -1,8 +1,8 @@
 /*
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:07
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-07-11 22:00:43
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-08-11 17:13:25
  * @FilePath: \resume_analysis\src\utils\axios.js
  * @Description: 封装请求
  */
@@ -12,7 +12,7 @@ import qs from 'qs';//转json数据工具包
 import { ElMessage } from 'element-plus'
 import router from '../router/index'
 
-let baseURL = 'http://192.168.83.9:5555/'
+let baseURL = 'http://192.168.50.237:5555/'
 // 'http://192.168.50.159:5555/'//后端开发环境地址(部署后端到本机后只需修改此地址)
 
 let config = {
@@ -43,7 +43,7 @@ _axios.interceptors.response.use(res => {
 
 const header = {
   'Content-Type': 'application/json;charset=UTF-8',
-  'Authorization':'',
+  'accessToken':'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJpZGVudGl0eSI6IkhSIiwiaWQiOiIxIiwiZXhwIjoxNzA5NTk1MTQzfQ.vUXTwTW7PxQlpQyv_RporMDZO2-XMekQlDSPel444VM',
   // 'Authorization': 'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o',
 }
 

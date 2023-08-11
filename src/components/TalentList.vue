@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-25 19:44:37
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-07 17:30:43
+ * @LastEditTime: 2023-08-10 09:26:06
  * @FilePath: \resume_analysis\src\components\TalentList.vue
  * @Description: 人才列表
 -->
@@ -28,7 +28,6 @@
           <div class="leftPart">
             <div class="single-posting">
               <h2 class="names">{{ item.name }}</h2>
-              <!-- <h2 class="names">{{ item.name }} {{ item.englishname }}</h2> -->
               <el-tooltip v-for="item in state2.lights" :key="item">
                 <template #content> 简历亮点 </template>
                 <el-button class="tooltip">{{ item }}</el-button>

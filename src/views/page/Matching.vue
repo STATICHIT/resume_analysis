@@ -336,6 +336,7 @@ label {
   height: 40px;
   width: 93%;
   line-height: 40px;
+  margin-left: 10px;
   border-radius: 5px;
   font-size: 16px;
   text-align: left;

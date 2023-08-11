@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-07-03 21:52:10
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-11 21:53:30
+ * @LastEditTime: 2023-08-11 16:55:50
  * @FilePath: \resume_analysis\src\components\Invitation.vue
  * @Description: 自定义
 -->
@@ -15,7 +15,7 @@
           class="demo-tabs"
           @tab-click="handleClick"
         >
-          <el-tab-pane label="面试邀约" name="first">
+          <el-tab-pane label="面试邀约" name="1">
             <h3 style="margin-bottom: 20px">信息配置</h3>
             <!-- 表单内容填写 -->
             <el-form>
@@ -58,12 +58,15 @@
               <span style="margin-left: 700px"><b>2023年7月5日</b></span>
               <br />
               <span style="margin-left: 700px"
-                ><b>字节跳动服务有限公司</b></span>
+                ><b>字节跳动服务有限公司</b></span
+              >
             </span>
-            <span style="color: rgb(148, 147, 147)">tip：加粗部分在邮件发出时将由系统自动配置</span>
+            <span style="color: rgb(148, 147, 147)"
+              >tip：加粗部分在邮件发出时将由系统自动配置</span
+            >
           </el-tab-pane>
           <!-- 入职邀约 -->
-          <el-tab-pane label="入职邀约" name="second">
+          <el-tab-pane label="入职邀约" name="2">
             <h3 style="margin-bottom: 20px">信息配置</h3>
             <el-form>
               <el-form-item label="对接HR称呼">
@@ -114,17 +117,126 @@
     </div>
     <div class="tembutton">
       <div class="mybutton2">
+        <button class="detail" @click="addTemplate">自定义模板</button>
         <button class="detail" @click="changeTemplate">切换模板</button>
         <button class="detail" @click="confirmTemplate">确认模板</button>
       </div>
     </div>
+    <el-drawer v-model="diyTemplate" direction="rtl">
+      <template #header>
+        <h4>自定义模板</h4>
+      </template>
+      <template #default>
+        <div>
+          <el-form-item label="模板名">
+            <el-input v-model="templateName" placeholder="请输入模板名" /><br />
+          </el-form-item>
+          <!-- <span style="color: gray; font-size: 13px"
+            >请在下面的编辑框中自定义邀约模板。系统会自动根据您的设置进行内容匹配。您可以使用${
+            xxx }来替代系统自动匹配的内容，而使用#{ xxx
+            }来替代您希望用户灵活设置的内容。例如，如果您想要系统自动匹配日期，您可以使用{date}；如果您希望用户自定义地点，您可以使用#{
+            location
+            }。下方有可选占位符表，请确保正确使用这些占位符，以获得准确的匹配结果。</span
+          > -->
+          <textarea
+            name=""
+            id=""
+            cols="65"
+            rows="25"
+            v-model="templateContnet"
+            placeholder="${name}，你好！
+
+我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，
+因此正式通知您来我公司参加面试。
+
+面试时间：#{time}
+面试地点：#{area}
+交通指引：#{tip}
+携带资料：#{more}
+联系方式：#{connect}
+
+                                                             ${current-time}
+                                                             ${company}"
+          ></textarea>
+          <div style="margin-left: 7px">
+            <span class="tip1"
+              >请在上面的编辑框中自定义邀约模板。系统会自动根据您的设置进行内容匹配。您可以使用${
+              xxx }来替代系统自动匹配的内容，而使用#{ xxx
+              }来替代您希望用户灵活设置的内容。例如，如果您想要系统自动匹配日期，您可以使用{date}；如果您希望用户自定义地点，您可以使用#{
+              location
+              }。下方有可选占位符表，请确保正确使用这些占位符，以获得准确的匹配结果。</span
+            >
+          </div>
+
+          <br />
+          <div class="tip2">
+            <div style="float: left">
+              系统自动匹配内容
+              <ul>
+                <li>${name} 应聘人</li>
+                <li>${time} 邮件时间</li>
+                <li>${company} 公司</li>
+                <li>${job} 投递岗位</li>
+                <li>.......</li>
+              </ul>
+            </div>
+            <div style="float: right">
+              系统自动匹配内容
+              <ul>
+                <li>#{time} 面试时间</li>
+                <li>#{area} 面试地点</li>
+                <li>#{type} 面试形式</li>
+                <li>#{more} 携带资料</li>
+                <li>.......</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </template>
+      <template #footer>
+        <div style="flex: auto">
+          <el-button @click="cancelClick">取消</el-button>
+          <el-button type="primary" @click="confirmClick">确定</el-button>
+        </div>
+      </template>
+    </el-drawer>
+
+    <el-drawer v-model="checkTemplate" direction="rtl">
+      <template #header>
+        <h4>模板列表</h4>
+      </template>
+      <template #default>
+        <div>
+          <el-table
+            ref="singleTableRef"
+            :data="tableData"
+            highlight-current-row
+            style="width: 100%"
+            @current-change="handleCurrentChange"
+          >
+            <el-table-column type="index" width="40" />
+            <el-table-column property="name" label="模板名" width="160" />
+            <el-table-column property="concent" label="模板内容" width="200" />
+            <el-table-column property="time" label="创建时间" />
+          </el-table>
+        </div>
+      </template>
+      <template #footer>
+        <div style="flex: auto">
+          <el-button @click="cancelClick2">取消</el-button>
+          <el-button type="primary" @click="confirmClick2">确定</el-button>
+        </div>
+      </template>
+    </el-drawer>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { ElNotification } from "element-plus";
-const activeName = ref("first");
+import apiFun from "@/utils/api";
+const activeName = ref("1");
+
 const form = ref({
   time: "2023年7月4日 21点27分",
   area: "北京字节跳动科技园",
@@ -132,25 +244,101 @@ const form = ref({
   data: "1份个人简历、身份证、签字笔",
   contact: "Cherry 188********（微信同号）",
 });
+
 const form2 = ref({
   name: "lucky",
   phone: "123-4567-890",
   email: "example@email.com",
 });
 
-const centerDialogVisible = ref(false);
-const open = () => {
+const open = (title, message, type) => {
   ElNotification({
-    title: "保存成功",
-    message: "已保存当前模板",
-    type: "success",
+    title: title,
+    message: message,
+    type: type,
   });
 };
-function changeTemplate() {
-  
+
+const diyTemplate = ref(false); //自定义模板抽屉
+function addTemplate() {
+  diyTemplate.value = true;
 }
+let templateName = ref();
+let templateContnet = ref("");
+function confirmClick() {
+  diyTemplate.value = false;
+  console.log("模板内容：", templateContnet.value.toString());
+  apiFun.template
+    .addTemplate({
+      type: activeName.value,
+      templateName: templateName.value,
+      template: templateContnet.value,
+    })
+    .then((res) => {
+      if (res.code === 200) {
+        open("添加成功", `已添加模板(${templateName.value})`, "success");
+        activeName.value = null;
+        templateName.value = null;
+        templateContnet.value = null;
+      } else {
+        open("添加失败", `请重新试`, "error");
+      }
+    });
+}
+let checkTemplate = ref(false); //查看模板列表
+function changeTemplate() {
+  checkTemplate.value = ref(true);
+  // apiFun.template.getAll().then((res) => {
+  //   let temlist = res.data;
+  //   temlist.forEach((t) => {
+  //     tableData.push({
+  //       name: t.templateName,
+  //       concent: template,
+  //       time: createTime,
+  //     });
+  //   });
+  // });
+
+}
+function confirmClick2() {
+  checkTemplate.value = ref(false);
+
+  // apiFun.template.getAll().then((res) => {});
+}
+const currentRow = ref();
+const handleCurrentChange = (val) => {
+  currentRow.value = val;
+  console.log(currentRow.value);
+};
+const tableData = [
+  {
+    name: "通用面试邀约模板",
+    concent:"${name}，你好我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
+    time: "2016-05-03",
+  },
+  {
+    name: "基础面试邀约模板",
+    concent:"${name}，你好我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
+
+    time: "2016-05-02",
+  },
+  {
+    name: "财务岗位面试邀约模板",
+    concent:"${name}，你好我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
+
+    time: "2016-05-04",
+  },
+  {
+    name: "高级面试邀约模板",
+    concent:"${name}，你好我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
+
+    time: "2016-05-01",
+  },
+];
+
 function confirmTemplate() {
-  open();
+  let type = activeName.value;
+  open("保存成功", "已保存当前模板", "success");
 }
 </script>
 
@@ -198,5 +386,31 @@ function confirmTemplate() {
 .detail:hover {
   background: #64ffda;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.14);
+}
+.tip1 {
+  color: rgb(151, 150, 150);
+  font-size: 13px;
+}
+.tip2 {
+  color: #6b778c;
+  width: 500px;
+  height: 180px;
+  padding: 20px 80px;
+  background-color: rgba(204, 201, 201, 0.082);
+  margin-top: 20px;
+}
+textarea {
+  margin: 15px 0 15px 7px;
+  padding: 10px;
+  border: none;
+  font-size: 13px;
+  outline: 0;
+  background-color: #f8fae662;
+  font-family: "Microsoft YaHei";
+  color: black;
+}
+textarea::-webkit-input-placeholder {
+  font-family: "Microsoft YaHei";
+  font-weight: 600;
 }
 </style>

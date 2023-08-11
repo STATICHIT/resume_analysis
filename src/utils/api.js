@@ -1,8 +1,8 @@
 /*
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-07-08 20:56:26
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-08-11 16:31:06
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -27,7 +27,7 @@ apiFun.test.test = () => {
   return http.get(`/resume/testES`)
 }
 
-//判重复
+//查询相似简历
 apiFun.similarity = () => {
   return http.get(`/resume/similarity`)
 }
@@ -128,9 +128,9 @@ apiFun.template.sendInvite = (resumeId, templateId) => {
   return http.post(`/template/send?resumeId=${resumeId}&templateId=${templateId}`)
 }
 
-//获取用户定义的所以模板
-apiFun.template.getAll = (userId) => {
-  return http.get(`/template/list/${userId}?userId=${userId}`)
+//获取用户定义的所有模板
+apiFun.template.getAll = () => {
+  return http.get(`/template/list`)
 }
 
 apiFun.template.addTemplate = (params) => {
@@ -155,6 +155,19 @@ apiFun.resume.analysis = (resumeId) => {
 
 apiFun.resume.graph = (resumeId) => {
   return http.get(`/resume/graph/${resumeId}`)
+}
+
+/**
+ * 岗位接口
+ */
+//岗匹配人
+apiFun.job.PJMatch = (jobId) => {
+  return http.get(`/job/PJMatch/${jobId}`)
+}
+
+//岗位字符串内容岗位解析
+apiFun.job.jobAnalysis = (jobContent)=>{
+  return http.post(`/job/jobAnalysis?jobContent=${jobContent}`)
 }
 
 export default apiFun;

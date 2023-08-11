@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-12 09:20:30
+ * @LastEditTime: 2023-08-10 12:19:11
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -106,12 +106,12 @@
               <div class="resume_show">
                 <img
                   class="resumeImg"
-                  src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?"
+                  src="../../assets/jl.webp"
                   alt="显示出错"
                 />
                 <img
                   class="resumeImg"
-                  src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/108587e5aac04e5e8de293824f8c2950~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?"
+                  src="../../assets/jl.webp"
                   alt="显示出错"
                 />
                 <div class="describe">
@@ -159,17 +159,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="邀约模板" name="fourth">
-          <!-- <div
-            style="height: 100%; min-height: 800px; padding: 20px; float: left"
-          > -->
             <invite></invite>
-          <!-- </div> -->
-          <!-- <div class="tembutton">
-            <div class="mybutton2">
-              <button class="detail">切换模板</button>
-              <button class="detail">确认模板</button>
-            </div>
-          </div> -->
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -184,11 +174,18 @@ import invite from "../../components/Invitation.vue";
 import log from "../../components/Log.vue";
 import apiFun from "../../utils/api";
 import router from "../../router";
-const activeName = ref("fourth");
+const activeName = ref("first");
 let num = ref(4);
 onMounted(() => {
-  initEcharts();
+  Per();
 });
+function Per(){
+  initEcharts();
+  apiFun.similarity().then((res)=>{
+    resumedemo.value=res.data.highSimilarity;
+  })
+}
+
 const resumedemo = ref([
   {
     resume1: {
@@ -266,6 +263,7 @@ const resumedemo = ref([
 function intoDetail() {
   router.push({ path: "/sameResume" });
 }
+
 const resumes = [
   [
     {
@@ -661,7 +659,7 @@ const initEcharts = () => {
 }
 .mybutton {
   float: right;
-  margin-top: -220px;
+  margin-top: 100px;
 }
 // .mybutton2 {
 //   height: 200px;

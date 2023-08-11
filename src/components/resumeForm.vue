@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-07-01 14:51:55
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-14 11:41:49
+ * @LastEditTime: 2023-08-05 16:03:33
  * @FilePath: \resume_analysis\src\components\resumeForm.vue
  * @Description: 简历表单
 -->
@@ -46,6 +46,15 @@
           <div id="email__error" class="error"></div>
         </div>
         <div class="form-group">
+          <label for="career">投递岗位</label>
+          <input
+            type="text"
+            name="career"
+            id="career"
+            placeholder="开发工程师"
+          />
+        </div>
+        <div class="form-group">
           <label for="about">关于你</label>
           <textarea
             name="about"
@@ -53,14 +62,6 @@
             placeholder="三四句话介绍你的个性、职业道德、兴趣或者更多"
           ></textarea>
         </div>
-        <!-- <div class="form-group">
-          <label for="career">职业目标</label>
-          <textarea
-            name="career"
-            id="career"
-            placeholder="一两句话关于你希望在职业生涯中完成什么"
-          ></textarea>
-        </div> -->
         <div class="form-group">
           <label for="education">教育</label>
           <textarea
@@ -90,7 +91,7 @@
         </div>
         <div class="line-break"></div>
 
-        <h3>过往工作</h3>
+        <h3>过往工作1</h3>
         <div class="form-date-group">
           <div class="form-group">
             <label for="job-2__start">开始日期</label>
@@ -107,7 +108,7 @@
         </div>
         <div class="line-break"></div>
 
-        <h3>另一份过去的工作</h3>
+        <h3>过往工作2</h3>
         <div class="form-date-group">
           <div class="form-group">
             <label for="job-3__start">开始日期</label>
@@ -141,7 +142,6 @@ const getState = () => {
   const $ = (element) => {
     return document.getElementById(element).value;
   };
-
   const state = {
     name: $("name"),
     address: $("address"),
@@ -176,69 +176,10 @@ const getState = () => {
   return state;
 };
 
-const checkName = () => {
-  const name = document.getElementById("name");
-  const name_error = document.getElementById("name__error");
-  const isValid = !!name.value;
-  if (!isValid) {
-    name.classList.add("error__input");
-    name_error.style.display = "block";
-    name_error.innerHTML = "姓名不能为空";
-    console.log("error");
-  } else {
-    name.classList.remove("error__input");
-    name_error.style.display = "none";
-  }
-  return isValid;
-};
-
-const checkEmail = () => {
-  const email = document.getElementById("email");
-  const email_error = document.getElementById("email__error");
-  const emailRegex =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const isValid = emailRegex.test(String(email.value).toLowerCase());
-  if (!email.value) {
-    email.classList.add("error__input");
-    email_error.style.display = "block";
-    email_error.innerHTML = "电子邮箱不能为空";
-  } else {
-    if (!isValid) {
-      email.classList.add("error__input");
-      email_error.style.display = "block";
-      email_error.innerHTML = "邮箱不合法";
-    } else {
-      email.classList.remove("error__input");
-      email_error.style.display = "none";
-    }
-  }
-  return isValid;
-};
-
-const checkValidity = () => {
-  const nameIsValid = checkName();
-  const emailIsValid = checkEmail();
-  if (!nameIsValid) {
-    location.hash = "#name";
-  } else if (!emailIsValid) {
-    location.hash = "#email";
-  }
-  return nameIsValid && emailIsValid;
-};
-// window.onload = function () {
-//   document.getElementById("create-resume").addEventListener("click", (e) => {
-//     e.preventDefault();
-//     const isValid = checkValidity();
-//     if (isValid) buildResume(getState());
-//   });
-
-//   document.getElementById("name").addEventListener("blur", checkName);
-
-//   document.getElementById("email").addEventListener("blur", checkEmail);
-// };
-
 function submitResume() {
+  //传给后端
   fullscreenLoading0.value = true;
+  console.log(getState());
   setTimeout(() => {
     open();
     fullscreenLoading0.value = false;

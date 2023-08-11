@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 22:26:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-13 23:20:17
+ * @LastEditTime: 2023-08-10 11:25:44
  * @FilePath: \resume_analysis\src\views\page\TalentPool.vue
  * @Description: 人才库
 -->
@@ -293,9 +293,9 @@
         <el-pagination
           style="float: right"
           layout="prev, pager, next"
-          :total="totaldemo"
-          page-size="state.pageSize"
-          current-page="state.currentPage"
+          :total="state.total"
+          :page-size="state.pageSize"
+          :current-page="state.currentPage"
           @current-change="changePage"
         />
       </div>
@@ -308,7 +308,6 @@
             <div class="leftPart">
               <div class="single-posting">
                 <h2 class="names">{{ item.content.name }}</h2>
-                <!-- <h2 class="names">{{ item.name }} {{ item.englishname }}</h2> -->
                 <el-tooltip v-for="tag in item.tags" :key="tag">
                   <template #content> 相关技能 </template>
                   <el-button class="tooltip color1">{{ tag }}</el-button>
@@ -375,13 +374,14 @@ import router from "../../router";
 onMounted(() => {
   Pre();
 });
+
 //加载搜索列表数据
 function getAll() {
   apiFun.search.getResumeList(1, 5).then((res) => {
-    // state.total = res.data.total;
-    // state.currentPage = res.data.current;
-    // state.pageSize = res.data.size;
-    res.data.records.forEach((r) => {
+    state.total = res.data.total;
+    state.currentPage = res.data.pageNum;
+    state.pageSize = res.data.pageSize;
+    res.data.list.forEach((r) => {
       list.value.push({
         content: JSON.parse(r.content),
         email: r.email,
@@ -389,7 +389,6 @@ function getAll() {
       });
     });
   });
-  console.log("list:", list.value);
 }
 function Pre() {
   //state状态选项导入
@@ -401,21 +400,12 @@ function Pre() {
  */
 function reLoading() {
   // 在这里处理事件逻辑
-  console.log("BBBB我过来了");
   Pre(); //重新加载
 }
 function changeStage(id) {
   condition.value.processStage = id;
   search();
 }
-// //获取一个用户的所有流程节点（不分类给出）配置流程选项
-// function getNode() {
-//   apiFun.process.flowPathNotOrder().then((res) => {});
-// }
-// //获取一个用户管理的流程顺序（分类给出）配置流程设置选项
-// function getNodeOrder() {
-//   apiFun.process.flowPathOrder().then((res) => {});
-// }
 
 //查看简历详细分析页面
 function intoTalentDetial(id) {
@@ -426,6 +416,7 @@ function intoTalentDetial(id) {
     },
   });
 }
+
 /**
  * 条件搜索
  */
@@ -433,108 +424,7 @@ let list = ref([]); //人才列表
 const drawer = ref(false); //抽屉控件
 const sex = ref(""); //性别
 const graduationInstitution = ref(""); //学历要求
-const begin = {
-  basic: {
-    name: null,
-    sex: null,
-    minAge: null,
-    maxAge: null,
-    major: null,
-    expectedJob: null,
-    graduationInstitution: null,
-  },
-  contact: {
-    email: null,
-    phone: null,
-  },
-  workYear: {
-    lowerLimit: null,
-    upperLimit: null,
-  },
-  workExperience: {
-    company: null,
-    jobName: null,
-    description: null,
-  },
-  other: {
-    skillsCertificate: null,
-    projectExperiences: null,
-    awardsHonors: null,
-  },
-  fullText: null,
-  processStage: null,
-  // total: 200,
-  pageNum: 1,
-  pageSize: 5,
-};
-const demo = {
-  basic: {
-    name: "吉茹定",
-    sex: null,
-    minAge: null,
-    maxAge: null,
-    major: null,
-    expectedJob: null,
-    graduationInstitution: null,
-  },
-  contact: {
-    email: null,
-    phone: null,
-  },
-  workYear: {
-    lowerLimit: null,
-    upperLimit: null,
-  },
-  workExperience: {
-    company: null,
-    jobName: null,
-    description: null,
-  },
-  other: {
-    skillsCertificate: null,
-    projectExperiences: null,
-    awardsHonors: null,
-  },
-  fullText: null,
-  processStage: null,
-  // total: 200,
-  pageNum: 1,
-  pageSize: 5,
-};
-const demo2 = {
-  basic: {
-    name: null,
-    sex: null,
-    minAge: null,
-    maxAge: null,
-    major: null,
-    expectedJob: null,
-    graduationInstitution: null,
-  },
-  contact: {
-    email: null,
-    phone: null,
-  },
-  workYear: {
-    lowerLimit: null,
-    upperLimit: null,
-  },
-  workExperience: {
-    company: null,
-    jobName: null,
-    description: null,
-  },
-  other: {
-    skillsCertificate: null,
-    projectExperiences: null,
-    awardsHonors: null,
-  },
-  fullText: null,
-  processStage: null,
-  // total: 200,
-  pageNum: 1,
-  pageSize: 5,
-};
+//条件搜索字段
 const condition = ref({
   basic: {
     name: null,
@@ -569,39 +459,20 @@ const condition = ref({
   pageNum: 1,
   pageSize: 7,
 });
+//打卡抽屉
 function moreCheck() {
   drawer.value = true;
 }
-const totaldemo = ref(200);
+const totaldemo = ref(200);//demo总条数
 //条件搜索
 function search() {
-  //简单条件
-  if (curtype.value == "IT/互联网") {
-    condition.value = demo2;
-  }
-  //具向
-  if (condition.value.basic.name == "吉茹定") {
-    condition.value = demo;
-  }
-  if (condition.value.fullText == "江奕云") {
-    condition.value.basic.name = "江奕云";
-  }
-
   console.log(condition.value);
   apiFun.search.conditionSearch(condition.value).then((res) => {
-    // condition.total = res.data.total;
-    // condition.total = 200;
-    console.log(res);
-    if (curtype.value === "IT/互联网") {
-      console.log("!!!AA");
-      totaldemo.value = 20;
-      condition.value.basic.name = null;
-    }
-    if (condition.value.basic.name == "吉茹定") {
-      totaldemo.value = 1;
-    }
+    state.total = res.data.total;
+    state.currentPage = res.data.pageNum;
+    state.pageSize = res.data.pageSize;
     list.value = [];
-    res.forEach((r) => {
+    res.data.list.forEach((r) => {
       list.value.push({
         content: JSON.parse(r.content),
         email: r.email,
@@ -613,19 +484,16 @@ function search() {
 //取消具名搜索
 function cancelClick() {
   drawer.value = false;
-  condition.value = begin;
-  console.log(condition.value);
 }
 //确定具名搜索
 function confirmClick() {
   drawer.value = false;
-  console.log(condition.value);
   search(); //搜索
 }
 const state = ref({
-  total: 200, // 总条数
+  total: 0,     // 总条数
   currentPage: 1, // 当前页
-  pageSize: 5,
+  pageSize: 7,    //一页的数据量
 });
 //换页
 const changePage = (val) => {
@@ -635,7 +503,6 @@ const changePage = (val) => {
 //fulltext搜索
 function searchTalent() {
   search();
-  totaldemo.value = 1;
 }
 /**
  * 选项数据

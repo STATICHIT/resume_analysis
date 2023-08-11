@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-07-02 19:13:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-11 18:24:59
+ * @LastEditTime: 2023-08-10 09:28:00
  * @FilePath: \resume_analysis\src\components\Stage.vue
  * @Description: 状态条件选择栏
 -->
@@ -54,7 +54,6 @@ import { defineEmits } from "vue";
 const emits = defineEmits(["reLoading", "changeStage"]);
 function finishChangeNode() {
   // 在这里处理事件逻辑
-  console.log("AAA我过来了");
   drawer.value = false;
   setTimeout(() => {
     status.value = statusdemo;
@@ -85,7 +84,7 @@ const statusdemo = [
   { id: 4, name: "offer批阅阶段", cnt: 3, color: "#04FF00" },
   { id: 5, name: "入职阶段", cnt: 2, color: "#48a7f3" },
   { id: 6, name: "已转正", cnt: 3, color: "#b7c3ff" },
-  { id: 7, name: "加入黑名单", cnt: 18, color: "#000000" },
+  { id: 7, name: "加入黑名单", cnt: 0, color: "#000000" },
   { id: 8, name: "淘汰", cnt: 18, color: "#d4d4d4" },
 ];
 

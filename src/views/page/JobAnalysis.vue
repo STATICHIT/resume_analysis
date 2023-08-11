@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 18:09:13
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-08 17:22:18
+ * @LastEditTime: 2023-08-10 11:42:00
  * @FilePath: \resume_analysis\src\views\page\JobAnalysis.vue
  * @Description: 岗位分析入口
 -->
@@ -39,6 +39,7 @@ import { ref } from "vue";
 import router from "../../router";
 const activeName = ref("first");
 let analysis = () => {
+  
   router.push({ path: "/analysisPosts" });
 };
 </script>

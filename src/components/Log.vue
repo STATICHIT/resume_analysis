@@ -36,37 +36,37 @@ const props = defineProps({
     time: "2023年6月18日 22点17分",
     action: "发送面试邀约",
     detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
+      "给应聘人刘力霞、胡旭发送面试邀约，已发出成功",
   },
   {
     time: "2023年6月18日 11点26分",
-    action: "应聘人状态修改",
+    action: "发送笔试邀约",
     detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
+      "给应聘人刘力霞、胡旭发送笔试邀约，已发出成功",
   },
   {
     time: "2023年6月17日 9点23分",
+    action: "应聘人状态修改",
+    detail:
+      "将应聘人黎芸贵的简历状态由投递状态修改为笔试状态，已修改成功",
+  },
+  {
+    time: "2023年6月16日 7点11分",
+    action: "应聘人状态修改",
+    detail:
+      "将应聘人黎芸贵的简历状态由笔试状态修改为面试状态，已修改成功",
+  },
+  {
+    time: "2023年6月16日 7点11分",
+    action: "应聘人状态修改",
+    detail:
+      "将应聘人黎芸贵的简历状态由面试状态修改为offer状态，已修改成功",
+  },
+  {
+    time: "2023年6月16日 7点11分",
     action: "发送入职邀约",
     detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
-  },
-  {
-    time: "2023年6月16日 7点11分",
-    action: "应聘人状态修改",
-    detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
-  },
-  {
-    time: "2023年6月16日 7点11分",
-    action: "应聘人状态修改",
-    detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
-  },
-  {
-    time: "2023年6月16日 7点11分",
-    action: "应聘人状态修改",
-    detail:
-      "Nullam vel sem. Nullam vel sem. Integer ante arcu, accumsana, consectetuer eget, posuere ut, mauris. Donec orci lectus,aliquam ut, faucibus non, euismod id, nulla. Donec vitaesapien ut libero venenatis faucibus. ullam dictum felis eupede mollis pretium. Pellentesque ut neque.",
+      "给应聘人黎芸贵发送入职邀约，已发出成功",
   }]
   }
 });

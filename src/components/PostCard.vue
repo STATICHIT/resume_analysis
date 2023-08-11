@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 21:10:51
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-06 19:38:20
+ * @LastEditTime: 2023-07-14 16:49:30
  * @FilePath: \resume_analysis\src\components\PostCard.vue
  * @Description: 岗位展示列表
 -->
@@ -144,40 +144,44 @@
 import router from "../router";
 let list = [
   {
-    name: "web前端开发工程师",
-    area: "上海·松江区·车墩",
+    name: "产品运营",
+    area: "Product operations",
   },
   {
-    name: "解决方案工程师",
-    area: "北京·东城区·安贞",
+    name: "平面设计师",
+    area: "Graphic designer",
   },
   {
-    name: "Kubernetes开发工程师",
-    area: "北京·海淀区·清河",
+    name: "财务",
+    area: "Treasurer",
   },
   {
-    name: "FPGA原型验证工程师",
-    area: "北京·海淀区·北太平庄",
+    name: "市场营销",
+    area: "Marketer",
   },
   {
-    name: "全屋定制家具设计师",
-    area: "广州·海珠区·江南大道",
+    name: "项目主管",
+    area: "Project Leader",
   },
   {
-    name: "广东事业部总经理",
-    area: "天津·河东区·富民路",
+    name: "开发工程师",
+    area: "Development Engineer",
   },
   {
-    name: "B端产品经理+居家办公",
-    area: "深圳·福田区·车公庙",
+    name: "文员",
+    area: "Clerk",
   },
   {
-    name: "Java开发工程师",
-    area: "上海·长宁区·中山公园",
+    name: "电商运营",
+    area: "E-commerce operators",
   },
   {
-    name: "茶艺师",
-    area: "深圳·福田区·华强南",
+    name: "人力资源管理",
+    area: "Human resource managers",
+  },
+  {
+    name: "风控专员",
+    area: "Risk Control Specialist",
   },
 ];
 let intoJob = (job) => {

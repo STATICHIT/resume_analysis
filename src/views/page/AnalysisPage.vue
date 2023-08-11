@@ -468,6 +468,9 @@ const logs = ref([
 
 ]);
 onMounted(() => {
+  apiFun.process.flowPathNotOrder().then((res) => {
+    console.log(res.data);
+  });
   // apiFun.process.flowPathNotOrder().then((res) => {
   //   state.selectItem = res.data;
   // });

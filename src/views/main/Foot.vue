@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 09:23:07
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-02 20:59:26
+ * @LastEditTime: 2023-08-05 16:49:55
  * @FilePath: \resume_analysis\src\views\main\Foot.vue
  * @Description: 底部组件
 -->
@@ -21,7 +21,7 @@
           云简智能服务于智能化人力资源行业。<br />
           致力于通过AI技术提高招聘速度，降低时间成本，节省招聘支出。
         </p>
-        <a href="">下载APP</a>
+        <a href="">打开小程序</a>
       </div>
       <div class="right">
         <dl>
@@ -34,15 +34,15 @@
         </dl>
         <dl>
           <dt>更多产品</dt>
-          <dd><a href="">人才库</a></dd>
-          <dd><a href="">简历分析</a></dd>
-          <dd><a href="">简历去重</a></dd>
-          <dd><a href="">人岗匹配</a></dd>
-          <dd><a href="">人才搜索</a></dd>
-          <dd><a href="">候选人画像</a></dd>
+          <dd><a href="/talentPool">人才库</a></dd>
+          <dd><a href="/jobPool">简历分析</a></dd>
+          <dd><a href="/self">简历去重</a></dd>
+          <dd><a href="/matching">人岗匹配</a></dd>
+          <dd><a href="/talentPool">人才搜索</a></dd>
+          <dd><a href="/self">招聘数据中心</a></dd>
         </dl>
         <dl>
-          <dt>开发者介绍</dt>
+          <dt>开发者</dt>
           <dd><a href="">CX</a></dd>
           <dd><a href="">CJ</a></dd>
           <dd><a href="">LS</a></dd>
@@ -52,23 +52,6 @@
     </div>
     <div class="more">
       <hr />
-      <div class="tip">
-        <a target="_blank" href="http://beian.miit.gov.cn/"
-          >津ICP备18000836号</a
-        >
-        | © Copyright 2022 ke.com版权所有 |
-        <a
-          target="_blank"
-          href="//file.ljcdn.com/bigc-file2cdn/Mensa/1585732230759.pdf"
-          >ICP证</a
-        >
-        |
-        <a
-          target="_blank"
-          href="https://www.ke.com/zhuanti/commonProtocol?id=1dc38816524dffa9da7949856540d168"
-          >平台知识产权保护</a
-        >
-      </div>
     </div>
     <el-backtop :right="100" :bottom="100" />
   </div>
@@ -100,22 +83,10 @@ hr {
   color: #bbb9b9;
   margin-right: 40px;
 }
-
-.tip {
-  width: 60%;
-  padding-top: 10px;
-  color: #a6a6a6;
-  margin-left: 40%;
-  font-size: 15px;
-}
 a {
   color: #ffffff;
   text-decoration: none;
 }
-.tip a {
-  color: #a6a6a6;
-}
-
 .footer {
   padding: 70px 250px 0 250px;
   height: 380px;
