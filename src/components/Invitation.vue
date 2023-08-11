@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-07-03 21:52:10
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-11 16:55:50
+ * @LastEditTime: 2023-08-11 19:45:52
  * @FilePath: \resume_analysis\src\components\Invitation.vue
  * @Description: 自定义
 -->
@@ -287,7 +287,7 @@ function confirmClick() {
 }
 let checkTemplate = ref(false); //查看模板列表
 function changeTemplate() {
-  checkTemplate.value = ref(true);
+  checkTemplate.value = true;
   // apiFun.template.getAll().then((res) => {
   //   let temlist = res.data;
   //   temlist.forEach((t) => {
@@ -301,14 +301,14 @@ function changeTemplate() {
 
 }
 function confirmClick2() {
-  checkTemplate.value = ref(false);
+  checkTemplate.value = false;
 
   // apiFun.template.getAll().then((res) => {});
 }
-const currentRow = ref();
+const currentTem = ref();
 const handleCurrentChange = (val) => {
-  currentRow.value = val;
-  console.log(currentRow.value);
+  currentTem.value = val;
+  console.log(currentTem.value);
 };
 const tableData = [
   {

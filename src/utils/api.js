@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-11 16:31:06
+ * @LastEditTime: 2023-08-11 20:48:36
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -160,14 +160,19 @@ apiFun.resume.graph = (resumeId) => {
 /**
  * 岗位接口
  */
-//岗匹配人
+//岗匹配人(现有，传id)
 apiFun.job.PJMatch = (jobId) => {
   return http.get(`/job/PJMatch/${jobId}`)
 }
 
-//岗位字符串内容岗位解析
+//岗位字符串内容岗位解析（传字符串）
 apiFun.job.jobAnalysis = (jobContent)=>{
   return http.post(`/job/jobAnalysis?jobContent=${jobContent}`)
+}
+
+//获取全部岗位
+apiFun.job.getAll =()=>{
+  return http.get(`/job/list`)
 }
 
 export default apiFun;

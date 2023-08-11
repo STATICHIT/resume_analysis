@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-29 22:10:18
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-07 09:52:50
+ * @LastEditTime: 2023-08-11 20:04:05
  * @FilePath: \resume_analysis\src\views\page\JobPool.vue
  * @Description: 岗位库
 -->
@@ -29,12 +29,23 @@
         </el-tab-pane>
         <el-tab-pane label="手动录入" name="second">
           <div style="padding: 20px">
-            <label for="name" style="text-align: left">岗位名:</label>
-            <input type="text" id="name" name="user_name" />
-            <label for="bio" style="text-align: left">岗位职责:</label>
-            <textarea id="bio" name="user_bio" class="text1"></textarea>
-            <label for="bio" style="text-align: left">岗位要求:</label>
-            <textarea id="bio" name="user_bio" class="text2"></textarea>
+            <label for="bio" style="text-align: left">岗位描述:</label>
+            <textarea
+              id="bio"
+              name="user_bio"
+              class="text"
+              placeholder="产品运营
+岗位职责
+1.负责产品上线前后的线上、线下的运营方案和推广工作，协助项目负责人对接市场、产品开发等，完成个项目目标；
+2.负责产品运营中与线下的各种合作，配合完成商务推广，实施项目评估和监控，提升用户活跃度和忠诚度；
+3.负责研究行业竞争动态，定期拜访客户，维护重要客户关系发现客户的需求，引导客户的业务需求，根据自身产品制定产品营销策略，达成既定目标；
+4.负责分析和挖掘产品运营数据、用户行为数据等重要价值信息
+5.负责跟进和整理产品用户反馈，协同产品经理提出产品迭代方案。
+任职要求：
+1.2年及以上产品运营经验；
+2.主动性强，逻辑清晰，沟通能力强，能独立负责和落地运营项目能调动资源为运营目标服务；
+3.有较强数据分析能力、数据敏感性强。"
+            ></textarea>
             <button>开始录入</button>
           </div>
         </el-tab-pane>
@@ -47,12 +58,11 @@
 import PostCard from "../../components/PostCard.vue";
 import Upload from "../../components/Upload2.vue";
 import { ref, onMounted } from "vue";
-import apiFun from "../../utils/api"
+import apiFun from "../../utils/api";
 const activeName = ref("first");
 onMounted(() => {
   // Pre();
 });
-
 </script>
 
 <style lang="scss" scoped>
@@ -112,15 +122,6 @@ textarea {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
   margin-bottom: 30px;
 }
-input {
-  height: 20px;
-}
-.text1 {
-  height: 120px;
-}
-.text2 {
-  height: 180px;
-}
 
 label {
   display: block;
@@ -145,5 +146,8 @@ button {
 
 button:hover {
   background: #444fcf;
+}
+.text {
+  height: 400px;
 }
 </style>

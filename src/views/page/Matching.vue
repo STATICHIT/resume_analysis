@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-10 11:18:26
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-12 17:50:44
+ * @LastEditTime: 2023-08-11 20:48:18
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
  * @Description: 人岗匹配
 -->
@@ -90,17 +90,30 @@ import { ref, onMounted } from "vue";
 import apiFun from "../../utils/api";
 import router from "../../router";
 const activeName = ref("first");
+onMounted(() => {
+  Per();
+});
+function Per(){
+  //获取现有岗位
+  apiFun.job.getAll().then((res)=>{
+    console.log(res.data)
+    jobs.value=[];
+    res.data.forEach((j)=>{
+      jobs.value.push({name:j.name,id:j.id});
+    })
+  })
+}
 const jobs = ref([
-  { name: "产品运营" },
-  { name: "平面设计师" },
-  { name: "财务" },
-  { name: "市场营销" },
-  { name: "项目主管" },
-  { name: "开发工程师" },
-  { name: "文员" },
-  { name: "电商运营" },
-  { name: "人力资源管理" },
-  { name: "风控专员" },
+  { id:1,name: "产品运营" },
+  { id:2,name: "平面设计师" },
+  { id:3,name: "财务" },
+  { id:4,name: "市场营销" },
+  { id:5,name: "项目主管" },
+  { id:6,name: "开发工程师" },
+  { id:7,name: "文员" },
+  { id:8,name: "电商运营" },
+  { id:9,name: "人力资源管理" },
+  { id:10,name: "风控专员" },
 ]);
 let selectJob = ref();
 let changeJob = (item) => {
@@ -110,6 +123,7 @@ const fullscreenLoading = ref(false);
 const initialImg = ref(true);
 const openFullScreen = () => {
   fullscreenLoading.value = true;
+  
   setTimeout(() => {
     fullscreenLoading.value = false;
     initialImg.value = false;
