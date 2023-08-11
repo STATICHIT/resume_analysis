@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-06-10 11:18:26
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-12 17:50:44
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-07-13 22:07:54
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
  * @Description: 人岗匹配
 -->
@@ -40,7 +40,7 @@
               <input type="text" id="name" name="user_name" />
               <label for="bio" style="text-align: left">岗位描述:</label>
               <textarea id="bio" name="user_bio"></textarea>
-              <button @click="openFullScreen">开始匹配</button>
+              <button @click="openFullScreen1">开始匹配</button>
             </div>
           </el-tab-pane>
         </el-tabs>
@@ -113,18 +113,200 @@ const openFullScreen = () => {
   setTimeout(() => {
     fullscreenLoading.value = false;
     initialImg.value = false;
+    talentss.value = talents1.value;
+  }, 2000);
+};
+const openFullScreen1 = () => {
+  fullscreenLoading.value = true;
+  setTimeout(() => {
+    fullscreenLoading.value = false;
+    initialImg.value = false;
     talentss.value = talents.value;
   }, 2000);
 };
 
 const talentss = ref([]);
+const talents1 = ref([
+  {
+    name: "张晓琳",
+    score: "本科",
+    expr: "3",
+    value: 4.5,
+    title: "产品运营经理",
+    tags: [
+      "市场调研",
+      "用户需求分析",
+      "产品规划",
+      "数据分析",
+      "用户体验优化",
+      "竞品分析",
+      "用户反馈收集",
+      "推广策略",
+    ],
+  },
+  {
+    name: "王宇航",
+    score: "硕士",
+    expr: "5",
+    value: 4.2,
+    title: "高级产品运营专员",
+    tags: [
+      "市场定位",
+      "产品策划",
+      "用户增长",
+      "渠道管理",
+      "数据分析",
+      "竞品分析",
+      "用户留存",
+    ],
+  },
+  {
+    name: "李婷婷",
+    score: "本科",
+    expr: "2",
+    value: 3.9,
+    title: "产品运营专员",
+    tags: [
+      "市场调研",
+      "用户需求分析",
+      "产品规划",
+      "数据分析",
+      "用户体验优化",
+      "竞品分析",
+      "用户调研",
+      "推广策略",
+    ],
+  },
+  {
+    name: "刘鑫",
+    score: "硕士",
+    expr: "2",
+    value: 3.7,
+    title: "产品运营助理",
+    tags: [
+      "市场调研",
+      "用户需求分析",
+      "产品策划",
+      "数据分析",
+      "用户体验优化",
+      "竞品分析",
+      "用户留存",
+      "营销推广",
+    ],
+  },
+  {
+    name: "陈思雨",
+    score: "硕士",
+    expr: "2",
+    value: 3.5,
+    title: "产品运营专员",
+    tags: [
+      "市场定位",
+      "用户调研",
+      "产品规划",
+      "用户增长",
+      "渠道管理",
+      "数据分析",
+      "竞品分析",
+      "用户留存",
+      "推广策略",
+    ],
+  },
+  {
+    name: "张明阳",
+    score: "本科",
+    expr: "4",
+    value: 3.2,
+    title: "产品运营助理",
+    tags: [
+      "市场调研",
+      "用户需求分析",
+      "产品策划",
+      "数据分析",
+      "用户体验优化",
+      "竞品分析",
+      "用户调研",
+      "推广策略",
+    ],
+  },
+  {
+    name: "王亮飞",
+    score: "本科",
+    expr: "3",
+    value: 2.9,
+    title: "初级产品运营专员",
+    tags: [
+      "市场定位",
+      "用户调研",
+      "产品规划",
+      "用户增长",
+      "渠道管理",
+      "数据分析",
+      "竞品分析",
+      "用户留存",
+    ],
+  },
+  {
+    name: "李娟娟",
+    score: "本科",
+    expr: "2",
+    value: 2.7,
+    title: "产品运营助理",
+    tags: [
+      "市场调研",
+      "用户需求分析",
+      "产品策划",
+      "数据分析",
+      "用户体验优化",
+      "竞品分析",
+      "用户调研",
+      "推广策略",
+    ],
+  },
+  {
+    name: "王俊杰",
+    score: "硕士",
+    expr: "2",
+    value: 2.5,
+    title: "产品运营专员",
+    tags: [
+      "市场定位",
+      "用户调研",
+      "产品规划",
+      "用户增长",
+      "渠道管理",
+      "数据分析",
+      "竞品分析",
+      "用户留存",
+      "推广策略",
+    ],
+  },
+  {
+    name: "张丽丽",
+    score: "硕士",
+    expr: "1",
+    value: 2.3,
+    title: "产品运营实习生",
+    tags: [
+      "市场调研",
+      "用户需求分析",
+      "产品策划",
+      "数据分析",
+      "用户体验优化",
+      "竞品分析",
+      "用户调研",
+      "推广策略",
+    ],
+  },
+]);
+
 const talents = ref([
-{
+  {
     name: "李明",
     score: "本科",
     expr: "3",
     value: 5.0,
-    title: "后端开发",
+    title: "后端开发工程师",
     tags: [
       "数据库管理",
       "网络安全",
@@ -138,11 +320,28 @@ const talents = ref([
     ],
   },
   {
+    name: "刘伟",
+    score: "本科",
+    expr: "5",
+    value: 4.8,
+    title: "软件架构师",
+    tags: [
+      "系统设计",
+      "分布式系统",
+      "微服务架构",
+      "容器技术",
+      "云计算",
+      "大数据处理",
+      "性能优化",
+      "安全架构",
+    ],
+  },
+  {
     name: "张旭",
     score: "硕士",
     expr: "5",
     value: 4.7,
-    title: "数据工程",
+    title: "数据工程师",
     tags: [
       "软件调试",
       "性能优化",
@@ -155,11 +354,29 @@ const talents = ref([
     ],
   },
   {
+    name: "刘宇",
+    score: "硕士",
+    expr: "3",
+    value: 4.5,
+    title: "前端开发工程师",
+    tags: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Vue",
+      "Webpack",
+      "响应式设计",
+      "移动端开发",
+    ],
+  },
+ 
+  {
     name: "王乐洋",
     score: "博士",
     expr: "2",
     value: 4.2,
-    title: "项目开发",
+    title: "项目开发工程师",
     tags: [
       "Java",
       "Python",
@@ -172,12 +389,29 @@ const talents = ref([
       "内部工具开发",
     ],
   },
+   {
+    name: "王鑫",
+    score: "硕士",
+    expr: "4",
+    value: 4.0,
+    title: "全栈开发工程师",
+    tags: [
+      "Java",
+      "Python",
+      "JavaScript",
+      "Spring Boot",
+      "Node.js",
+      "MySQL",
+      "React",
+      "Angular",
+    ],
+  },
   {
     name: "刘芳语",
     score: "硕士",
     expr: "2",
     value: 3.9,
-    title: "软件质量保证",
+    title: "软件质量保证工程师",
     tags: [
       "备份策略",
       "系统管理员",
@@ -190,11 +424,28 @@ const talents = ref([
     ],
   },
   {
+    name: "张莉",
+    score: "本科",
+    expr: "2",
+    value: 3.7,
+    title: "移动应用开发工程师",
+    tags: [
+      "Android",
+      "iOS",
+      "Kotlin",
+      "Swift",
+      "React Native",
+      "Flutter",
+      "移动界面设计",
+      "移动应用测试",
+    ],
+  },
+  {
     name: "陈宇",
     score: "硕士",
     expr: "2",
     value: 3.2,
-    title: "数据工程",
+    title: "数据工程师",
     tags: [
       "Python",
       "Git",
@@ -212,7 +463,7 @@ const talents = ref([
     score: "本科",
     expr: "4",
     value: 2.6,
-    title: "网络安全",
+    title: "网络安全工程师",
     tags: [
       "Java",
       "Python",

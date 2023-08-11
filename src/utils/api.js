@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-07-08 20:56:26
+ * @LastEditTime: 2023-08-07 17:05:55
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -26,6 +26,12 @@ let apiFun = {
 apiFun.test.test = () => {
   return http.get(`/resume/testES`)
 }
+
+apiFun.test.test1 = () => {
+  return http.get(`/user/test1`)
+}
+
+
 
 //判重复
 apiFun.similarity = () => {
@@ -115,9 +121,16 @@ apiFun.process.updateStatus = (resumeId,nodeId) => {
 /**
  * 日志接口
  */
+//查询一个简历的日志
 apiFun.log.getLogById = (resumeId) => {
   return http.get(`/log/${resumeId}`)
 }
+
+//查询一个用户所有的操作日志
+apiFun.log.getLogByUser = () => {
+  return http.get(`/log`)
+}
+
 
 /**
  * 模板接口
@@ -155,6 +168,22 @@ apiFun.resume.analysis = (resumeId) => {
 
 apiFun.resume.graph = (resumeId) => {
   return http.get(`/resume/graph/${resumeId}`)
+}
+
+/**
+ * 岗位接口
+ */
+//给岗位匹配人
+apiFun.job.matchPeople = (jobId) => {
+  return http.get(`/job/PJMatch/${jobId}`)
+}
+//给简历推荐岗位
+apiFun.job.matchJob = (resumeId) => {
+  return http.get(`/job/JPMatch/${resumeId}`)
+}
+//岗位解析
+apiFun.job.analysis = (jobContent) => {
+  return http.post(`/job/jobAnalysis?jobContent=${jobContent}`)
 }
 
 export default apiFun;

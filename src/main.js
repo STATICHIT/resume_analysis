@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-05-31 20:51:55
+ * @LastEditTime: 2023-08-10 16:47:02
  * @FilePath: \resume_analysis\src\main.js
  * @Description: 项目的文件入口，进行实例化Vue，赋值项目中经常会用到的插件和CSS样式以及存储全局变量
  */

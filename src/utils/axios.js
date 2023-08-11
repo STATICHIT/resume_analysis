@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:07
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-07-11 22:00:43
+ * @LastEditTime: 2023-08-11 16:53:43
  * @FilePath: \resume_analysis\src\utils\axios.js
  * @Description: 封装请求
  */
@@ -12,38 +12,39 @@ import qs from 'qs';//转json数据工具包
 import { ElMessage } from 'element-plus'
 import router from '../router/index'
 
-let baseURL = 'http://192.168.83.9:5555/'
+let baseURL = 'http://192.168.50.237:5555/'
 // 'http://192.168.50.159:5555/'//后端开发环境地址(部署后端到本机后只需修改此地址)
 
 let config = {
   baseURL: baseURL,
-  timeout: 30000    //设置最大请求时间
+  timeout: 300000    //设置最大请求时间
 }
 
 const _axios = axios.create(config);
 
 // 接收请求拦截器，内部根据返回值，重新组装，统一管理。
-/*
-_axios.interceptors.response.use(res => {
-  if (typeof res.data !== 'object') {
-    ElMessage.error('服务端异常！')
-    return Promise.reject(res)
-  }
-  if (res.data.code != 200) {
-    console.log(res.data);
-    if (res.data.msg) ElMessage.error(res.data.msg)
-    if (res.data.resultCode == 419) {
-      router.push({ path: '/login' })
-    }
-    return Promise.reject(res.data)
-  }
-  return res.data//返回的是数据
-})
-*/
+
+// _axios.interceptors.response.use(res => {
+//   if (typeof res.data !== 'object') {
+//     ElMessage.error('服务端异常！')
+//     return Promise.reject(res)
+//   }
+//   if (res.data.code != 200) {
+//     console.log(res.data);
+//     if (res.data.msg) ElMessage.error(res.data.msg)
+//     if (res.data.resultCode == 419) {
+//       router.push({ path: '/login' })
+//     }
+//     return Promise.reject(res.data)
+//   }
+//   return res.data//返回的是数据
+// })
+
+
 
 const header = {
   'Content-Type': 'application/json;charset=UTF-8',
-  'Authorization':'',
+  'accessToken':'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJpZGVudGl0eSI6IkhSIiwiaWQiOiIxIiwiZXhwIjoxNzA5NTk1MTQzfQ.vUXTwTW7PxQlpQyv_RporMDZO2-XMekQlDSPel444VM',
   // 'Authorization': 'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o',
 }
 

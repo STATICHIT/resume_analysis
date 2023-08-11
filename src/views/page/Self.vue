@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-12 09:20:30
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-08-11 16:11:35
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -12,7 +12,7 @@
       <img class="head" src="../../assets/imgs/10.png" alt="图片加载出错" />
     </div>
     <div class="main">
-      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+      <el-tabs v-model="activeName" class="demo-tabs">
         <el-tab-pane label="数据检测" name="first">
           <div class="board">
             <div class="card" style="width: 45%">
@@ -84,7 +84,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="操作日志" name="second">
-          <log></log>
+          <log :logs="logs"></log>
         </el-tab-pane>
         <el-tab-pane label="简历去重" name="third">
           <div style="height: 100%; min-height: 800px; padding: 20px">
@@ -184,11 +184,26 @@ import invite from "../../components/Invitation.vue";
 import log from "../../components/Log.vue";
 import apiFun from "../../utils/api";
 import router from "../../router";
-const activeName = ref("fourth");
+const activeName = ref("first");
 let num = ref(4);
+
+const logs = ref([])
+
+const getLogs = () => {
+  apiFun.log.getLogByUser().then((res) => {
+    logs.value = res.data;
+  });
+};
+
+
 onMounted(() => {
+  getLogs()
   initEcharts();
 });
+
+
+
+
 const resumedemo = ref([
   {
     resume1: {
@@ -198,7 +213,7 @@ const resumedemo = ref([
     },
     resume2: {
       id: 2,
-      fullName: "张子航",
+      fullName: "江奕云",
       processStage: "笔试阶段", //流程状态
     },
     label: ["项目经历相似", "工作经历相似"],
@@ -212,7 +227,7 @@ const resumedemo = ref([
     },
     resume2: {
       id: 4,
-      fullName: "江奕云",
+      fullName: "张子航",
       processStage: "面试阶段", //流程状态
     },
     label: ["教育经历相似", "项目经历相似", "工作经历相似"],

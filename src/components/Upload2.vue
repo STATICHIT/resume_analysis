@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-06-11 20:46:15
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-12 19:09:05
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-07-13 22:23:24
  * @FilePath: \resume_analysis\src\components\Upload2.vue
  * @Description: 岗位批量上传组件
 -->
@@ -138,6 +138,10 @@ let deleteFile = (id) => {
     tableData.value.splice(index, 1);
   }
 };
+
+const fullscreenLoading = ref(false);
+const initialImg = ref(true);
+
 //上传文件
 let uploadFile = (file) => {
   // console.log(file);
@@ -148,24 +152,29 @@ let uploadFile = (file) => {
   let data = [];
   data = readExcel(file);
   console.log(data);
-  apiFun.upload.postUpload(data).then((res) => {
-    console.log(res);
-    if (res.data.code === 200) {
-      updateTableData(file.id, {
-        percent: 100,
-      });
-      setTimeout(() => {
-        // 定时器回调函数中重新启用按钮
-        updateTableData(file.id, {
-          status: 5, // 已上传
-        });
-      }, 500);
-    } else {
-      updateTableData(file.id, {
-        status: 4, // 上传失败
-      });
-    }
-  });
+  fullscreenLoading.value = true;
+  setTimeout(() => {
+    fullscreenLoading.value = false;
+    initialImg.value = false;
+  }, 2000);
+  // apiFun.upload.postUpload(data).then((res) => {
+  //   console.log(res);
+  //   if (res.data.code === 200) {
+  //     updateTableData(file.id, {
+  //       percent: 100,
+  //     });
+  //     setTimeout(() => {
+  //       // 定时器回调函数中重新启用按钮
+  //       updateTableData(file.id, {
+  //         status: 5, // 已上传
+  //       });
+  //     }, 500);
+  //   } else {
+  //     updateTableData(file.id, {
+  //       status: 4, // 上传失败
+  //     });
+  //   }
+  // });
 
   // data.forEach((d) => {
   //   const formattedString = `岗位名: ${d[0]}; 岗位职责: ${d[1]}; 岗位要求: ${d[2]}`;

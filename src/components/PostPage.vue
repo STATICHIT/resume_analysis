@@ -72,62 +72,9 @@
 
 <script setup>
 const props = defineProps({
-  jobContent: {
-    type: Array,
-    default: () => [],
-  },
   jobList: {
     type: Array,
-    default: () => [
-      {
-        job: {
-          //岗位
-          id: 0, //岗位ID
-          userId: 0, //用户ID
-          name: "市场营销专员", //岗位名
-          responsibility:
-            "进行市场调研和竞争分析，提供市场情报和洞察；\n制定和执行市场推广计划，包括线上和线下渠道；\n策划和组织市场活动，提高品牌知名度和产品销售量；\n维护客户关系，提供优质的客户服务；\n分析市场数据和结果，对市场策略进行调整和优化。", //岗位职责
-          jobRequire:
-            "具备市场营销或相关领域的学士学位；\n具备良好的沟通和协调能力；\n熟悉市场调研和分析方法；\n具备创新思维和问题解决能力；\n具备团队合作精神和自我驱动力。", //岗位要求
-          professionalLabel: "", //岗位要求标签集合
-          educationalRequirements: "无要求", //学历要求
-          professionalRequirements: "市场营销", //专业要求
-          sexRequirements: "无要求", //性别要求
-          workExperienceRequirements: 3, //工作经验要求
-          createTime: "", //创建时间
-          updateTime: "", //更新时间
-        },
-        skills: [
-          //岗位要求技能标签
-          "",
-        ],
-        score: 88.0, //得分
-      },
-      {
-        job: {
-          //岗位
-          id: 0, //岗位ID
-          userId: 0, //用户ID
-          name: "运营经理", //岗位名
-          responsibility:
-            "管理和协调日常运营活动，确保业务顺利运行；\n设计和优化业务流程，提高效率和质量；\n监控和分析运营数据，提供运营报告和建议；\n管理团队，进行绩效评估和培训；\n协调各部门合作，实现运营目标。", //岗位职责
-          jobRequire:
-            "具备管理或相关领域的学士学位；\n具备团队管理和领导能力；\n熟悉业务运营和流程管理；\n具备数据分析和决策能力；\n具备协调和解决问题的能力。", //岗位要求
-          professionalLabel: "", //岗位要求标签集合
-          educationalRequirements: "无要求", //学历要求
-          professionalRequirements: "无要求", //专业要求
-          sexRequirements: "无要求", //性别要求
-          workExperienceRequirements: 3, //工作经验要求
-          createTime: "", //创建时间
-          updateTime: "", //更新时间
-        },
-        skills: [
-          //岗位要求技能标签
-          "",
-        ],
-        score: 75.0, //得分
-      },
-    ],
+    default: () => [],
   },
 });
 </script>

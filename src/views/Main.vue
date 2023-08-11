@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 11:33:17
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-05-29 22:24:08
+ * @LastEditTime: 2023-08-11 15:21:38
  * @FilePath: \resume_analysis\src\views\Main.vue
  * @Description: 客户端布局底页
 -->
@@ -16,7 +16,7 @@
         <router-view></router-view>
       </div>
       <el-footer class="foot">
-        <div>
+        <div style="background-color: black;">
           <Foot></Foot>
         </div>
       </el-footer>
@@ -43,6 +43,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  padding: 0;
 }
 
 .el-header {

@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-07-11 20:37:19
+ * @LastEditTime: 2023-08-11 20:47:24
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
  * @Description: 查看相似简历详细页面
 -->
@@ -15,9 +15,7 @@
         <span>简历相似度</span>
       </div>
       <ul>
-        <li>教育背景相似</li>
-        <li>工作经历相似</li>
-        <li>项目经历相似</li>
+        <li v-for="item in sameResume" :key="item">{{ item }}</li>
       </ul>
     </div>
     <button class="returnBtn" @click="returnResume(-1)">
@@ -36,18 +34,6 @@
         <div>
           <div class="user-tip">
             <h2>{{ userMsg.name }}</h2>
-            <!-- <el-tooltip
-              v-for="item in state.lights"
-              :key="item"
-              placement="top"
-            >
-              <template #content> 简历亮点 </template>
-              <el-button class="tooltip">{{ item }}</el-button>
-            </el-tooltip>
-            <el-tooltip v-for="item in state.warns" :key="item" placement="top">
-              <template #content> 简历风险点 </template>
-              <el-button class="tag">{{ item }}</el-button>
-            </el-tooltip> -->
           </div>
           <div class="user-msg">
             <el-icon><Iphone /></el-icon>
@@ -129,10 +115,32 @@ import router from "@/router";
 import { useRoute } from "vue-router";
 import { ArrowDown } from "@element-plus/icons-vue";
 import { ElMessageBox } from "element-plus";
+import apiFun from "@/utils/api";
 
 const route = useRoute();
-const query = route.query;
-const id = query["id"];
+const params = route.params;
+const same = [ //相似度较高的简历对数组
+            {
+                "resume1": {
+                    "id": 21,
+                    "fullName": "", //z
+                    "processStage": 0 //流程状态
+                },
+                "resume2": {
+                    "id": 22,
+                    "fullName": "", //z
+                    "processStage": 0 //流程状态
+                },
+                "label": [
+                    ""
+                ],
+                "score": 0.0
+            }
+        ]
+const index = params.index;
+
+
+const currentSame = same[index];
 
 /* 返回json数据 */
 const state = reactive({
@@ -344,6 +352,17 @@ onMounted(()=>{
   console.log(JSON.parse(userMsg1.value.content))
   userMsg1.value=JSON.parse(userMsg1.value.content)
 })
+
+const getResume = () => {
+  apiFun.resume.analysis(currentSame.resume1.id).then((res) => {
+    console.log(currentSame.resume1.id)
+    userMsg.value = JSON.parse(res.data.content);
+  });
+  apiFun.resume.analysis(currentSame.resume2.id).then((res) => {
+    console.log(currentSame.resume2.id)
+    userMsg.value = JSON.parse(res.data.content);
+  });
+}
 </script>
 
 <style lang="scss">

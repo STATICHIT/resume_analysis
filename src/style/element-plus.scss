@@ -4,6 +4,12 @@
 @import 'src/style/base.scss';
 @import "element-plus/dist/index.css";
 
+ .el-message-box__btns .el-button--primary {
+   background-color: #6873E3;  /* 修改背景颜色 */
+ }
+ .el-message-box__btns .el-button--default:hover {
+   background-color: #b5b9e2;  /* 修改背景颜色 */
+ }
 // 自定义 el-tabs 的主题样式
 .el-tabs__nav {
 //   background-color: #ffffff; // 修改标签栏的背景色
@@ -30,6 +36,10 @@
     color: #7061E5;
   }
   
-  
+  //修改loading加载时的颜色
+  .el-loading-spinner .path{
+    stroke: #c8291c;
+  }
+
 
   
