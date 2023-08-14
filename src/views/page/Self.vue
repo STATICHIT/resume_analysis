@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-14 09:52:50
+ * @LastEditTime: 2023-08-14 11:56:59
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -14,23 +14,6 @@
     <div class="main">
       <el-tabs v-model="activeName" class="demo-tabs">
         <el-tab-pane label="数据检测" name="first">
-          <div class="board">
-            <div class="card" style="width: 45%">
-              <div><b>年龄分布</b></div>
-              <br />
-              <div id="mychart3"></div>
-            </div>
-            <div class="card" style="width: 23%">
-              <div><b>性别结构</b></div>
-              <br />
-              <div id="mychart4"></div>
-            </div>
-            <div class="card" style="width: 23%">
-              <div><b>学历分布</b></div>
-              <br />
-              <div id="mychart5"></div>
-            </div>
-          </div>
           <div class="board">
             <div class="card" style="width: 30%">
               <div><b>招聘环节效率</b></div>
@@ -189,7 +172,7 @@ const loading = reactive({
 const getLogs = () => {
   apiFun.log.getLogByUser().then((res) => {
     logs.value = res.data;
-    loading.loading1.value = false;
+    loading.loading1 = false;
   });
 };
 
@@ -627,18 +610,6 @@ const initEcharts = () => {
 #mychart2 {
   width: 100%;
   height: 300px;
-}
-#mychart3 {
-  width: 100%;
-  height: 250px;
-}
-#mychart4 {
-  width: 90%;
-  height: 250px;
-}
-#mychart5 {
-  width: 100%;
-  height: 250px;
 }
 .line {
   border-top: 1px solid rgba(145, 143, 143, 0.308);
