@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-06-10 11:18:26
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-11 21:29:48
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-08-14 09:53:56
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
  * @Description: 人岗匹配
 -->
@@ -31,21 +31,26 @@
                   </p>
                 </div>
               </div>
-              <button @click="openFullScreen">开始匹配</button>
+              <button @click="lastMatching">开始匹配</button>
             </div>
           </el-tab-pane>
           <el-tab-pane label="手动输入岗位" name="second">
             <div style="padding: 20px">
               <label for="name" style="text-align: left">岗位名:</label>
-              <input type="text" id="name" name="user_name" />
+              <input
+                type="text"
+                id="name"
+                name="user_name"
+                v-model="moreText1"
+              />
               <label for="bio" style="text-align: left">岗位描述:</label>
-              <textarea id="bio" name="user_bio"></textarea>
-              <button @click="openFullScreen1">开始匹配</button>
+              <textarea id="bio" name="user_bio" v-model="moreText2"></textarea>
+              <button @click="curMatching">开始匹配</button>
             </div>
           </el-tab-pane>
         </el-tabs>
       </div>
-      <div class="right" v-loading.lock="fullscreenLoading">
+      <div class="right" v-loading.lock="Loading">
         <img
           v-if="initialImg"
           src="../../assets//search.png"
@@ -54,7 +59,7 @@
         />
         <div class="selectBox selectBox2">
           <div
-            v-for="(item, i) in talentss"
+            v-for="(item, i) in talents"
             :key="i"
             :class="item.name == selectTalent ? 'checkstyle2' : ''"
             @click="intoTalent(item)"
@@ -93,408 +98,202 @@ const activeName = ref("first");
 onMounted(() => {
   Per();
 });
-function Per(){
+function Per() {
   //获取现有岗位
-  apiFun.job.getAll().then((res)=>{
-    console.log(res.data)
-    jobs.value=[];
-    res.data.forEach((j)=>{
-      jobs.value.push({name:j.name,id:j.id});
-    })
-  })
+  apiFun.job.getAll().then((res) => {
+    console.log(res.data);
+    jobs.value = [];
+    res.data.forEach((j) => {
+      jobs.value.push({ name: j.name, id: j.id });
+    });
+  });
 }
+
 const jobs = ref([
-  { id:1,name: "产品运营" },
-  { id:2,name: "平面设计师" },
-  { id:3,name: "财务" },
-  { id:4,name: "市场营销" },
-  { id:5,name: "项目主管" },
-  { id:6,name: "开发工程师" },
-  { id:7,name: "文员" },
-  { id:8,name: "电商运营" },
-  { id:9,name: "人力资源管理" },
-  { id:10,name: "风控专员" },
+  { id: 1, name: "产品运营" },
+  { id: 2, name: "平面设计师" },
+  { id: 3, name: "财务" },
+  { id: 4, name: "市场营销" },
+  { id: 5, name: "项目主管" },
+  { id: 6, name: "开发工程师" },
+  { id: 7, name: "文员" },
+  { id: 8, name: "电商运营" },
+  { id: 9, name: "人力资源管理" },
+  { id: 10, name: "风控专员" },
 ]);
 let selectJob = ref();
+let selectId = ref();
 let changeJob = (item) => {
   selectJob.value = item.name;
+  selectId.value = item.id;
 };
-const fullscreenLoading = ref(false);
+const Loading = ref(false); //Loading动画
 const initialImg = ref(true);
-const openFullScreen = () => {
-  fullscreenLoading.value = true;
-  
-  setTimeout(() => {
-    fullscreenLoading.value = false;
-    initialImg.value = false;
-    talentss.value = talents1.value;
-  }, 2000);
+//选择现有岗位匹配
+const lastMatching = () => {
+  Loading.value = true;
+  apiFun.job.PJMatch(selectId.value).then((res) => {
+     console.log(res);
+     let list = res.data.list;
+     talents.value = [];
+     list.forEach((j) => {
+       let content = JSON.parse(j.resume.content);
+       talents.value.push({
+       id: j.resume.id,
+       name: j.resume.fullName,
+       score: content.education,
+       expr: content.workYears,
+       value: (j.score * 5).toFixed(2),
+       title: content.major,
+       tags: j.skills.slice(0, 8),
+       });
+     });
+     Loading.value = false;
+   initialImg.value = false;
+  });
 };
-const openFullScreen1 = () => {
-  fullscreenLoading.value = true;
-  setTimeout(() => {
-    fullscreenLoading.value = false;
+//手动输入岗位匹配
+let moreText1 = ref();
+let moreText2 = ref();
+const curMatching = () => {
+  Loading.value = true;
+  console.log(moreText1.value);
+  console.log(moreText2.value);
+  let jobContent = "岗位名：" + moreText1.value + ";" + moreText2.value;
+  console.log("拼接字符串:", jobContent);
+  apiFun.job.jobAnalysis(jobContent).then((res) => {
+    console.log(res);
+    let list = res.data.list;
+    talents.value = [];
+    list.forEach((j) => {
+      let content = JSON.parse(j.resume.content);
+      talents.value.push({
+        id: j.resume.id,
+        name: j.resume.fullName,
+        score: content.education,
+        expr: content.workYears,
+        value: (j.score * 5).toFixed(2),
+        title: content.major,
+        tags: j.skills.slice(0, 8),
+      });
+    });
+    Loading.value = false;
     initialImg.value = false;
-    talentss.value = talents.value;
-  }, 2000);
+  });
 };
-
-const talentss = ref([]);
-const talents1 = ref([
-  {
-    name: "张晓琳",
-    score: "本科",
-    expr: "3",
-    value: 4.5,
-    title: "产品运营经理",
-    tags: [
-      "市场调研",
-      "用户需求分析",
-      "产品规划",
-      "数据分析",
-      "用户体验优化",
-      "竞品分析",
-      "用户反馈收集",
-      "推广策略",
-    ],
-  },
-  {
-    name: "王宇航",
-    score: "硕士",
-    expr: "5",
-    value: 4.2,
-    title: "高级产品运营专员",
-    tags: [
-      "市场定位",
-      "产品策划",
-      "用户增长",
-      "渠道管理",
-      "数据分析",
-      "竞品分析",
-      "用户留存",
-    ],
-  },
-  {
-    name: "李婷婷",
-    score: "本科",
-    expr: "2",
-    value: 3.9,
-    title: "产品运营专员",
-    tags: [
-      "市场调研",
-      "用户需求分析",
-      "产品规划",
-      "数据分析",
-      "用户体验优化",
-      "竞品分析",
-      "用户调研",
-      "推广策略",
-    ],
-  },
-  {
-    name: "刘鑫",
-    score: "硕士",
-    expr: "2",
-    value: 3.7,
-    title: "产品运营助理",
-    tags: [
-      "市场调研",
-      "用户需求分析",
-      "产品策划",
-      "数据分析",
-      "用户体验优化",
-      "竞品分析",
-      "用户留存",
-      "营销推广",
-    ],
-  },
-  {
-    name: "陈思雨",
-    score: "硕士",
-    expr: "2",
-    value: 3.5,
-    title: "产品运营专员",
-    tags: [
-      "市场定位",
-      "用户调研",
-      "产品规划",
-      "用户增长",
-      "渠道管理",
-      "数据分析",
-      "竞品分析",
-      "用户留存",
-      "推广策略",
-    ],
-  },
-  {
-    name: "张明阳",
-    score: "本科",
-    expr: "4",
-    value: 3.2,
-    title: "产品运营助理",
-    tags: [
-      "市场调研",
-      "用户需求分析",
-      "产品策划",
-      "数据分析",
-      "用户体验优化",
-      "竞品分析",
-      "用户调研",
-      "推广策略",
-    ],
-  },
-  {
-    name: "王亮飞",
-    score: "本科",
-    expr: "3",
-    value: 2.9,
-    title: "初级产品运营专员",
-    tags: [
-      "市场定位",
-      "用户调研",
-      "产品规划",
-      "用户增长",
-      "渠道管理",
-      "数据分析",
-      "竞品分析",
-      "用户留存",
-    ],
-  },
-  {
-    name: "李娟娟",
-    score: "本科",
-    expr: "2",
-    value: 2.7,
-    title: "产品运营助理",
-    tags: [
-      "市场调研",
-      "用户需求分析",
-      "产品策划",
-      "数据分析",
-      "用户体验优化",
-      "竞品分析",
-      "用户调研",
-      "推广策略",
-    ],
-  },
-  {
-    name: "王俊杰",
-    score: "硕士",
-    expr: "2",
-    value: 2.5,
-    title: "产品运营专员",
-    tags: [
-      "市场定位",
-      "用户调研",
-      "产品规划",
-      "用户增长",
-      "渠道管理",
-      "数据分析",
-      "竞品分析",
-      "用户留存",
-      "推广策略",
-    ],
-  },
-  {
-    name: "张丽丽",
-    score: "硕士",
-    expr: "1",
-    value: 2.3,
-    title: "产品运营实习生",
-    tags: [
-      "市场调研",
-      "用户需求分析",
-      "产品策划",
-      "数据分析",
-      "用户体验优化",
-      "竞品分析",
-      "用户调研",
-      "推广策略",
-    ],
-  },
-]);
 
 const talents = ref([
-  {
-    name: "李明",
-    score: "本科",
-    expr: "3",
-    value: 5.0,
-    title: "后端开发工程师",
-    tags: [
-      "数据库管理",
-      "网络安全",
-      "敏捷开发",
-      "后端开发",
-      "系统架构",
-      "Flutter",
-      "Rust",
-      "React",
-      "Angular",
-    ],
-  },
-  {
-    name: "刘伟",
-    score: "本科",
-    expr: "5",
-    value: 4.8,
-    title: "软件架构师",
-    tags: [
-      "系统设计",
-      "分布式系统",
-      "微服务架构",
-      "容器技术",
-      "云计算",
-      "大数据处理",
-      "性能优化",
-      "安全架构",
-    ],
-  },
-  {
-    name: "张旭",
-    score: "硕士",
-    expr: "5",
-    value: 4.7,
-    title: "数据工程师",
-    tags: [
-      "软件调试",
-      "性能优化",
-      "多线程编程",
-      "安全漏洞分析",
-      "自动化测试",
-      "后端框架",
-      "Spring",
-      "Django",
-    ],
-  },
-  {
-    name: "刘宇",
-    score: "硕士",
-    expr: "3",
-    value: 4.5,
-    title: "前端开发工程师",
-    tags: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Vue",
-      "Webpack",
-      "响应式设计",
-      "移动端开发",
-    ],
-  },
- 
-  {
-    name: "王乐洋",
-    score: "博士",
-    expr: "2",
-    value: 4.2,
-    title: "项目开发工程师",
-    tags: [
-      "Java",
-      "Python",
-      "C++",
-      "前端框架",
-      "安全防护",
-      "性能调优",
-      "Keras",
-      "scikit-learn",
-      "内部工具开发",
-    ],
-  },
-   {
-    name: "王鑫",
-    score: "硕士",
-    expr: "4",
-    value: 4.0,
-    title: "全栈开发工程师",
-    tags: [
-      "Java",
-      "Python",
-      "JavaScript",
-      "Spring Boot",
-      "Node.js",
-      "MySQL",
-      "React",
-      "Angular",
-    ],
-  },
-  {
-    name: "刘芳语",
-    score: "硕士",
-    expr: "2",
-    value: 3.9,
-    title: "软件质量保证工程师",
-    tags: [
-      "备份策略",
-      "系统管理员",
-      "日志分级",
-      "缓存技术",
-      "性能监测",
-      "数据可视化",
-      "虚拟化技术",
-      "容错设计",
-    ],
-  },
-  {
-    name: "张莉",
-    score: "本科",
-    expr: "2",
-    value: 3.7,
-    title: "移动应用开发工程师",
-    tags: [
-      "Android",
-      "iOS",
-      "Kotlin",
-      "Swift",
-      "React Native",
-      "Flutter",
-      "移动界面设计",
-      "移动应用测试",
-    ],
-  },
-  {
-    name: "陈宇",
-    score: "硕士",
-    expr: "2",
-    value: 3.2,
-    title: "数据工程师",
-    tags: [
-      "Python",
-      "Git",
-      "SVN",
-      "敏捷开发",
-      "面向服务架构",
-      "软件安全",
-      "大数据处理",
-      "容器技术",
-      "Docker",
-    ],
-  },
-  {
-    name: "杨洋",
-    score: "本科",
-    expr: "4",
-    value: 2.6,
-    title: "网络安全工程师",
-    tags: [
-      "Java",
-      "Python",
-      "C++",
-      "PHP",
-      "软件开发流程",
-      "网络拓扑设计",
-      "数据库备份恢复",
-      "软件故障处理",
-    ],
-  },
+// {
+//     name: "李明",
+//     score: "本科",
+//     expr: "3",
+//     value: 5.0,
+//     title: "后端开发",
+//     tags: [
+//       "数据库管理",
+//       "网络安全",
+//       "敏捷开发",
+//       "后端开发",
+//       "系统架构",
+//       "Flutter",
+//       "Rust",
+//       "React",
+//       "Angular",
+//     ],
+//   },
+//   {
+//     name: "张旭",
+//     score: "硕士",
+//     expr: "5",
+//     value: 4.7,
+//     title: "数据工程",
+//     tags: [
+//       "软件调试",
+//       "性能优化",
+//       "多线程编程",
+//       "安全漏洞分析",
+//       "自动化测试",
+//       "后端框架",
+//       "Spring",
+//       "Django",
+//     ],
+//   },
+//   {
+//     name: "王乐洋",
+//     score: "博士",
+//     expr: "2",
+//     value: 4.2,
+//     title: "项目开发",
+//     tags: [
+//       "Java",
+//       "Python",
+//       "C++",
+//       "前端框架",
+//       "安全防护",
+//       "性能调优",
+//       "Keras",
+//       "scikit-learn",
+//       "内部工具开发",
+//     ],
+//   },
+//   {
+//     name: "刘芳语",
+//     score: "硕士",
+//     expr: "2",
+//     value: 3.9,
+//     title: "软件质量保证",
+//     tags: [
+//       "备份策略",
+//       "系统管理员",
+//       "日志分级",
+//       "缓存技术",
+//       "性能监测",
+//       "数据可视化",
+//       "虚拟化技术",
+//       "容错设计",
+//     ],
+//   },
+//   {
+//     name: "陈宇",
+//     score: "硕士",
+//     expr: "2",
+//     value: 3.2,
+//     title: "数据工程",
+//     tags: [
+//       "Python",
+//       "Git",
+//       "SVN",
+//       "敏捷开发",
+//       "面向服务架构",
+//       "软件安全",
+//       "大数据处理",
+//       "容器技术",
+//       "Docker",
+//     ],
+//   },
+//   {
+//     name: "杨洋",
+//     score: "本科",
+//     expr: "4",
+//     value: 2.6,
+//     title: "网络安全",
+//     tags: [
+//       "Java",
+//       "Python",
+//       "C++",
+//       "PHP",
+//       "软件开发流程",
+//       "网络拓扑设计",
+//       "数据库备份恢复",
+//       "软件故障处理",
+//     ],
+//   },
 ]);
 
+//查看人文详细跳转
 let selectTalent = ref();
 let intoTalent = (item) => {
-  console.log(item.name);
-  router.push({ path: "/analysisPage" });
+  window.open(`/analysisPage?id=${item.id}`,'_blank');//另外起新页面进行跳转
 };
 </script>
 

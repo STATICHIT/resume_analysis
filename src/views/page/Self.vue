@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-14 10:54:05
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-08-14 09:52:50
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -201,7 +201,6 @@ onMounted(() => {
 });
 function Per() {
   initEcharts();
-
   apiFun.similarity().then((res) => {
     console.log(res);
     resumedemo.value = res.data.highSimilarity;
@@ -211,15 +210,12 @@ function Per() {
   apiFun.process.flowPathNotOrder().then((res) => {
     console.log(res.data);
     let resumeStatus = res.data;
-
     statusMap.value = resumeStatus.reduce((acc, curr) => {
       acc[curr.id] = curr.name;
       return acc;
     },{});
-
   });
 }
-
 const resumedemo = ref([
   {
     resume1: {
@@ -589,14 +585,8 @@ const initEcharts = () => {
   echarts.registerTheme("theme", theme); //注册主题
   const myChart = echarts.init(document.getElementById("mychart1"), "theme"); // 图标初始化
   const myChart2 = echarts.init(document.getElementById("mychart2"), "theme");
-  const myChart3 = echarts.init(document.getElementById("mychart3"), "theme");
-  const myChart4 = echarts.init(document.getElementById("mychart4"), "theme");
-  const myChart5 = echarts.init(document.getElementById("mychart5"), "theme");
   myChart.setOption(echarts1); // 渲染页面
   myChart2.setOption(echarts2);
-  myChart3.setOption(echarts3);
-  myChart4.setOption(echarts4);
-  myChart5.setOption(echarts5);
 };
 </script>
 

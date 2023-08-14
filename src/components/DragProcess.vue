@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-07-02 00:52:47
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-11 18:17:52
+ * @LastEditTime: 2023-08-12 15:49:02
  * @FilePath: \resume_analysis\src\components\DragProcess.vue
  * @Description: 拖拽式流程管理组件
 -->
@@ -65,7 +65,7 @@
                 </li>
               </div>
               <div>
-                <span class="deleteIcon" @click="removeAt(idx)"
+                <span class="deleteIcon" @click="removeAt(element, idx)"
                   ><el-icon style="margin-right: 6px"><Delete /></el-icon>
                   <span>删除</span>
                 </span>
@@ -126,7 +126,7 @@
                 </li>
               </div>
               <div>
-                <span class="deleteIcon" @click="removeAt2(idx)"
+                <span class="deleteIcon" @click="removeAt2(element, idx)"
                   ><el-icon style="margin-right: 6px"><Delete /></el-icon>
                   <span>删除</span>
                 </span>
@@ -197,7 +197,7 @@
                 </li>
               </div>
               <div>
-                <span class="deleteIcon" @click="removeAt3(idx)"
+                <span class="deleteIcon" @click="removeAt3(element, idx)"
                   ><el-icon style="margin-right: 6px"><Delete /></el-icon>
                   <span>删除</span>
                 </span>
@@ -239,13 +239,58 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { defineEmits } from "vue";
+import apiFun from "../utils/api";
 import { VueDraggableNext } from "vue-draggable-next";
+import { ElNotification } from "element-plus";
 onMounted(() => {
   Pre();
 });
+let userId = ref();
 function Pre() {
-  // getNode();
+  //加载不同阶段的状态结点
+  apiFun.process.flowPathOrder().then((res) => {
+    console.log("加载不同阶段的状态结点返回结果", res);
+    list.value = [];
+    list2.value = [];
+    list3.value = [];
+    getAll(res.data.active, res.data.success, res.data.fail);
+  });
 }
+function getAll(list11, list22, list33) {
+  //加载不同阶段的状态结点
+  list.value = [];
+  list2.value = [];
+  list3.value = [];
+  list11.forEach((e) => {
+    list.value.push({
+      userId: e.userId,
+      name: e.name,
+      color: e.color,
+      id: e.id,
+      visible: false,
+    });
+  });
+  list22.forEach((e) => {
+    list2.value.push({
+      userId: e.userId,
+      name: e.name,
+      color: e.color,
+      id: e.id,
+      visible: false,
+    });
+  });
+  list33.forEach((e) => {
+    userId.value = e.userId;
+    list3.value.push({
+      userId: e.userId,
+      name: e.name,
+      color: e.color,
+      id: e.id,
+      visible: false,
+    });
+  });
+}
+
 const list = ref([
   { name: "投递人选", color: "#fbaf00", id: 1, visible: false },
   { name: "笔试阶段", color: "#6254e8", id: 2, visible: false },
@@ -262,66 +307,110 @@ const begincolor = ref("#6254e8");
 const addelement = ref("");
 
 //删除
-function removeAt(idx) {
-  list.value.splice(idx, 1);
+function removeAt(element, idx) {
+  apiFun.process.deleteNode(element.id).then((res) => {
+    if (res.code === 200) {
+      console.log("删除单个结点返回数据：", res);
+      list.value.splice(idx, 1);
+    } else {
+      errorTips("删除失败");
+    }
+  });
 }
-function removeAt2(idx) {
-  list2.value.splice(idx, 1);
+function removeAt2(element, idx) {
+  apiFun.process.deleteNode(element.id).then((res) => {
+    if (res.code === 200) {
+      list2.value.splice(idx, 1);
+    } else {
+      errorTips("删除失败");
+    }
+  });
 }
-function removeAt3(idx) {
-  list3.value.splice(idx, 1);
+function removeAt3(element, idx) {
+  apiFun.process.deleteNode(element.id).then((res) => {
+    if (res.code === 200) {
+      list3.value.splice(idx, 1);
+    } else {
+      errorTips("删除失败");
+    }
+  });
 }
+
+function errorTips(title) {
+  ElNotification({
+    title: title,
+    message: "请刷新并重试",
+    type: "error",
+  });
+}
+
+//更新单个结点
 function changeNode(item) {
-  item.visible = false;
+  apiFun.process
+    .updateNode(item.id, {
+      name: item.name,
+      color: item.color,
+    })
+    .then((res) => {
+      console.log("更新单个结点返回数据：", res);
+      if (res.code === 200) {
+        item.visible = false;
+      } else {
+        errorTips("修改失败");
+      }
+    });
 }
 
-//更新流程顺序
-function updateSorting() {
-  apiFun.process.updateSorting(params).then((res) => {});
-}
-
-//添加一个流程节点
-function addNode() {
-  apiFun.process.addNode(params).then((res) => {});
-}
-
-//更新一个流程节点（修改颜色，修改名字）
-function updateNode() {
-  apiFun.process.updateNode(nodeId, params).then((res) => {});
-}
-
-//删除一个流程节点，在对应的类型当中也会被删除
-function deleteNode() {
-  apiFun.process.deleteNode(nodeId, params).then((res) => {});
-}
-
-//更新简历当前所属节点
-function updateCurNode() {
-  apiFun.process.updateNode(resumeId, nodeId, params).then((res) => {});
-}
-
+//增加结点
 function add() {
   if (addelement.value !== "") {
-    list.value.push({
-      name: addelement.value,
-      id: list.value.length + 1,
-      color: begincolor.value,
-    });
-    addelement.value = "";
+    apiFun.process
+      .addNode({
+        name: addelement.value, //流程名字
+        color: begincolor.value, //颜色
+        flowType: 1, //追加到哪个流程后面 active:1 success:2 fail:3
+      })
+      .then((res) => {
+        console.log("增加单个结点返回数据：", res);
+        if (res.code === 200) {
+          getAll(res.data.active, res.data.success, res.data.fail); //重新加载
+          addelement.value = "";
+        } else {
+          errorTips("添加失败");
+        }
+      });
   } else {
-    alert("请输入流程名称");
+    errorTips("流程名不能为空");
   }
 }
 
 const emits = defineEmits(["finishChangeNode"]);
+//更新流程顺序
 function finish() {
-  emits("finishChangeNode"); // 使用 emit 函数触发自定义事件
-  
+  apiFun.process
+    .updateSorting({
+      active: list.value.map(({ visible, ...rest }) => rest),
+      success: list2.value.map(({ visible, ...rest }) => rest),
+      fail: list3.value.map(({ visible, ...rest }) => rest),
+    })
+    .then((res) => {
+      console.log("更新流程顺序的返回结果", res);
+      if (res.code === 200) {
+        ElNotification({
+          type: "success",
+          title: "更新成功",
+          message: "流程结点已更新并加载完毕",
+          position: "bottom-right",
+        });
+        emits("finishChangeNode"); //让外面的流程选择条重新加载
+      } else {
+        errorTips("更新失败");
+      }
+    });
 }
 </script>
 <script>
 import { defineComponent } from "vue";
-
 export default defineComponent({
   components: {
     draggable: VueDraggableNext,

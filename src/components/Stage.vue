@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-07-02 19:13:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-10 09:28:00
+ * @LastEditTime: 2023-08-12 09:59:26
  * @FilePath: \resume_analysis\src\components\Stage.vue
  * @Description: 状态条件选择栏
 -->
@@ -50,22 +50,23 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import dragProcess from "../components/DragProcess.vue";
+import apiFun from "../utils/api";
 import { defineEmits } from "vue";
 const emits = defineEmits(["reLoading", "changeStage"]);
 function finishChangeNode() {
   // 在这里处理事件逻辑
   drawer.value = false;
-  setTimeout(() => {
-    status.value = statusdemo;
-  }, 1000);
-
+  getNode();//更新结点
+  // setTimeout(() => {
+  //   status.value = statusdemo;
+  // }, 1000);
   emits("reLoading"); // 使用 emit 函数触发自定义事件
 }
 onMounted(() => {
   Pre();
 });
 function Pre() {
-  // getNode();
+  getNode();
 }
 const status = ref([
   { id: 1, name: "投递人选", cnt: 150, color: "#5e52dd" },
@@ -91,6 +92,7 @@ const statusdemo = [
 //获取一个用户的所有流程节点（不分类给出）配置流程选项
 function getNode() {
   apiFun.process.flowPathNotOrder().then((res) => {
+    console.log(res);
     status.value = res.data;
   });
 }

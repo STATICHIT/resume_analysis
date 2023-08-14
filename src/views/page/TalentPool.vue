@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 22:26:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-10 11:25:44
+ * @LastEditTime: 2023-08-12 16:59:46
  * @FilePath: \resume_analysis\src\views\page\TalentPool.vue
  * @Description: 人才库
 -->
@@ -288,7 +288,7 @@
       <div class="result">
         <h2 style="float: left">
           <!-- 共为您查询到 {{ condition.total }} 条查找结果 -->
-          共为您查询到 {{ totaldemo }} 条查找结果
+          共为您查询到 {{ state.total }} 条查找结果
         </h2>
         <el-pagination
           style="float: right"
@@ -463,22 +463,26 @@ const condition = ref({
 function moreCheck() {
   drawer.value = true;
 }
-const totaldemo = ref(200);//demo总条数
+
 //条件搜索
 function search() {
   console.log(condition.value);
   apiFun.search.conditionSearch(condition.value).then((res) => {
+    console.log("数据：", res);
     state.total = res.data.total;
     state.currentPage = res.data.pageNum;
     state.pageSize = res.data.pageSize;
     list.value = [];
-    res.data.list.forEach((r) => {
-      list.value.push({
-        content: JSON.parse(r.content),
-        email: r.email,
-        tags: JSON.parse(r.content).labelProcessing.skillTags.slice(0, 5),
+    if (res.data.list) {
+      res.data.list.forEach((r) => {
+        console.log("测试：", r.content);
+        list.value.push({
+          content: JSON.parse(r.content),
+          email: r.email,
+          tags: JSON.parse(r.content).labelProcessing.skillTags.slice(0, 5),
+        });
       });
-    });
+    }
   });
 }
 //取消具名搜索
@@ -491,9 +495,9 @@ function confirmClick() {
   search(); //搜索
 }
 const state = ref({
-  total: 0,     // 总条数
+  total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 7,    //一页的数据量
+  pageSize: 7, //一页的数据量
 });
 //换页
 const changePage = (val) => {

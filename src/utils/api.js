@@ -1,8 +1,8 @@
 /*
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-12 12:29:30
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-08-14 09:42:09
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -28,13 +28,7 @@ apiFun.test.test = () => {
   return http.get(`/resume/testES`)
 }
 
-apiFun.test.test1 = () => {
-  return http.get(`/user/test1`)
-}
-
-
-
-//判重复
+//查询相似简历
 apiFun.similarity = () => {
   return http.get(`/resume/similarity`)
 }
@@ -53,10 +47,6 @@ apiFun.user.register = (params) => {
 //简历上传（多个简历文件）
 apiFun.upload.resumeUpload = () => {
   return http.post('/resume/upload')
-}
-//岗位上传（string集合）
-apiFun.upload.postUpload = () => {
-  return http.post(``)
 }
 
 /**
@@ -119,8 +109,8 @@ apiFun.process.updateNode = (nodeId, params) => {
 }
 
 //删除一个流程节点，在对应的类型当中也会被删除
-apiFun.process.deleteNode = (nodeId, params) => {
-  return http.delete(`/flowPath/${nodeId}`, params)
+apiFun.process.deleteNode = (nodeId) => {
+  return http.delete(`/flowPath/${nodeId}`)
 }
 
 //更新简历当前所属节点
@@ -136,16 +126,9 @@ apiFun.process.updateStatus = (resumeId,nodeId) => {
 /**
  * 日志接口
  */
-//查询一个简历的日志
 apiFun.log.getLogById = (resumeId) => {
   return http.get(`/log/${resumeId}`)
 }
-
-//查询一个用户所有的操作日志
-apiFun.log.getLogByUser = () => {
-  return http.get(`/log`)
-}
-
 
 /**
  * 模板接口
@@ -203,7 +186,7 @@ apiFun.job.PJMatch = (jobId) => {
 
 //岗位字符串内容岗位解析（传字符串）
 apiFun.job.jobAnalysis = (jobContent)=>{
-  return http.post(`/job/jobAnalysis?jobContent=${jobContent}`)
+  return http.post(`/job/match`,jobContent)
 }
 
 //获取全部岗位
