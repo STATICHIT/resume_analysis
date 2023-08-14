@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 20:45:43
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-09 22:35:03
+ * @LastEditTime: 2023-08-12 17:55:19
  * @FilePath: \resume_analysis\src\components\Upload.vue
  * @Description: 简历分析上传组件
 -->
@@ -165,11 +165,12 @@ let deleteFile = (id) => {
   }
 };
 
+
 const header = {
-  "Content-Type": "application/json;charset=UTF-8",
-  Authorization:
-    "eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o",
-};
+  'Content-Type': 'multipart/form-data;charset=UTF-8',
+  'accessToken':'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJpZGVudGl0eSI6IkhSIiwiaWQiOiIxIiwiZXhwIjoxNzA5NTk1MTQzfQ.vUXTwTW7PxQlpQyv_RporMDZO2-XMekQlDSPel444VM',
+  // 'Authorization': 'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o',
+}
 
 //上传文件!!
 // let uploadFile = (file) => {
@@ -286,30 +287,31 @@ let uploadFile = async (file) => {
       percent: 0,
     });
     const formData = new FormData();
+    console.log(file)
     formData.append("file", file);
-    // axios
-    //   .post("http://192.168.83.83:5555/resume/upload", formData, {
-    //     headers: header,
-    //   })
-    //   .then((res) => {
-    setTimeout(() => {
-      // 定时器回调函数中重新启用按钮
-      updateTableData(file.uid, {
-        percent: 100,
-      });
-      setTimeout(() => {
-        // 定时器回调函数中重新启用按钮
+    console.log("2",file)
+    axios
+      .post("http://192.168.50.159:5555/resume/upload", formData, {
+        headers: header,
+      })
+      .then((res) => {
+        console.log(res);
         updateTableData(file.uid, {
-          status: 5, // 已上传
+          percent: 100,
         });
-      }, 500);
-    }, 500);
-    resolve();
-  }).catch((error) => {
-    console.log(error);
-    reject(error);
+        setTimeout(() => {
+          // 定时器回调函数中重新启用按钮
+          updateTableData(file.uid, {
+            status: 5, // 已上传
+          });
+        }, 500);
+        resolve();
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
   });
-  // });
 };
 
 //点击【开始分析】按钮
@@ -342,7 +344,8 @@ const open = () => {
   ElNotification({
     title: "分析成功",
     dangerouslyUseHTMLString: true,
-    message: '<strong>所有简历文件均已分析完成并纳入人才库，您可前往<a href="/talentPool"><b>人才库</b></a>查看最新简历</strong>',
+    message:
+      '<strong>所有简历文件均已分析完成并纳入人才库，您可前往<a href="/talentPool"><b>人才库</b></a>查看最新简历</strong>',
     type: "success",
   });
 };
