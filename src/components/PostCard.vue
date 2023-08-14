@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-05-24 21:10:51
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-14 16:49:30
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-08-14 09:30:47
  * @FilePath: \resume_analysis\src\components\PostCard.vue
  * @Description: 岗位展示列表
 -->
@@ -15,7 +15,7 @@
     <br /><br />
     <div class="container">
       <div
-        v-for="(job, idx) in list"
+        v-for="(job, idx) in jobList"
         :key="idx"
         class="card-container"
         @click="intoJob(job)"
@@ -23,8 +23,11 @@
         <div>
           <div class="overlay"></div>
           <div class="card">
-            <h4>{{ job.name }}</h4>
-            <h5>{{ job.area }}</h5>
+            <h4>{{ job.name }}</h4><div class="necessary">
+ <h5>学历&nbsp;{{ education[job.educationalRequirements] }}</h5>
+            <h5>工作经验&nbsp;{{ job.workExperienceRequirements }}年</h5>
+            </div>
+           
             <span class="chev">&rsaquo;</span>
           </div>
         </div>
@@ -142,6 +145,23 @@
 
 <script setup>
 import router from "../router";
+
+const props = defineProps({
+  jobList:{
+    type:Array,
+    default:[]
+  },
+  intoJob:{
+    type:Function,
+    default:()=>{}
+  }
+})
+
+const education = {
+ 1:'大专',2:'本科',3:'硕士' ,4:'博士'
+}
+const sexStatus = {0: '男', 1:'女'}
+
 let list = [
   {
     name: "产品运营",
@@ -184,9 +204,7 @@ let list = [
     area: "Risk Control Specialist",
   },
 ];
-let intoJob = (job) => {
-  router.push("/analysisPosts");
-};
+
 </script>
 
 <style lang="scss" scoped>
@@ -369,6 +387,11 @@ h4 {
 .overlay:hover ~ .card h4,
 .overlay:focus ~ .card h4 {
   transform: translateZ(144px);
+}
+.necessary{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .card > span {

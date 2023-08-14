@@ -17,7 +17,7 @@
       <div style="margin-top: 20px">
         <div style="display: flex; flex-direction: row; align-items: center;gap: 10px;">
           <span class="title">推荐岗位{{ index + 1 }}</span>
-          <div class="dataLabel">匹配度：{{ item.score }}%</div>
+          <div class="dataLabel">匹配度：{{  parseFloat((item.score.toFixed(4) * 100).toFixed(2)) }}%</div>
         </div>
         <p class="name">{{ item.job.name }}</p>
       </div>
@@ -26,12 +26,12 @@
         <div class="ask">
           <ul>
             <li>
-              <span>学历要求：</span>{{ item.job.educationalRequirements }}
+              <span>学历要求：</span>{{education[ item.job.educationalRequirements ]}}
             </li>
             <li>
               <span>专业要求：</span>{{ item.job.professionalRequirements }}
             </li>
-            <li><span>性别要求：</span>{{ item.job.sexRequirements }}</li>
+            <li><span>性别要求：</span>{{sexStatus[ item.job.sexRequirements ]}}</li>
             <li>
               <span>工作年限要求：</span
               >{{ item.job.workExperienceRequirements }}年工作经验
@@ -77,6 +77,11 @@ const props = defineProps({
     default: () => [],
   },
 });
+
+const education = {
+ 1:'大专',2:'本科',3:'硕士' ,4:'博士'
+}
+const sexStatus = {0: '男', 1:'女'}
 </script>
 
 <style lang="scss" scoped>

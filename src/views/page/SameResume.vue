@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-11 20:47:24
+ * @LastEditTime: 2023-08-12 11:45:01
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
  * @Description: 查看相似简历详细页面
 -->
@@ -10,15 +10,22 @@
 <template>
   <div class="box">
     <div class="same-point">
-      <div style="display: flex; flex-direction: row">
+      <div style="display: flex; flex-direction: row;gap: 10px;">
         <img src="../../assets/imgs/icon05.png" />
         <span>简历相似度</span>
+        <el-tag
+          type="warning"
+          class="mx-1"
+          effect="dark"
+    >
+      {{ currentSame.score }}
+    </el-tag>
       </div>
       <ul>
-        <li v-for="item in sameResume" :key="item">{{ item }}</li>
+        <li v-for="item in currentSame.label" :key="item">{{ item }}</li>
       </ul>
     </div>
-    <button class="returnBtn" @click="returnResume(-1)">
+    <button class="returnBtn" :disabled="getUp" @click="returnResume(-1)">
       <el-icon><ArrowLeftBold /></el-icon>
     </button>
     <div class="page animate__animated animate__fadeIn">
@@ -32,8 +39,11 @@
       <div class="avatar">
         <img src="../../assets/avatar.png" />
         <div>
-          <div class="user-tip">
+          <div class="user-tip" v-if="!currentSame.label.includes('姓名相同')">
             <h2>{{ userMsg.name }}</h2>
+          </div>
+          <div class="user-tip" v-else>
+            <h2 style="color: red;">{{ userMsg.name }}</h2>
           </div>
           <div class="user-msg">
             <el-icon><Iphone /></el-icon>
@@ -52,6 +62,10 @@
         :showReturn="false"
         :showTags="false"
         :showText="true"
+        :label1="currentSame.label.includes('教育背景相似')"
+        :label2="currentSame.label.includes('工作经历相似')"
+        :label3="currentSame.label.includes('项目经历相似')"
+        :label4="currentSame.label.includes('姓名相同')"
       ></resume-page>
     </div>
     <div class="page animate__animated animate__fadeIn">
@@ -65,20 +79,11 @@
       <div class="avatar">
         <img src="../../assets/avatar.png" />
         <div>
-          <div class="user-tip">
+          <div class="user-tip" v-if="!currentSame.label.includes('姓名相同')">
             <h2>{{ userMsg1.name }}</h2>
-            <!-- <el-tooltip
-              v-for="item in state.lights"
-              :key="item"
-              placement="top"
-            >
-              <template #content> 简历亮点 </template>
-              <el-button class="tooltip">{{ item }}</el-button>
-            </el-tooltip>
-            <el-tooltip v-for="item in state.warns" :key="item" placement="top">
-              <template #content> 简历风险点 </template>
-              <el-button class="tag">{{ item }}</el-button>
-            </el-tooltip> -->
+          </div>
+          <div class="user-tip" v-else>
+            <h2 style="color: red;">{{ userMsg1.name }}</h2>
           </div>
           <div class="user-msg">
             <el-icon><Iphone /></el-icon>
@@ -97,9 +102,14 @@
         :showReturn="false"
         :showTags="true"
         :showText="true"
+        :label="currentSame.label"
+        :label1="currentSame.label.includes('教育背景相似')"
+        :label2="currentSame.label.includes('工作经历相似')"
+        :label3="currentSame.label.includes('项目经历相似')"
+        :label4="currentSame.label.includes('姓名相同')"
       ></resume-page>
     </div>
-    <button class="returnBtn1" @click="returnResume(1)">
+    <button :disabled="getNext" class="returnBtn1" @click="returnResume(1)">
       <el-icon><ArrowRightBold /></el-icon>
     </button>
   </div>
@@ -110,7 +120,7 @@ import ResumePageVue from "@/components/ResumePage.vue";
 import ResumePage from "@/components/ResumePage.vue";
 import ResumePortraitVue from "@/components/ResumePortrait.vue";
 import animated from "animate.css";
-import { onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import router from "@/router";
 import { useRoute } from "vue-router";
 import { ArrowDown } from "@element-plus/icons-vue";
@@ -119,25 +129,58 @@ import apiFun from "@/utils/api";
 
 const route = useRoute();
 const params = route.params;
-const same = [ //相似度较高的简历对数组
-            {
-                "resume1": {
-                    "id": 21,
-                    "fullName": "", //z
-                    "processStage": 0 //流程状态
-                },
-                "resume2": {
-                    "id": 22,
-                    "fullName": "", //z
-                    "processStage": 0 //流程状态
-                },
-                "label": [
-                    ""
-                ],
-                "score": 0.0
-            }
-        ]
-const index = params.index;
+const same = 
+// params.same;
+ [ //相似度较高的简历对数组
+             {
+                 resume1: {
+                     id: 23,
+                     fullName: "", //z
+                     processStage:66 //流程状态
+                 },
+                 resume2: {
+                     id: 28,
+                     fullName: "", //z
+                     processStage: 67 //流程状态
+                 },
+                 label: [
+                     "项目经历相似",
+                     "工作经历相似",
+                 ],
+                 score: 6.7
+             },
+             {
+                 resume1: {
+                     id: 23,
+                     fullName: "", //z
+                     processStage:66 //流程状态
+                 },
+                 resume2: {
+                     id: 28,
+                     fullName: "", //z
+                     processStage: 67 //流程状态
+                 },
+                 label: [
+                     "工作经历相似",
+                 ],
+                 score: 6.5
+             }
+         ]
+const index = 
+// params.index;
+0
+
+console.log(route.params)
+const getUp = computed(()=>{
+  if(index===0) return true
+  else false
+})
+
+const getNext = computed(()=>{
+  console.log(index+same.length-1)
+  if(index===same.length-1) return false
+  else true
+})
 
 
 const currentSame = same[index];
@@ -204,7 +247,14 @@ function handleCommand(command) {
 }
 
 /* 进行翻页操作 */
-const returnResume = (num) => {};
+const returnResume = (num) => {
+  router.push({
+    path: "/sameResume",
+    params: { sameResume: same, index: index+num },
+  });
+};
+
+
 
 const userMsg = ref({
   id: "",
@@ -348,9 +398,7 @@ const deleteResume = () => {
     .catch(() => {});
 };
 onMounted(()=>{
-  console.log(userMsg1.value)
-  console.log(JSON.parse(userMsg1.value.content))
-  userMsg1.value=JSON.parse(userMsg1.value.content)
+  getResume()
 })
 
 const getResume = () => {
@@ -360,12 +408,12 @@ const getResume = () => {
   });
   apiFun.resume.analysis(currentSame.resume2.id).then((res) => {
     console.log(currentSame.resume2.id)
-    userMsg.value = JSON.parse(res.data.content);
+    userMsg1.value = JSON.parse(res.data.content);
   });
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../style/base.scss";
 .box {
   padding: 10px;
@@ -413,9 +461,14 @@ const getResume = () => {
   display: flex;
   flex-direction: column;
   list-style: none;
-  margin-left: 37%;
-  font-size: 14px;
-  margin-top: 5%;
+  text-align: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+  color:#f4af48;
+  position: absolute;
+  top: 40%;
+  left: 40%;
 }
 .avatar {
   display: flex;

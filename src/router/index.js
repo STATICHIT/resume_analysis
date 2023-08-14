@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:00:37
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-07-07 16:22:13
+ * @LastEditTime: 2023-08-14 09:51:39
  * @FilePath: \resume_analysis\src\router\index.js
  * @Description: vue-router类的主构造函数
  */
@@ -80,7 +80,9 @@ const routes = [
       },
       {
         path: '/analysisPosts',//岗位分析内容页面
-        component: () => import('../views/page/AnalysisPosts.vue')
+        name:"analysisPosts",
+        component: () => import('../views/page/AnalysisPosts.vue'),
+        props:true
       },
       {
         path: '/sameResume',//简历去重详细页面

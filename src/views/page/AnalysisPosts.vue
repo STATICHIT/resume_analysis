@@ -1,4 +1,11 @@
-<!--职位解析页面 -->
+<!--
+ * @Author: sunsan 2390864551@qq.com
+ * @Date: 2023-07-11 20:44:31
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-08-14 10:15:20
+ * @FilePath: \resume_analysis\src\views\page\AnalysisPosts.vue
+ * @Description: 职位解析页面
+-->
 <template>
     <div class="box">
       <div class="page animate__animated animate__fadeIn">
@@ -10,11 +17,11 @@
             </div>
             <div class="user-msg">
               <el-icon><Avatar /></el-icon>
-              <span>性别{{ jobContent.sexRequirements }}</span>
+              <span>性别&nbsp;{{sexStatus[ jobContent.sexRequirements ]}}</span>
               <el-icon><Briefcase /></el-icon>
-              <span>工作经验{{ jobContent.workExperienceRequirements }}</span>
+              <span>工作经验&nbsp;{{ jobContent.workExperienceRequirements }}年</span>
               <img src="..\..\assets\student-icon.png" />
-              <span>学历{{ jobContent.educationalRequirements }}</span>
+              <span>学历&nbsp;{{education[ jobContent.educationalRequirements ]}}</span>
             </div>
           </div>
         </div>
@@ -47,16 +54,16 @@
       <span class="title">任职要求</span>
       <div class="ask">
         <ul>
-          <li><span>学历要求：</span>{{ jobContent.educationalRequirements }}</li>
+          <li><span>学历要求：</span>{{ education[jobContent.educationalRequirements] }}</li>
           <!-- <li><span>学校要求：</span>不限</li> -->
           <li><span>专业要求：</span>{{jobContent.professionalRequirements}}</li>
           <!-- <li><span>职位等级：</span>2(普通)</li> -->
           <!-- <li><span>年龄要求：</span>不限</li> -->
-          <li><span>性别要求：</span>{{ jobContent.sexRequirements }}</li>
-          <li><span>工作年限要求：</span>{{ jobContent.workExperienceRequirements }}</li>
+          <li><span>性别要求：</span>{{ sexStatus[jobContent.sexRequirements] }}</li>
+          <li><span>工作年限要求：</span>{{ jobContent.workExperienceRequirements }}年</li>
           <!-- <li><span></span>3、熟练掌握图像处理算法原理 精通OpenCV 熟悉Halcon等视觉算法库及工具 4、精通C++/C#编程语言 5、对图像识别算法有深刻理解及应用经验优先 熟悉主流的机器学习算法 能够熟练使用深度学习TensorFlow、Caffe等深度学习框架</li>   -->
           <!-- <li><span>软性技能要求：</span>沟通能力、团队合作</li> -->
-          <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;"><span>岗位要求：</span>{{ jobContent.requirement }}</li>
+          <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;"><span>岗位要求：</span>{{ jobContent.jobRequire }}</li>
         </ul>
     </div>
   </div>
@@ -74,7 +81,7 @@
         <div style="margin-top: 40px;">
           <el-button
             type="primary"
-            v-for="item in jobContent.professionalLabel"
+            v-for="item in JSON.parse(jobContent.professionalLabel)"
             :key="item"
             class="btn"
             plain
@@ -144,246 +151,30 @@
   </template>
   
   <script setup>
-  import animated from "animate.css";
+  import router from "@/router";
+import animated from "animate.css";
   import { stringify } from "qs";
 import { reactive, ref } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute()
+console.log(route)
+const jobContent = JSON.parse(route.query.job)
+
+console.log(route.query.job)
 
 const isVisited = ref(true)
 
-const state = reactive({
-  tags: {
-    basic: [
-      { tag: "26到30岁", type: "age" },
-      { tag: "广东广州", type: "current_location" },
-      { tag: "广东广州", type: "expect_location" },
-      { tag: "高级", type: "level" },
-      { tag: "5-10年经验", type: "experience" },
-    ],
-    education: [
-      { tag: "本科学历", type: "degree" },
-      { tag: "市场营销", type: "major" },
-    ],
-    others: [
-      { tag: "英语", type: "language", level: "基本掌握" },
-      { tag: "普通话一级甲等", type: "certificate" },
-    ],
-    professional: [
-      { tag: "互联网/软件", type: "industry" },
-      { tag: "销售/客服/市场-市场-市场营销", type: "standard_title" },
-    ],
-    skills: [
-      { tag: "需求分析", type: "professional_skill", subclass: "产品" },
-      { tag: "建设项目", type: "professional_skill", subclass: "其它" },
-      { tag: "功能设计", type: "professional_skill", subclass: "产品" },
-      { tag: "策划", type: "professional_skill", subclass: "运营" },
-      { tag: "数据分析能力", type: "professional_skill", subclass: "数据分析" },
-      { tag: "OFFICE", type: "professional_skill", subclass: "其它" },
-      { tag: "服务质量", type: "professional_skill", subclass: "其它" },
-      { tag: "销售技巧", type: "professional_skill", subclass: "销售" },
-      { tag: "电商平台", type: "professional_skill", subclass: "电子商务" },
-      { tag: "宏观经济", type: "professional_skill", subclass: "其它" },
-    ],
-  },
-  json:{
-    "project_experience": [],
-    "contact_info": {
-        "phone_number": "13800138000",
-        "QQ": "",
-        "wechat": "",
-        "email": "",
-        "home_phone_number": ""
-    },
-    "social_experience": [
-        {
-            "description": "制单会计\n独立处理“公司”中的所有账务处理,个人所得税、企业所得税、出口退税的核算申报；\n负责与审计沟通公司的财务问题，并就问题对账务进行有效的调整。",
-            "end_time_year": "2014",
-            "still_active": 0,
-            "end_time_month": "01",
-            "organization_name": "校内仿真实训",
-            "start_time_year": "2013",
-            "location": "",
-            "department": "",
-            "job_title": "制单会计",
-            "start_time_month": "01"
-        },
-        {
-            "description": "负责活学生会动的组织策划；\n负责学生会内部的文档管理，上级来文和学生组织的批复，对所有文件资料的各项工作；\n负责学生会的工作汇报 ， 资产管理工作 ， 保管印章并对学校拨付的固定资产登记注册。",
-            "end_time_year": "2013",
-            "still_active": 0,
-            "end_time_month": "09",
-            "organization_name": "飞扬大学学生会",
-            "start_time_year": "2012",
-            "location": "",
-            "department": "",
-            "job_title": "会长",
-            "start_time_month": "08"
-        }
-    ],
-    "education_experience": [
-        {
-            "ranking": "",
-            "major": "会计学",
-            "degree": "本科",
-            "end_time_year": "2010",
-            "still_active": 0,
-            "school_rank": "",
-            "school_level": "",
-            "end_time_month": "07",
-            "school_name": "广州飞扬大学",
-            "abroad_country": "",
-            "GPA": "",
-            "courses": "中级财务管理，会计电算化，会计学基础，财务会计，会计英语，成本会计，会计学，税法，会计，审计",
-            "start_time_year": "2009",
-            "location": "广州",
-            "department": "",
-            "study_model": "",
-            "abroad": 0,
-            "start_time_month": "09"
-        }
-    ],
-    "basic_info": {
-        "major": "会计学",
-        "expect_location": "",
-        "current_salary": "",
-        "current_location_norm": "中国-广东-广州",
-        "current_location": "广东广州",
-        "expect_location_norm": "",
-        "desired_salary": "",
-        "birthplace": "",
-        "degree": "本科",
-        "desired_industry": "",
-        "desired_position": "",
-        "zipcode": "",
-        "professional_level": "初级",
-        "national_identity_number": "",
-        "date_of_birth": "1993-02-02",
-        "birthplace_norm": "",
-        "num_work_experience": 13,
-        "current_position": "实习",
-        "work_start_year": "2013",
-        "political_status": "",
-        "current_company": "广州飞扬科技有限公司",
-        "school_name": "广州飞扬大学",
-        "ethnic": "",
-        "recent_graduate_year": "2010",
-        "name": "亿铭",
-        "lastupdate_time": "2023-05-29-06-30-18",
-        "gender": "",
-        "age": 30,
-        "marital_status": "",
-        "current_status": "",
-        "school_type": "",
-        "detailed_location": "",
-        "industry": ""
-    },
-    "training_experience": [],
-    "work_experience": [
-        {
-            "salary": "",
-            "description": "负责公司会计核算，报表编制及月度报税工作；\n发票的扫描、开具、核对及管理工作；\n单位的报账、定期对账、处理账务相关的事",
-            "end_time_year": "2015",
-            "still_active": 0,
-            "skills": [
-                "管理工作",
-                "会计"
-            ],
-            "company_type": "",
-            "industry": "互联网/软件",
-            "end_time_month": "04",
-            "location": "",
-            "company_size": "",
-            "job_function": "市场",
-            "start_time_year": "2014",
-            "company_name": "广州飞扬科技有限公司",
-            "report_to": "",
-            "department": "",
-            "underling_num": "",
-            "job_title": "实习",
-            "start_time_month": "08"
-        },
-        {
-            "salary": "",
-            "description": "负责公司会计核算，报表编制及月度报税工作；\n负责项目资金财务收取、材料发票保管，做好催付和对账工作；\n负责项目报表的正确性和上报的及时性；",
-            "end_time_year": "2014",
-            "still_active": 0,
-            "skills": [
-                "财务",
-                "会计"
-            ],
-            "company_type": "",
-            "industry": "电子/通信/硬件",
-            "end_time_month": "07",
-            "location": "",
-            "company_size": "",
-            "job_function": "市场",
-            "start_time_year": "2013",
-            "company_name": "广州电子科技有限公司",
-            "report_to": "",
-            "department": "",
-            "underling_num": "",
-            "job_title": "实习",
-            "start_time_month": "07"
-        }
-    ],
-    "others": {
-        "language": [
-            "tem-4",
-            "英语"
-        ],
-        "certificate": [
-            "tem-4",
-            "会计上岗证",
-            "会计电算化",
-            "计算机二级",
-            "证券从业资格证"
-        ],
-        "skills": [
-            "策划",
-            "财务",
-            "审计",
-            "会计",
-            "仿真",
-            "财务管理",
-            "管理工作",
-            "财务软件",
-            "财务会计",
-            "财务分析",
-            "社会活动",
-            "常用办公软件"
-        ],
-        "self_evaluation": "个人介绍: 本人是会计专业大四学生 ， 即将毕业；有丰富的专业知识体系和实践经历做基础 ， 大学期间学习刻苦 ， 成绩优异、还积极地参加各种社会活动 ， 抓住每一个机会锻炼自己 ， 希望找一份会计相关实习工作；并且在实践中不断学习、进步。\n 工作方面: 有一定的财务分析能力，能够熟练使用金蝶等财务软件，熟练使用常用办公软件等；工作认真细致，吃苦耐劳、责任心强；数据敏感度强、善于沟通、协调、组织能力强；有良好的职业操守，具有较强的服务意识。\n 性格方面: 个性稳重、思维严谨、乐观豁达、容易相处，团队荣誉感强。",
-        "awards": [],
-        "it_skills": [
-            "财务软件",
-            "常用办公软件"
-        ],
-        "business_skills": [
-            "会计",
-            "财务会计",
-            "常用办公软件"
-        ]
-    },
-    "resume_rawtext": ""
-},
-});
-
-const jsonStr = JSON.stringify(state.json);
+const education = {
+ 1:'大专',2:'本科',3:'硕士' ,4:'博士'
+}
+const sexStatus = {0: '男', 1:'女'}
 
 const lookJson = () => {
     isVisited.value=!isVisited.value;
 }
 
 
-const jobContent = ref({
-   name:'财务',
-  responsibility:'1.全面负责财务部的日常管理工作；\n2.组织制定财务方面的管理制度及有关规定，并监督执行；\n3.向公司提供各项财务报告和必要的财务分析；\n4.监控可能会对公司造成经济损失的重大经济合同；\n5.有独立处理账务和税务的能力者优先；\n6.有全盘账务处理，税务工作，年度汇算清缴能力者优先；\n7.公司资质和合同的归档保管工作；\n8.完成上级领导交代的其他日常工作任务。',
-   requirement:'1.本科及以上学历；\n2.通晓财会专业知识，熟悉国家有关财务、会计、税收政策和实务；\n3.有互联网行业相关经验优先；\n4.原则性强，沟通能力佳，有良好的团队协作意识。',
-  professionalLabel:['年度汇算清缴', '全盘账务处理', '管理工作', '财务报告', '沟通能力', '财务分析', '管理制度', '监督', '财务'], 
-   educationalRequirements:'本科及以上', 
-   professionalRequirements:'财会', 
-   sexRequirements:'无要求', 
-   workExperienceRequirements:'无要求'
-})
 
 
 /* json数据格式化 */
@@ -435,6 +226,7 @@ function syntaxHighlight(json) {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    min-height: 60vh;
   }
 
   .avatar {
@@ -508,6 +300,7 @@ function syntaxHighlight(json) {
     font-size: 12px;
     margin-top: 30px;
     line-height: 1.5;
+    min-height: 60vh;
 }
 .return{
   float: right;

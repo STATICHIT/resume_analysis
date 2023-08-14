@@ -22,13 +22,14 @@
           <li><span>年龄：</span>{{ userMsg.age ? userMsg.age:24 }}</li>
           <li><span>出生年月：</span>{{ userMsg.dateOfBirth }}</li>
         </ul>
-        <div v-show="showTags" class="same-tags">姓名相同</div>
+        <div v-show="showTags&label4" class="same-tags">姓名相同</div>
       </div>
       <div>
         <span class="title">教育背景</span>
         <div class="education">
           <div style="display: flex; flex-direction: row">
-            <span class="m-2">{{ userMsg.graduationInstitution }}</span>
+            <span class="m-2" v-if="!label1">{{ userMsg.graduationInstitution }}</span>
+            <span class="m-2" v-else style="color: red;">{{ userMsg.graduationInstitution }}</span>
             <div v-show="showReturn">
               <el-popover
                 ref="popover"
@@ -92,9 +93,9 @@
             <li><span>学校名：</span>{{ userMsg.graduationInstitution }}</li>
           </ul>
         </div>
-        <div v-show="showTags" class="same-tags">教育背景相似</div>
+        <div v-show="showTags&label1" class="same-tags">教育背景相似</div>
       </div>
-      <div>
+      <div v-if="!label2">
         <span class="title">工作经历</span>
         <div v-for="(item, index) in userMsg.workExperiences" :key="index">
           <span class="m-2">{{ item.companyName }}</span>
@@ -110,9 +111,40 @@
             </li>
           </ul>
         </div>
-        <div v-show="showTags" class="same-tags">工作经历相似</div>
+        <div v-show="showTags&label2" class="same-tags">工作经历相似</div>
       </div>
-      <div>
+      <div v-else>
+        <span class="title">工作经历</span>
+        <div v-for="(item, index) in userMsg.workExperiences" :key="index">
+          <span style="color: red;" class="m-2">{{ item.companyName }}</span>
+          <ul>
+            <li style="color: red;"><span>开始时间：</span>{{ item.startTime }}</li>
+            <li style="color: red;"><span>结束时间：</span>{{ item.endTime }}</li>
+            <!-- <li><span>地点：</span>湘西土家族苗族自治州</li> -->
+            <li style="color: red;"><span>公司名：</span>{{ item.companyName }}</li>
+            <li style="color: red;"><span>职位名称：</span>{{ item.jobName }}</li>
+            <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;color: red;">
+              <span>工作描述：</span>
+              {{ item.description }}
+            </li>
+          </ul>
+        </div>
+        <div v-show="showTags&label2" class="same-tags">工作经历相似</div>
+      </div>
+      <div v-if="label3">
+        <span class="title">经历</span>
+        <span
+          style="
+            color: red;
+            font-size: 15px;
+            font-weight: lighter;
+            white-space: pre-line;
+          "
+          >{{ userMsg.projectExperiences }}</span
+        >
+        <div v-show="showTags" class="same-tags">项目经历相似</div>
+      </div>
+      <div v-else>
         <span class="title">项目经历</span>
         <span
           style="
@@ -123,8 +155,8 @@
           "
           >{{ userMsg.projectExperiences }}</span
         >
-        <div v-show="showTags" class="same-tags">项目经历相似</div>
       </div>
+      
       <div>
         <span class="title" style="margin-top: 30px">补充信息</span>
         <ul>
@@ -180,9 +212,33 @@ const prop = defineProps({
   },
   showText:{
     type:Boolean,
+  },
+  label1:{
+    type:Boolean,
     default:false
-  }
-});
+  },
+  label2:{
+    type:Boolean,
+    default:false
+  },
+  label3:{
+    type:Boolean,
+    default:false
+  },
+  label4:{
+    type:Boolean,
+    default:false
+  },
+  });
+
+  onMounted(()=>{
+     console.log(prop.label1)
+  console.log(prop.label2)
+  console.log(prop.label3)
+
+  })
+
+ 
 
 const list = toRef(prop, "schoolList");
 

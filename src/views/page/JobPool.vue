@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-05-29 22:10:18
- * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-11 20:04:05
+ * @LastEditors: sunsan 2390864551@qq.com
+ * @LastEditTime: 2023-08-14 09:33:52
  * @FilePath: \resume_analysis\src\views\page\JobPool.vue
  * @Description: 岗位库
 -->
@@ -18,7 +18,7 @@
       </p>
     </div>
     <div class="postBoard">
-      <PostCard></PostCard>
+      <PostCard :jobList="jobList" :intoJob="gotoJob"></PostCard>
     </div>
     <div class="bigTitle">录入更多岗位</div>
     <div class="board1">
@@ -59,10 +59,26 @@ import PostCard from "../../components/PostCard.vue";
 import Upload from "../../components/Upload2.vue";
 import { ref, onMounted } from "vue";
 import apiFun from "../../utils/api";
+import router from "@/router";
 const activeName = ref("first");
+
+const jobList = ref([])
+
 onMounted(() => {
-  // Pre();
+  getJob()
 });
+
+const gotoJob = (job) => {
+  console.log(job)
+  router.push({name:"analysisPosts",query:{job:JSON.stringify(job)}});
+}
+
+const getJob = async () => {
+  apiFun.job.getAll().then(res=>{
+    console.log(res)
+    jobList.value = res.data
+  })
+};
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-11 21:29:38
+ * @LastEditTime: 2023-08-14 11:01:21
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
  * @Description: 简历分析页面
 -->
@@ -10,7 +10,7 @@
 <template>
   <div class="box">
     <div class="selector">
-      <el-dropdown>
+      <el-dropdown v-loading="state.selectItem.length===0">
         <el-button
           type="primary"
           color="#8e95f8"
@@ -29,6 +29,7 @@
           <el-dropdown-menu @command="handleCommand">
             <el-dropdown-item
               @click="updateResumeStatus(item.id)"
+              :disabled="resume.processStage===item.id"
               v-for="item in state.selectItem"
               :key="item.id"
               :command="item.name"
@@ -71,11 +72,11 @@
         <span class="warn">面试官请依据面试填写客观正确的评价！</span></div> -->
 
           <label style="text-align: left">技能评估</label>
-          <textarea style="height: 7rem"></textarea>
+          <textarea style="height: 7rem" v-model="state.skill"></textarea>
           <label style="text-align: left">综合评价</label>
-          <textarea style="height: 8rem"></textarea>
+          <textarea style="height: 8rem" v-model="state.summarize"></textarea>
           <label style="text-align: left">总结与建议</label>
-          <textarea style="height: 5rem"></textarea>
+          <textarea style="height: 5rem" v-model="state.composite"></textarea>
         </div>
         <template #footer>
           <span class="dialog-footer">
@@ -114,7 +115,7 @@
         ><el-icon><Position /></el-icon>发送面试邀约</el-button
       >
     </div>
-    <div class="page animate__animated animate__fadeIn">
+    <div class="page animate__animated animate__fadeIn" v-loading="loading.loading1">
       <div class="avatar">
         <img src="../../assets/avatar.png" />
         <div>
@@ -178,7 +179,7 @@
           label="推荐岗位"
           name="third"
         >
-          <postPage :jobList="jobList"></postPage>
+          <postPage v-loading=loading.loading2 :jobList="jobList"></postPage>
         </el-tab-pane>
         <el-tab-pane
           class="animate__animated animate__slideInRight"
@@ -186,8 +187,11 @@
           label="评价"
           name="forth"
         >
+        <empty-data v-if="evaluate.length===0" msg="暂无评价信息"></empty-data>
           <InterviewPage
-            :interviewList="interviewList"
+          v-else
+          v-loading="loading.loading3"
+            :interviewList="evaluate"
                     ></InterviewPage>
         </el-tab-pane>
         <el-tab-pane
@@ -196,7 +200,8 @@
           label="操作日志"
           name="fifth"
         >
-          <Log :logs="logs"></Log>
+          <empty-data v-if="logs.length===0" msg="暂无日志信息"></empty-data>
+          <Log v-else :logs="logs" v-loading="loading.loading4"></Log>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -227,6 +232,7 @@ import axios from "axios";
 import { ElNotification } from "element-plus";
 import InterviewPage from "@/components/InterviewPage.vue";
 import http from "@/utils/axios";
+import EmptyData from "@/components/EmptyData.vue";
 
 const route = useRoute();
 const query = route.query;
@@ -235,6 +241,15 @@ const dialogVisible = ref(false);
 
 /* 当前要修改的状态值 */
 const currentState = ref(1);
+const evaluate = ref([])
+
+const loading = reactive({
+  loading1:true,
+  loading2:true,
+  loading3:true,
+  loading4:true,
+  loading5:true,
+})
 
 /* 返回json数据 */
 const state = reactive({
@@ -260,18 +275,7 @@ let resume = ref({
   createTime: "2023-07-06T15:14:07",
   updateTime: "2023-07-06T15:15:03",
 });
-const interviewList = ref([
-  {
-    id: 1,
-    interviewer: "李经理",
-    interviewTime: "2023-07-06T15:14:07",
-    interviewResult: "通过",
-    skill:
-      "结合集团与事业部发展，制定营销策略、广告策略、品牌策略和公关策略，并组织推进执行；",
-    comprehensive: "此人较为全方面发展",
-    advice: "工作经历较为匮乏",
-  },
-]);
+
 const userMsg = ref({
   id: "",
   name: "黎芸贵",
@@ -507,43 +511,22 @@ const jobList = ref([
     score: 75.0, //得分
   },
 ]);
-const logs = ref([
-  {
-    id: 1,
-    action: "应聘人状态修改",
-    detail: "从投递人选切换至简历推荐",
-    time: "2023-07-08 17:11:46",
-    resumeId: 22,
-  },
-  {
-    id: 2,
-    action: "应聘人状态修改",
-    detail: "从简历推荐切换至笔试阶段",
-    time: "2023-07-09 19:24:58",
-    resumeId: 22,
-  },
-  {
-    id: 3,
-    action: "应聘人状态修改",
-    detail: "从笔试阶段切换至面试阶段",
-    time: "2023-07-11 22:23:38",
-    resumeId: 22,
-  },
-  {
-    id: 4,
-    action: "发送面试邀约",
-    detail: "从笔试阶段切换至面试阶段",
-    time: "2023-07-11 22:23:45",
-    resumeId: 22,
-  },
-]);
+
+const comments = reactive({
+  skill:'',
+  summarize:'',
+  composite:''
+})
+
+const logs = ref([]);
 onMounted(() => {
   apiFun.test.test1().then(res=>{
     console.log(res)
   })
   apiFun.resume.analysis(resumeId).then((res) => {
-    console.log(res.data+'547');
-    resume.value = res.data;
+    console.log(res.data.content);
+    resume.value = res.data;    
+    loading.loading1=false
     labelProcessing.value = JSON.parse(resume.value.labelProcessing);
     for (let key in labelProcessing.value.backgroundIndustry) {
       if (labelProcessing.value.backgroundIndustry[key] < 8) {
@@ -551,6 +534,7 @@ onMounted(() => {
       }
     }
     userMsg.value = JSON.parse(resume.value.content);
+
   });
   apiFun.resume.graph(resumeId).then((res) => {
     console.log(res.data);
@@ -558,20 +542,30 @@ onMounted(() => {
   });
   getNode();
 
-  // //给简历推荐岗位
-  //  apiFun.job.matchJob(resumeId).then((res)=>{
-  //    console.log(res.data);
-  //    if(res.data.list.length()>0)
-  //    jobList.value = res.data.list;
-  //  })
+   //给简历推荐岗位
+    apiFun.job.matchJob(resumeId).then((res)=>{
+      console.log(res.data);
+      if(res.data.list.length>0)
+      jobList.value = res.data.list;
+      loading.loading2=false
+    })
   //获取一个简历的操作日志
   getLogs()
+  getComment()
 });
-
+//获取评价
+const getComment = () => {
+  apiFun.evaluate.get(resumeId).then(res=>{
+    console.log(res)
+    loading.loading3=false
+    evaluate.value=res.data
+  })
+}
 const getLogs = () => {
   apiFun.log.getLogById(resumeId).then((res) => {
     console.log(res.data);
     if (res.data.length > 0) logs.value = res.data;
+    loading.loading4=false
   });
 }
 
@@ -583,21 +577,24 @@ const getStatus = computed(() => {
   return selectedStatus ? selectedStatus.name : "";
 });
 const isInterview = computed(()=>{
-  const selectedInterview = state.selectItem.find(
-    (item) => item.name === "面试"
+  let selectedInterview = state.selectItem.find(
+    (item) => item.name.includes("面试")
   );
-  if(selectedInterview===undefined){
-    return true
-  }
+  console.log(selectedInterview)
+  // if(selectedInterview.id===resume.value.processStage){
+  //   return true
+  // }
   return false
 })
 const isGet = computed(()=>{
-  const selectedInterview = state.selectItem.find(
+  let selectedInterview = state.selectItem.find(
     (item) => item.name === "入职"
   );
-  if(selectedInterview===undefined){
-    return true
-  }
+  console.log(selectedInterview)
+  // console.log(selectedInterview.value.id)
+  //  if(selectedInterview.id===resume.value.processStage){
+  //    return true
+  //  }
   return false
 })
 const updateResumeStatus = (value) => {
@@ -613,10 +610,14 @@ const updateStatus = () => {
     if (res.code === 200) {
       dialogVisible.value = false;
       resume.value.resumeStatus = currentState.value;
-      open1()
-      getLogs()
-    }
+        open1()
+        getLogs()
+      }
   });
+  apiFun.evaluate.add(resumeId, state.skill,state.summarize,state.composite).then(res=>{
+    console.log(res.data)
+    getComment()
+  })
 };
 
 function handleCommand(command) {
@@ -823,4 +824,5 @@ label {
   flex-direction: row;
   gap: 5px;
 }
+
 </style>

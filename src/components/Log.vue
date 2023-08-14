@@ -1,7 +1,11 @@
 <!-- 日志组件 -->
 <template>
   <div>
+    <div v-if="logs.length==0" class="null">
+      暂无日志查看
+    </div>
     <div
+    v-else
       class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2"
       style="padding: 30px 80px"
     >
@@ -32,42 +36,7 @@ import { useRoute } from "vue-router";
 const props = defineProps({
   logs:{
     type:Array,
-    default:()=>[{
-    time: "2023年6月18日 22点17分",
-    action: "发送面试邀约",
-    detail:
-      "给应聘人刘力霞、胡旭发送面试邀约，已发出成功",
-  },
-  {
-    time: "2023年6月18日 11点26分",
-    action: "发送笔试邀约",
-    detail:
-      "给应聘人刘力霞、胡旭发送笔试邀约，已发出成功",
-  },
-  {
-    time: "2023年6月17日 9点23分",
-    action: "应聘人状态修改",
-    detail:
-      "将应聘人黎芸贵的简历状态由投递状态修改为笔试状态，已修改成功",
-  },
-  {
-    time: "2023年6月16日 7点11分",
-    action: "应聘人状态修改",
-    detail:
-      "将应聘人黎芸贵的简历状态由笔试状态修改为面试状态，已修改成功",
-  },
-  {
-    time: "2023年6月16日 7点11分",
-    action: "应聘人状态修改",
-    detail:
-      "将应聘人黎芸贵的简历状态由面试状态修改为offer状态，已修改成功",
-  },
-  {
-    time: "2023年6月16日 7点11分",
-    action: "发送入职邀约",
-    detail:
-      "给应聘人黎芸贵发送入职邀约，已发出成功",
-  }]
+    default:()=>[]
   }
 });
 
@@ -137,6 +106,10 @@ const getAction = computed(()=>{
   top: 20px;
   bottom: 0;
   left: 9px;
+}
+
+.null{
+  font-weight: bold;
 }
 
 .timeline-content {

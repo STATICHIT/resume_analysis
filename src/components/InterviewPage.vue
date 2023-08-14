@@ -2,7 +2,7 @@
  * @Author: sunsan 2390864551@qq.com
  * @Date: 2023-08-09 15:26:50
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-11 12:04:45
+ * @LastEditTime: 2023-08-12 17:47:28
  * @FilePath: \resume_analysis\src\components\InterviewPage.vue
  * @Description: 面评
 -->
@@ -13,29 +13,29 @@
       :key="index"
     ><div class="pass-tag">
         <div class="status-style"></div>
-       <span style="color: #67C23A;">投递人选</span>
+       <!-- <span style="color: #67C23A;">投递人选</span>
        <el-icon style="color: #67C23A;"><ArrowRightBold /></el-icon>
-       <span style="color: #67C23A;">简历推荐</span>
+       <span style="color: #67C23A;">简历推荐</span> -->
         <el-tag
       type="success"
       class="mx-1"
       effect="dark"
-    >{{ item.interviewResult }}</el-tag>
-    <span class="time">{{item.interviewTime}}</span>
+      size="large"
+    >评价{{ index+1 }}</el-tag>
+    <span class="time">{{item.createTime}}</span>
 </div>
       
       <ul>
-        <li><span>技能评估：</span>{{ item.skill }}</li>
-        <li><span>综合评价：</span>{{ item.comprehensive }}</li>
-        <!-- <li><span>适应能力：</span></li> -->
-        <li><span>总结与建议：</span>{{ item.advice }}</li>
+        <li v-show="item.skill!=='undefined'"><span>技能评估：</span>{{ item.skill }}</li>
+        <li v-show="item.composite!=='undefined'"><span>综合评价：</span>{{ item.composite }}</li>
+        <li v-show="item.summarize!=='undefined'"><span>总结与建议：</span>{{ item.summarize }}</li>
       </ul>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 const props = defineProps({
   // 父组件传递过来的值
@@ -54,7 +54,8 @@ const isPass = ref(false);
   flex-direction: column;
   gap: 15px;
   padding: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  min-height: 30vh;
 }
 .status-style{
     display: flex;
@@ -68,7 +69,7 @@ const isPass = ref(false);
   color: #67C23A;
 }
 .interviewLabel > ul li::marker {
-    color: #6873e3;
+    color: #67C23A;
 }
 .interviewLabel > ul li {
   font-size: 15px;

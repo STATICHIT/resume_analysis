@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-11 21:28:55
+ * @LastEditTime: 2023-08-12 12:29:30
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -20,6 +20,7 @@ let apiFun = {
   log: {},
   template: {},
   job:{},
+  evaluate:{}
 };
 
 //测试接口（按需添加，可删）
@@ -72,6 +73,20 @@ apiFun.search.conditionSearch = (params) => {
   return http.post(`/resume/search`, params)
 }
 
+/**
+ * 
+ * @returns 评论接口
+ */
+
+//添加一条评论
+apiFun.evaluate.add= (resumeId, skill,summarize,composite) => {
+  return http.post(`/evaluate?resumeId=${resumeId}&skill=${skill}&summarize=${summarize}&composite=${composite}`)
+}
+
+//查看面评
+apiFun.evaluate.get = (resumeId) => {
+  return http.post(`/evaluate/list/${resumeId}`)
+}
 
 
 /**
@@ -169,7 +184,15 @@ apiFun.resume.analysis = (resumeId) => {
 apiFun.resume.graph = (resumeId) => {
   return http.get(`/resume/graph/${resumeId}`)
 }
+//删除简历
+apiFun.resume.deleteResume = (resumeId) => {
+  return http.delete(`/resume/${resumeId}`)
+}
 
+//知识图谱
+apiFun.resume.graph = (resumeId) => {
+  return http.get(`/resume/graph/${resumeId}`)
+}
 /**
  * 岗位接口
  */

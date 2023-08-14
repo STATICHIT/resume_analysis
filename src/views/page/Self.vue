@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-11 21:29:56
+ * @LastEditTime: 2023-08-14 10:54:05
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -84,10 +84,10 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="操作日志" name="second">
-          <log :logs="logs"></log>
+          <log :logs="logs" v-loading="loading.loading1"></log>
         </el-tab-pane>
         <el-tab-pane label="简历去重" name="third">
-          <div style="height: 100%; min-height: 800px; padding: 20px">
+          <div style="height: 100%; min-height: 800px; padding: 20px" v-loading="loading.loading2">
             <h2>
               已检测到
               <span style="color: #5959f1"> {{ num }} </span> 组简历可能重复
@@ -125,7 +125,7 @@
                       </h3>
                       <b>{{ resume.resume1.fullName }}</b>
                       <br />
-                      <b>{{ resume.resume1.processStage }}</b>
+                      <b>{{ statusMap[resume.resume1.processStage]}}</b>
                     </div>
                     <div class="resume2" style="display: inline-block">
                       <h3 style="color: #617eec; margin-bottom: 10px">
@@ -133,7 +133,7 @@
                       </h3>
                       <b>{{ resume.resume2.fullName }}</b>
                       <br />
-                      <b>{{ resume.resume2.processStage }}</b>
+                      <b>{{ statusMap[resume.resume1.processStage]}}</b>
                     </div>
                   </div>
                   <hr style="width: 70%" />
@@ -153,13 +153,15 @@
               </div> -->
 
               <div class="mybutton">
-                <button class="detail" @click="intoDetail">查看详细</button>
+                <button class="detail" @click="intoDetail(index)">
+                  查看详细
+                </button>
               </div>
             </div>
           </div>
         </el-tab-pane>
         <el-tab-pane label="邀约模板" name="fourth">
-            <invite></invite>
+          <invite></invite>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -167,7 +169,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import * as echarts from "echarts"; //引入echarts
 import theme from "../../utils/echarts"; //引入主题
 import invite from "../../components/Invitation.vue";
@@ -177,29 +179,46 @@ import router from "../../router";
 const activeName = ref("first");
 let num = ref(4);
 
-const logs = ref([])
+const logs = ref([]);
+
+const loading = reactive({
+  loading1: true,
+  loading2:true
+})
 
 const getLogs = () => {
   apiFun.log.getLogByUser().then((res) => {
     logs.value = res.data;
+    loading.loading1.value = false;
   });
 };
 
+const statusMap = ref({})
 
 onMounted(() => {
-  Per(); 
-  getLogs()
+  Per();
+  getLogs();
 });
-function Per(){
+function Per() {
   initEcharts();
-  // apiFun.similarity().then((res)=>{
-  //   resumedemo.value=res.data.highSimilarity;
-  // })
+
+  apiFun.similarity().then((res) => {
+    console.log(res);
+    resumedemo.value = res.data.highSimilarity;
+    loading.loading2=false
+  });
+  /* 获取状态节点 */
+  apiFun.process.flowPathNotOrder().then((res) => {
+    console.log(res.data);
+    let resumeStatus = res.data;
+
+    statusMap.value = resumeStatus.reduce((acc, curr) => {
+      acc[curr.id] = curr.name;
+      return acc;
+    },{});
+
+  });
 }
- 
-
-
-
 
 const resumedemo = ref([
   {
@@ -275,8 +294,11 @@ const resumedemo = ref([
 ]);
 
 //跳转到详细页
-function intoDetail() {
-  router.push({ path: "/sameResume" });
+function intoDetail(index) {
+  router.push({
+    path: "/sameResume",
+    params: { sameResume: resumedemo, index: index },
+  });
 }
 
 const resumes = [

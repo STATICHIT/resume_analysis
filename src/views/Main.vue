@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 11:33:17
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-11 15:21:38
+ * @LastEditTime: 2023-08-12 12:21:32
  * @FilePath: \resume_analysis\src\views\Main.vue
  * @Description: 客户端布局底页
 -->
@@ -58,6 +58,7 @@ export default {
 }
 .body {
   margin-top: 40px;
+  min-height: calc(70vh - 100px); 
 }
 
 .foot {
