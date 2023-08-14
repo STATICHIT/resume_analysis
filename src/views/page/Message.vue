@@ -2,99 +2,101 @@
  * @Author: STATICHIT
  * @Date: 2023-05-02 10:48:07
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-06-05 21:43:06
+ * @LastEditTime: 2023-08-15 03:23:22
  * @FilePath: \resume_analysis\src\views\page\Message.vue
  * @Description: 消息接收页面
 -->
 <template>
   <div class="cur">
     <div class="myBox">
-    <div class="container">
-      <el-tabs v-model="message">
-        <el-tab-pane :label="`未读消息(${state.unread.length})`" name="first">
-          <el-table
-            :data="state.unread"
-            :show-header="false"
-            style="width: 100%"
-          >
-            <el-table-column>
-              <template #default="scope">
-                <span class="message-title">{{ scope.row.title }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="date" width="180"></el-table-column>
-            <el-table-column width="120">
-              <template #default="scope">
-                <el-button size="small" @click="handleRead(scope.$index)"
-                  >标为已读</el-button
+      <div class="container">
+        <el-tabs v-model="message">
+          <el-tab-pane :label="`未读消息(${state.unread.length})`" name="first">
+            <el-table
+              :data="state.unread"
+              :show-header="false"
+              style="width: 100%"
+            >
+              <el-table-column>
+                <template #default="scope">
+                  <span class="message-title">{{ scope.row.title }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="date" width="180"></el-table-column>
+              <el-table-column width="120">
+                <template #default="scope">
+                  <el-button size="small" @click="handleRead(scope.$index)"
+                    >标为已读</el-button
+                  >
+                </template>
+              </el-table-column>
+            </el-table>
+            <div class="handle-row">
+              <button type="primary" @click="dealRead">全部标为已读</button>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane :label="`已读消息(${state.read.length})`" name="second">
+            <template v-if="message === 'second'">
+              <el-table
+                :data="state.read"
+                :show-header="false"
+                style="width: 100%"
+              >
+                <el-table-column>
+                  <template #default="scope">
+                    <span class="message-title">{{ scope.row.title }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="date" width="200"></el-table-column>
+                <el-table-column width="120">
+                  <template #default="scope">
+                    <el-button type="danger" @click="handleDel(scope.$index)"
+                      >删除</el-button
+                    >
+                  </template>
+                </el-table-column>
+              </el-table>
+              <div class="handle-row">
+                <button type="danger" @click="delAll">删除全部</button>
+              </div>
+            </template>
+          </el-tab-pane>
+          <el-tab-pane :label="`回收站(${state.recycle.length})`" name="third">
+            <template v-if="message === 'third'">
+              <el-table
+                :data="state.recycle"
+                :show-header="false"
+                style="width: 100%"
+              >
+                <el-table-column>
+                  <template #default="scope">
+                    <span class="message-title">{{ scope.row.title }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="date" width="150"></el-table-column>
+                <el-table-column width="120">
+                  <template #default="scope">
+                    <el-button @click="handleRestore(scope.$index)"
+                      >还原</el-button
+                    >
+                  </template>
+                </el-table-column>
+              </el-table>
+              <div class="handle-row">
+                <el-button type="danger" @click="delReall"
+                  >清空回收站</el-button
                 >
-              </template>
-            </el-table-column>
-          </el-table>
-          <div class="handle-row">
-            <button type="primary">全部标为已读</button>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane :label="`已读消息(${state.read.length})`" name="second">
-          <template v-if="message === 'second'">
-            <el-table
-              :data="state.read"
-              :show-header="false"
-              style="width: 100%"
-            >
-              <el-table-column>
-                <template #default="scope">
-                  <span class="message-title">{{ scope.row.title }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column prop="date" width="200"></el-table-column>
-              <el-table-column width="120">
-                <template #default="scope">
-                  <el-button type="danger" @click="handleDel(scope.$index)"
-                    >删除</el-button
-                  >
-                </template>
-              </el-table-column>
-            </el-table>
-            <div class="handle-row">
-              <button type="danger">删除全部</button>
-            </div>
-          </template>
-        </el-tab-pane>
-        <el-tab-pane :label="`回收站(${state.recycle.length})`" name="third">
-          <template v-if="message === 'third'">
-            <el-table
-              :data="state.recycle"
-              :show-header="false"
-              style="width: 100%"
-            >
-              <el-table-column>
-                <template #default="scope">
-                  <span class="message-title">{{ scope.row.title }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column prop="date" width="150"></el-table-column>
-              <el-table-column width="120">
-                <template #default="scope">
-                  <el-button @click="handleRestore(scope.$index)"
-                    >还原</el-button
-                  >
-                </template>
-              </el-table-column>
-            </el-table>
-            <div class="handle-row">
-              <el-button type="danger">清空回收站</el-button>
-            </div>
-          </template>
-        </el-tab-pane>
-      </el-tabs>
+              </div>
+            </template>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted,reactive } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import apiFun from "../../utils/api";
 export default {
   name: "tabs",
@@ -143,6 +145,24 @@ export default {
       const item = state.recycle.splice(index, 1);
       state.read = item.concat(state.read);
     };
+    const dealRead = () => {
+      while (state.unread.length > 0) {
+        const item = state.unread.splice(0, 1);
+        console.log(item);
+        state.read = item.concat(state.read);
+      }
+    };
+    const delAll = () => {
+      while (state.read.length > 0) {
+        const item = state.read.splice(0, 1);
+        state.recycle = item.concat(state.recycle);
+      }
+    };
+    const delReall = () => {
+      while (state.recycle.length > 0) {
+        const item = state.recycle.splice(0, 1);
+      }
+    };
 
     return {
       message,
@@ -150,6 +170,9 @@ export default {
       handleRead,
       handleDel,
       handleRestore,
+      dealRead,
+      delAll,
+      delReall,
     };
   },
 };
@@ -162,7 +185,7 @@ export default {
   background-position-y: bottom;
 }
 .myBox {
-  background-color:#ecf3fa;
+  background-color: #ecf3fa;
   text-align: left;
   height: 1100px;
   width: 1000px;

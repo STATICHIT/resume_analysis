@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-14 09:42:09
+ * @LastEditTime: 2023-08-14 11:56:20
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -12,15 +12,15 @@ import http from './axios.js'
 let apiFun = {
   //自定义对象，命名隔离，消除重名影响
   user: {},
-  resume:{},
+  resume: {},
   test: {},
   search: {},
   upload: {},
   process: {},
   log: {},
   template: {},
-  job:{},
-  evaluate:{}
+  job: {},
+  evaluate: {}
 };
 
 //测试接口（按需添加，可删）
@@ -69,7 +69,7 @@ apiFun.search.conditionSearch = (params) => {
  */
 
 //添加一条评论
-apiFun.evaluate.add= (resumeId, skill,summarize,composite) => {
+apiFun.evaluate.add = (resumeId, skill, summarize, composite) => {
   return http.post(`/evaluate?resumeId=${resumeId}&skill=${skill}&summarize=${summarize}&composite=${composite}`)
 }
 
@@ -119,7 +119,7 @@ apiFun.process.updateCurNode = (resumeId, nodeId, params) => {
 }
 
 //修改一份简历当前状态
-apiFun.process.updateStatus = (resumeId,nodeId) => {
+apiFun.process.updateStatus = (resumeId, nodeId) => {
   return http.put(`/flowPath/updateState/${resumeId}?nodeId=${nodeId}`)
 }
 
@@ -128,6 +128,10 @@ apiFun.process.updateStatus = (resumeId,nodeId) => {
  */
 apiFun.log.getLogById = (resumeId) => {
   return http.get(`/log/${resumeId}`)
+}
+//查询一个用户所有的操作日志
+apiFun.log.getLogByUser = () => {
+  return http.get(`/log`)
 }
 
 /**
@@ -185,12 +189,12 @@ apiFun.job.PJMatch = (jobId) => {
 }
 
 //岗位字符串内容岗位解析（传字符串）
-apiFun.job.jobAnalysis = (jobContent)=>{
-  return http.post(`/job/match`,jobContent)
+apiFun.job.jobAnalysis = (jobContent) => {
+  return http.post(`/job/match`, jobContent)
 }
 
 //获取全部岗位
-apiFun.job.getAll =()=>{
+apiFun.job.getAll = () => {
   return http.get(`/job/list`)
 }
 
