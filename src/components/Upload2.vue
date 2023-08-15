@@ -94,7 +94,7 @@ import * as XLSX from "xlsx";
 import { ElNotification } from "element-plus";
 const autoadd = ref(true); //自动录入岗位库
 const tableData = ref([]); //上传列表
-const fullscreenLoading1 = ref(false);//loading效果
+const fullscreenLoading1 = ref(false); //loading效果
 
 //文件上传调用的方法
 let beforeUpload = (file) => {
@@ -181,7 +181,7 @@ let uploadFile = (file) => {
     }
   });
   console.log(data);
-  
+
   //data.forEach((d) => {
   //   const formattedString = `岗位名: ${d[0]}; 岗位职责: ${d[1]}; 岗位要求: ${d[2]}`;
   //   jobs.push(formattedString);
@@ -217,7 +217,8 @@ const open = () => {
   ElNotification({
     title: "分析成功",
     dangerouslyUseHTMLString: true,
-    message: '<strong>录入岗位均已分析完成并纳入岗位库，您可前往<a href="/jobPool"><b>岗位库</b></a>查看最新岗位</strong>',
+    message:
+      '<strong>录入岗位均已分析完成并纳入岗位库，您可前往<a href="/jobPool"><b>岗位库</b></a>查看最新岗位</strong>',
     type: "success",
   });
 };

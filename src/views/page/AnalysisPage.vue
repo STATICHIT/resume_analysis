@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-15 21:58:36
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-08-15 12:03:53
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
  * @Description: 简历分析页面
 -->

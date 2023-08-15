@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-21 21:03:37
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-07-13 23:36:14
+ * @LastEditTime: 2023-08-15 21:52:42
  * @FilePath: \resume_analysis\src\components\FlexCards.vue
  * @Description: 介绍卡片
 -->
@@ -85,7 +85,7 @@ const options = ref([
   },
   {
     background:
-    "url(https://pic1.zhimg.com/v2-1efe80bc7c4b00e9aa6eb8d98423737f_1440w.jpg?source=172ae18b)",
+      "url(https://pic1.zhimg.com/v2-1efe80bc7c4b00e9aa6eb8d98423737f_1440w.jpg?source=172ae18b)",
     icon: "fas fa-snowflake",
     main: "知识图谱",
     sub: "Omuke trughte a otufta",
@@ -201,7 +201,7 @@ $optionDefaultColours: #ed5565, #fc6e51, #ffce54, #2ecc71, #5d9cec, #ac92ec;
   max-width: 40px;
   height: 40px;
   border-radius: 100%;
-  background-color: white;
+  background-color: #eafaf7;
   color: var(--defaultBackground);
 }
 .info {
