@@ -188,8 +188,9 @@ function submitResume() {
 const open = () => {
   ElNotification({
     title: "分析成功",
+    dangerouslyUseHTMLString: true,
     message:
-      "简历表单文件已分析完成并纳入人才库，您可前往人才库查看最新简历分析情况",
+      "简历表单文件已分析完成,并将其纳入<a href='/talentPool'><b>人才库</b></a>，您可前往人才库查看最新简历分析情况",
     type: "success",
   });
 };

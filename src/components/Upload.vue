@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 20:45:43
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-15 22:41:23
+ * @LastEditTime: 2023-08-16 00:13:45
  * @FilePath: \resume_analysis\src\components\Upload.vue
  * @Description: 简历分析上传组件
 -->
@@ -165,12 +165,12 @@ let deleteFile = (id) => {
   }
 };
 
-
 const header = {
-  'Content-Type': 'multipart/form-data;charset=UTF-8',
-  'accessToken':'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJpZGVudGl0eSI6IkhSIiwiaWQiOiIxIiwiZXhwIjoxNzA5NTk1MTQzfQ.vUXTwTW7PxQlpQyv_RporMDZO2-XMekQlDSPel444VM',
+  "Content-Type": "multipart/form-data;charset=UTF-8",
+  accessToken:
+    "eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJpZGVudGl0eSI6IkhSIiwiaWQiOiIxIiwiZXhwIjoxNzA5NTk1MTQzfQ.vUXTwTW7PxQlpQyv_RporMDZO2-XMekQlDSPel444VM",
   // 'Authorization': 'eyJ0eXBlIjoiSnd0IiwiYWxnIjoiSFMyNTYiLCJ0eXAiOiJKV1QifQ.eyJjdXJyZW50VGltZSI6MTY4ODM2OTE3MzU4OCwicGFzc3dvcmQiOiIxMjMiLCJpZCI6IjEiLCJleHAiOjE2ODgzNjkxNzMsInVzZXJuYW1lIjoiMTIzIn0.pnI7tKjjO0byKdmHNLY5o04YljMYAGRBOGyhsAENb_o',
-}
+};
 
 //上传文件!!
 // let uploadFile = (file) => {
@@ -287,10 +287,10 @@ let uploadFile = async (file) => {
       percent: 0,
     });
     const formData = new FormData();
-    console.log(file)
+    console.log(file);
     formData.append("file", file);
     axios
-      .post("http://192.168.50.159:5555/resume/upload", formData, {
+      .post("http://192.168.50.237:5555/resume/upload", formData, {
         headers: header,
       })
       .then((res) => {

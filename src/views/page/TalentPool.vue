@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 22:26:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-15 22:32:15
+ * @LastEditTime: 2023-08-16 03:31:33
  * @FilePath: \resume_analysis\src\views\page\TalentPool.vue
  * @Description: 人才库
 -->
@@ -299,7 +299,7 @@
           @current-change="changePage"
         />
       </div>
-      <div class="all-openings">
+      <div class="all-openings" v-loading.lock="fullscreenLoading"> 
         <div @list="list" v-for="item in list" :key="item">
           <!-- <div class="job-board-category">
           <img class="job-img" :src="item.avatar" alt="暂无证件照" />
@@ -313,7 +313,7 @@
                   <el-button class="tooltip color1">{{ tag }}</el-button>
                 </el-tooltip>
                 <el-tooltip
-                  v-for="tag in item.content.labelProcessing.jobTags"
+                  v-for="tag in item.content.labelProcessing.jobTags.filter((value) => value !== '')"
                   :key="tag"
                 >
                   <template #content> 工作经验 </template>
@@ -322,9 +322,9 @@
 
                 <div class="posting-detail">
                   <p>
-                    {{ item.content.gender || "未知" }} |
-                    {{ item.content.age || " - " }}岁 |
-                    {{ item.content.education || "未知" }} |
+                    {{ item.content.gender || "暂无性别数据" }} |
+                    {{ item.content.age+"岁" || "暂无年龄数据" }} |
+                    {{ item.content.education || "暂无学历数据" }} |
                     {{ item.experience || "0" }}年工作经验
                   </p>
                   <br />
@@ -389,14 +389,16 @@ function changeStage(id) {
   //设置状态
   condition.value.processStage = id;
   search();
+  console.log(state.value.total)
 }
 
 //查看简历详细分析页面
 function intoTalentDetial(id) {
+  console.log("ASSSSSS",id)
   router.push({
     path: "/analysisPage",
     query: {
-      resumeId: id,
+      id: id,
     },
   });
 }
@@ -439,7 +441,6 @@ const condition = ref({
   },
   fullText: null,
   processStage: null,
-  // total: 200,
   pageNum: 1,
   pageSize: 7,
 });
@@ -448,25 +449,29 @@ function moreCheck() {
   drawer.value = true;
 }
 
+const fullscreenLoading = ref(false);
 //条件搜索
 function search() {
+  fullscreenLoading.value=true;
   console.log("条件搜索请求携带数据",condition.value);
   apiFun.search.conditionSearch(condition.value).then((res) => {
     console.log("条件搜索结果数据：", res);
-    state.total = res.data.total;
-    state.currentPage = res.data.pageNum;
-    state.pageSize = res.data.pageSize;
+    console.log("RRR",res.data.total)
+    state.value.total = res.data.total;
+    state.value.currentPage = res.data.pageNum;
+    state.value.pageSize = res.data.pageSize;
     list.value = [];
     if (res.data.list) {
       res.data.list.forEach((r) => {
-        console.log("测试：", r.content);
         list.value.push({
+          id:r.id,
           content: JSON.parse(r.content),
           email: r.email,
-          tags: JSON.parse(r.content).labelProcessing.skillTags.slice(0, 5),
+          tags: JSON.parse(r.content).labelProcessing.skillTags.filter((value) => value !== "").slice(0, 5),
         });
       });
     }
+    fullscreenLoading.value=false;
   });
 }
 //取消具名搜索
@@ -485,7 +490,7 @@ const state = ref({
 });
 //换页
 const changePage = (val) => {
-  condition.pageNum = val;
+  condition.value.pageNum = val;
   search();
 };
 //fulltext搜索

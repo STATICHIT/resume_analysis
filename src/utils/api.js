@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:01
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-14 11:56:20
+ * @LastEditTime: 2023-08-16 02:19:48
  * @FilePath: \resume_analysis\src\utils\api.js
  * @Description: 接口方法
  */
@@ -31,6 +31,10 @@ apiFun.test.test = () => {
 //查询相似简历
 apiFun.similarity = () => {
   return http.get(`/resume/similarity`)
+}
+
+apiFun.resume.view = () => {
+  return http.get(`/resume/view`)
 }
 
 /**
@@ -161,12 +165,11 @@ apiFun.template.deleteTemplate = (templateId) => {
  * 简历接口
  */
 
-
-
 //简历分析
 apiFun.resume.analysis = (resumeId) => {
   return http.get(`/resume/analysisResults/${resumeId}`)
 }
+
 
 apiFun.resume.graph = (resumeId) => {
   return http.get(`/resume/graph/${resumeId}`)
@@ -198,11 +201,18 @@ apiFun.job.getAll = () => {
   return http.get(`/job/list`)
 }
 
-
 //给简历推荐岗位
 apiFun.job.matchJob = (resumeId) => {
   return http.get(`/job/JPMatch/${resumeId}`)
 }
 
+//岗位解析
+apiFun.job.upload = (jobContent) => {
+  return http.post(`/job/jobAnalysis?jobContent=${jobContent}`)
+}
+//批量解析
+apiFun.job.uploads = (params) => {
+  return http.post(`/job/batchAnalysis`, params)
+}
 
 export default apiFun;

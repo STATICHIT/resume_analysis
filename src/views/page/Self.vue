@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-15 20:05:01
+ * @LastEditTime: 2023-08-15 23:17:29
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -187,6 +187,7 @@ function Per() {
   apiFun.similarity().then((res) => {
     console.log(res);
     resumedemo.value = res.data.highSimilarity;
+    num.value=res.data.highSimilarity.length;
     loading.loading2=false
   });
   /* 获取状态节点 */
@@ -276,7 +277,7 @@ const resumedemo = ref([
 function intoDetail(index) {
   router.push({
     path: "/sameResume",
-    params: { sameResume: resumedemo, index: index },
+    query: { sameResume: JSON.stringify(resumedemo.value), index: index },
   });
 }
 

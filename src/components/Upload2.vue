@@ -2,13 +2,13 @@
  * @Author: STATICHIT
  * @Date: 2023-06-11 20:46:15
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-09 22:39:50
+ * @LastEditTime: 2023-08-16 02:09:06
  * @FilePath: \resume_analysis\src\components\Upload2.vue
  * @Description: 岗位批量上传组件
 -->
 <template>
   <div>
-    <div class="myUpload" v-loading.lock="fullscreenLoading1">
+    <div class="myUpload">
       <el-upload
         class="upload-demo"
         drag
@@ -94,7 +94,6 @@ import * as XLSX from "xlsx";
 import { ElNotification } from "element-plus";
 const autoadd = ref(true); //自动录入岗位库
 const tableData = ref([]); //上传列表
-const fullscreenLoading1 = ref(false); //loading效果
 
 //文件上传调用的方法
 let beforeUpload = (file) => {
@@ -143,74 +142,100 @@ let deleteFile = (id) => {
 };
 
 //上传文件
-let uploadFile = (file) => {
-  //console.log(file);
+async function uploadFile(file) {
   updateTableData(file.uid, {
     status: 2,
     percent: 0,
   });
-  let data = [];
-  data = readExcel(file);
-
-  //上传文件
-  setTimeout(() => {
-    // 定时器回调函数中重新启用按钮
-    updateTableData(file.uid, {
-      percent: 100,
+  readExcel(file).then((jsonData) => {
+    let datas = [];
+    //对象转为数组项，中文转为unicode
+    jsonData.map(function (d) {
+      // let dd = chineseToUnicode(Object.values(d)[0]);
+      let dd = Object.values(d)[0];
+      datas.push(dd);
     });
-    setTimeout(() => {
-      // 定时器回调函数中重新启用按钮
-      updateTableData(file.uid, {
-        status: 5, // 已上传
-      });
-      fullscreenLoading1.value = true;
-    }, 500);
-  }, 500);
-
-  apiFun.upload.postUpload(data).then((res) => {
-    console.log("res:", res);
-    if (res.data.code === 200) {
-      setTimeout(() => {
-        open();
-        fullscreenLoading1.value = false;
-      }, 500);
-    } else {
-      updateTableData(file.id, {
-        status: 4, // 上传失败
-      });
-    }
+    console.log("datas", datas);
+    processArray(datas, file);
   });
-  console.log(data);
-
   //data.forEach((d) => {
   //   const formattedString = `岗位名: ${d[0]}; 岗位职责: ${d[1]}; 岗位要求: ${d[2]}`;
   //   jobs.push(formattedString);
   //});
-};
+}
+async function processArray(array, file) {
+  const promises = [];
+  for (let i = 0; i < array.length; i++) {
+    promises.push(performRequest(array[i], file));
+  }
+  await Promise.all(promises);
+  open();
+}
+
+function performRequest(item, file) {
+  return new Promise((resolve, reject) => {
+    apiFun.job.jobAnalysis(item).then((res) => {
+      console.log("批量上传数据返回:", res);
+      if (res.code === 200) {
+        setTimeout(() => {
+          // 定时器回调函数中重新启用按钮
+          updateTableData(file.uid, {
+            percent: 100,
+          });
+          setTimeout(() => {
+            // 定时器回调函数中重新启用按钮
+            updateTableData(file.uid, {
+              status: 5, // 已上传
+            });
+          }, 500);
+        }, 500);
+        resolve(); // 请求成功，调用resolve()
+      } else {
+        updateTableData(file.uid, {
+          status: 4, // 上传失败
+        });
+        reject(); // 请求失败，调用reject()
+      }
+    });
+  });
+}
+
 //点击【开始分析】按钮
 let analysis = () => {
   tableData.value.forEach((f) => {
-    console.log("11");
     if (f.status === 1) {
       const file = f.file; //获取到该列指向的文件本身
       uploadFile(file);
     }
   });
-  open();
 };
 
 //解析exacl文件
 function readExcel(file) {
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const data = new Uint8Array(e.target.result);
-    const workbook = XLSX.read(data, { type: "array" });
-    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-    const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 2 });
-    console.log(jsonData);
-    return jsonData;
-  };
-  reader.readAsArrayBuffer(file);
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 2 });
+      resolve(jsonData);
+    };
+    reader.onerror = function (error) {
+      reject(error);
+    };
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+function chineseToUnicode(chineseString) {
+  let unicodeString = "";
+  for (let i = 0; i < chineseString.length; i++) {
+    const char = chineseString[i];
+    const unicode = "\\u" + char.charCodeAt(0).toString(16).toUpperCase();
+    unicodeString += unicode;
+  }
+  return unicodeString;
 }
 
 const open = () => {

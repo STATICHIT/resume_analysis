@@ -1,8 +1,8 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-05-24 21:10:51
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-15 22:13:09
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-08-16 00:04:59
  * @FilePath: \resume_analysis\src\components\PostCard.vue
  * @Description: 岗位展示列表
 -->
@@ -25,7 +25,7 @@
           <div class="card">
             <h4>{{ job.name }}</h4><div class="necessary">
  <h5>学历&nbsp;{{ education[job.educationalRequirements] }}</h5>
-            <h5>工作经验&nbsp;{{ jobContent.workExperienceRequirements===-1?'无要求': jobContent.workExperienceRequirements+'年' }}年</h5>
+            <h5>工作经验&nbsp;{{ job.workExperienceRequirements===-1?'无要求': job.workExperienceRequirements+'年' }}年</h5>
             </div>
            
             <span class="chev">&rsaquo;</span>
