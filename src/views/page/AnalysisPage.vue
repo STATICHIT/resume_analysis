@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-15 16:41:55
+ * @LastEditTime: 2023-08-15 21:58:36
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
  * @Description: 简历分析页面
 -->
@@ -180,7 +180,8 @@
           label="推荐岗位"
           name="third"
         >
-          <postPage v-loading=loading.loading2 :jobList="jobList"></postPage>
+        <empty-data v-if="jobList.length===0" msg="暂无推荐岗位"></empty-data>
+          <postPage v-else v-loading=loading.loading2 :jobList="jobList"></postPage>
         </el-tab-pane>
         <el-tab-pane
           class="animate__animated animate__slideInRight"
@@ -206,13 +207,13 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-    <el-button
+    <!-- <el-button
       color="#626aef"
       size="large"
       class="goBack"
       style="font-weight: bold"
       >返回文件上传页面</el-button
-    >
+    > -->
   </div>
 </template>
 
@@ -514,6 +515,11 @@ const getComment = () => {
     console.log(res)
     loading.loading3=false
     evaluate.value=res.data
+    evaluate.value = evaluate.value.filter(item => {
+  return !(item.skill === 'undefined' || item.skill === '') ||
+         !(item.composite === 'undefined' || item.composite === '') ||
+         !(item.summarize === 'undefined' || item.summarize === '');
+})
   })
 }
 const getLogs = () => {

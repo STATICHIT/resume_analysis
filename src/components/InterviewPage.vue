@@ -2,7 +2,7 @@
  * @Author: sunsan 2390864551@qq.com
  * @Date: 2023-08-09 15:26:50
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-15 16:50:15
+ * @LastEditTime: 2023-08-15 22:06:30
  * @FilePath: \resume_analysis\src\components\InterviewPage.vue
  * @Description: 面评
 -->

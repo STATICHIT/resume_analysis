@@ -34,7 +34,7 @@
             <li><span>性别要求：</span>{{sexStatus[ item.job.sexRequirements ]||'无要求'}}</li>
             <li>
               <span>工作年限要求：</span
-              >{{ item.job.workExperienceRequirements }}年工作经验
+              >{{ jobContent.workExperienceRequirements===-1?'无要求': jobContent.workExperienceRequirements+'年' }}年工作经验
             </li>
             <li
               style="
