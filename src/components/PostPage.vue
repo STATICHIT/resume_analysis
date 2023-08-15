@@ -34,7 +34,7 @@
             <li><span>性别要求：</span>{{sexStatus[ item.job.sexRequirements ]||'无要求'}}</li>
             <li>
               <span>工作年限要求：</span
-              >{{ jobContent.workExperienceRequirements===-1?'无要求': jobContent.workExperienceRequirements+'年' }}年工作经验
+              >{{ item.job.workExperienceRequirements===-1?'无要求': item.job.workExperienceRequirements+'年' }}年工作经验
             </li>
             <li
               style="
@@ -102,7 +102,7 @@ const sexStatus = {0: '男', 1:'女'}
 .container {
   box-sizing: border-box;
   padding: 20px;
-  min-height: 30vh;
+  min-height: 40vh;
 }
 .container div div > span:first-child {
   font-weight: bold;

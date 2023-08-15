@@ -4,7 +4,7 @@
     <el-button type="success" class="return" @click="lookJson">查看返回数据</el-button>
     <div>
       <span class="lights">简历亮点</span>
-      <div class="light-contain">
+      <div class="light-contain" v-show="content.resumeHighlights.length!==0">
         <div class="labels">
           <img src="../assets/imgs/icon02.png" />
           <span>简历亮点</span>
@@ -13,7 +13,7 @@
           <li v-for="item in content.resumeHighlights" :key="item">{{ item }}</li>
         </ul>
       </div>
-      <div class="predict-contain">
+      <div class="predict-contain" v-show="content.intelligentPrediction.length!==0">
         <div class="labels">
           <img src="../assets/imgs/icon04.png" />
           <span>智能预测</span>
@@ -22,7 +22,7 @@
           <li v-for="item in content.intelligentPrediction" :key="item">{{ item }}</li>
         </ul>
       </div>
-      <div class="warn-contain">
+      <div class="warn-contain" v-show="content.riskWarning.length!==0">
         <div class="labels">
           <img src="../assets/imgs/icon05.png" />
           <span>风险提示</span>
