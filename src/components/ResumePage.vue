@@ -39,46 +39,35 @@
                 trigger="hover"
               >
                 <div>
-                  <div class="graph-view" v-if="schoolList && schoolList[0]">
+                  <div class="graph-view" v-if="schoolList.length!==0">
                     <h2 style="margin-left: -10px">
-                      {{ schoolList[0].replaceName||'中国科学院大学' }}
+                      {{ userMsg.graduationInstitution||'中国科学院大学' }}
                     </h2>
                     <ul>
                       <li>
                         <span>学校名：</span
-                        >{{ schoolList[0].universityNode[0].chineseName||'中国科学院大学' }}
+                        >{{ schoolList.chineseName||'中国科学院大学' }}
                       </li>
                       <li>
                         <span>缩写：</span
-                        >{{ schoolList[0].universityNode[0].simpleName||'国科大（UCAS）' }}
+                        >{{ schoolList.simpleName||'国科大（UCAS）' }}
                       </li>
                       <li>
                         <span>英文名：</span
-                        >{{ schoolList[0].universityNode[0].foreignName||'University of Chinese Academy of Sciences' }}
+                        >{{ schoolList.foreignName||'University of Chinese Academy of Sciences' }}
                       </li>
-                      <li><span>校训：</span>{{ schoolList[0].universityNode[0].schoolMotto||'厚德载物，自强不息' }}</li>
-                      <li><span>奖项：</span>{{ schoolList[0].universityNode[0].awards||'SCI收录6707篇，EI收录1384篇（2014年）国家三大奖32项（2014年）ESI排名全国第一（2019年1月）' }}</li>
-                      <li><span>水平：</span>{{ schoolList[0].universityNode[0].level||'公办大学' }}</li>
-                      <li><span>地址：</span>{{ schoolList[0].universityNode[0].address||'中国北京市石景山区玉泉路19号（甲）' }}</li>
-                      <li><span>学校类型：</span>{{ schoolList[0].universityNode[0].schoolType||'综合类 本科' }} {{ schoolList[0].universityNode[0].type }}</li>
-                      <!-- <li><span>学校类型：</span>{{  schoolList[0].universityNode[0].schoolType }} {{  schoolList.universityNode[0].type }}</li> -->
-                      <li><span>详细介绍：</span>{{ schoolList[0].universityNode[0].desc||'中国科学院大学（University of Chinese Academy of Sciences），简称“国科大”，主校区位于北京市，是一所以科教融合为办学模式、研究生教育为办学主体的创新型大学，入选国家“双一流”建设高校、“基础学科拔尖学生培养试验计划”，环太平洋大学联盟、京港大学联盟、中国高校行星科学联盟、中欧商校联盟成员，首批学位授权自主审核单位。[1-4]' }}</li>
-                      <!-- <li><span>学校类型：</span></li>
-          <li><span>校训：</span>{{ schoolList[0].universityNode[0].schoolMotto }}</li>
-          <li><span>建立者：</span>{{ schoolList[0].universityNode[0].founder }}</li>
-          <li><span>奖项：</span></li>
-          <li><span>水平：</span></li>
-          <li><span>地址：</span></li>
-          <li><span>详细介绍：</span></li> -->
+                      <li><span>校训：</span>{{ schoolList.schoolMotto||'厚德载物，自强不息' }}</li>
+                      <li><span>奖项：</span>{{ schoolList.awards||'SCI收录6707篇，EI收录1384篇（2014年）国家三大奖32项（2014年）ESI排名全国第一（2019年1月）' }}</li>
+                      <li><span>水平：</span>{{ schoolList.level||'公办大学' }}</li>
+                      <li><span>地址：</span>{{ schoolList.address||'中国北京市石景山区玉泉路19号（甲）' }}</li>
+                      <li><span>学校类型：</span>{{ schoolList.schoolType||'综合类 本科' }} {{ schoolList[0].type }}</li>
+                      <!-- <li><span>学校类型：</span>{{  schoolList[0].schoolType }} {{  schoolList.type }}</li> -->
+                      <li><span>详细介绍：</span>{{ schoolList.desc||'中国科学院大学（University of Chinese Academy of Sciences），简称“国科大”，主校区位于北京市，是一所以科教融合为办学模式、研究生教育为办学主体的创新型大学，入选国家“双一流”建设高校、“基础学科拔尖学生培养试验计划”，环太平洋大学联盟、京港大学联盟、中国高校行星科学联盟、中欧商校联盟成员，首批学位授权自主审核单位。[1-4]' }}</li>
                     </ul>
-                    <!-- <ul>
-          <li><h3>学校名：</h3>{{ schoolList[0].universityNode[0].chineseName }}</li>
-         
-          
-         </ul> -->
                   </div>
                   <div v-else>
                     <!-- 当 userMsg.replaceName 不可用时显示的内容 -->
+                    <h2 style="align-items: center;color: darkgray;">该院校信息疑似造假，数据不合理</h2>
                   </div>
                 </div>
                 <template #reference>
@@ -163,10 +152,10 @@
           <!-- <li><span>专业技能：</span>{{ userMsg. labelProcessing.skillTags}}</li> -->
           <!-- <li><span>IT技能：</span>{{ userMsg.major }}</li> -->
           <!-- <li><span>商业技能：</span>{{ userMsg.graduationInstit ution }}</li> -->
-          <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;">
+          <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;" v-show="userMsg.skillsCertificate">
             <span>技能证书：</span>{{ userMsg.skillsCertificate }}
           </li>
-          <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;">
+          <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;" v-show="userMsg.awardsHonors">
             <span>荣誉奖项：</span>{{ userMsg.awardsHonors }}
           </li>
         </ul>
@@ -203,8 +192,8 @@ const prop = defineProps({
     default:true
   },
   schoolList: {
-    type: Array,
-    default: () => [],
+    type: Object,
+    default: () => {},
   },
   showTags:{
     type:Boolean,
@@ -229,6 +218,10 @@ const prop = defineProps({
     type:Boolean,
     default:false
   },
+  showGraph:{
+    type:Boolean,
+    default:true
+  }
   });
 
   onMounted(()=>{

@@ -1,6 +1,7 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
+
  * @LastEditors: STATICHIT 2394412110@qq.com
  * @LastEditTime: 2023-08-15 12:03:53
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
@@ -161,6 +162,7 @@
             :userMsg="userMsg"
             :showReturn="true"
             :schoolList="list"
+            :show="showGraph"
           ></resume-page>
         </el-tab-pane>
         <el-tab-pane
@@ -240,6 +242,8 @@ const route = useRoute();
 const query = route.query;
 const resumeId = query["id"];
 const dialogVisible = ref(false);
+
+const showGraph = ref(true)
 
 /* 当前要修改的状态值 */
 const currentState = ref(1);
@@ -474,7 +478,6 @@ const comments = reactive({
 const logs = ref([]);
 onMounted(() => {
   apiFun.resume.analysis(resumeId).then((res) => {
-    console.log(res.data.content);
     resume.value = res.data;    
     loading.loading1=false
     labelProcessing.value = JSON.parse(resume.value.labelProcessing);
@@ -487,20 +490,23 @@ onMounted(() => {
       }
     }
     userMsg.value = JSON.parse(resume.value.content);
-    console.log(userMsg.value)
     userMsg.value.resumeHighlights = JSON.parse(userMsg.value.resumeHighlights);
+    /**
+     * 修改json
+     */
     userMsg.value.riskWarning = JSON.parse(userMsg.value.riskWarning);
-    userMsg.value.intelligentPrediction = JSON.parse(userMsg.value.intelligentPrediction);
+     userMsg.value.intelligentPrediction = JSON.parse(userMsg.value.intelligentPrediction);
       });
   apiFun.resume.graph(resumeId).then((res) => {
-    console.log(res.data);
-    list.value = res.data.schoolVoList;
+    list.value = res.data.schoolVoList[0].universityNode;
+    console.log(list.value)
+    // if(list.value[0].cityNode===0)
+    // showGraph=false
   });
   getNode();
 
    //给简历推荐岗位
     apiFun.job.matchJob(resumeId).then((res)=>{
-      console.log(res.data);
       if(res.data.list.length>0)
       jobList.value = res.data.list;
       loading.loading2=false
@@ -512,7 +518,6 @@ onMounted(() => {
 //获取评价
 const getComment = () => {
   apiFun.evaluate.get(resumeId).then(res=>{
-    console.log(res)
     loading.loading3=false
     evaluate.value=res.data
     evaluate.value = evaluate.value.filter(item => {
@@ -524,14 +529,12 @@ const getComment = () => {
 }
 const getLogs = () => {
   apiFun.log.getLogById(resumeId).then((res) => {
-    console.log(res.data);
     if (res.data.length > 0) logs.value = res.data;
     loading.loading4=false
   });
 }
 
 const getStatus = computed(() => {
-  console.log(resume.value.processStage)
   const selectedStatus = state.selectItem.find(
     (item) => item.id === resume.value.processStage
   );
@@ -566,7 +569,6 @@ const updateResumeStatus = (value) => {
 
 const updateStatus = () => {
   apiFun.process.updateStatus(resumeId, currentState.value).then((res) => {
-    console.log(res);
     if (res.code === 200) {
       dialogVisible.value = false;
       resume.value.processStage = currentState.value;
@@ -575,7 +577,6 @@ const updateStatus = () => {
       }
   });
   apiFun.evaluate.add(resumeId, state.skill,state.summarize,state.composite).then(res=>{
-    console.log(res.data)
     getComment()
   })
 };
@@ -603,7 +604,6 @@ function handleCommand(command) {
 
 const getNode = () => {
   apiFun.process.flowPathNotOrder().then((res) => {
-    console.log(res.data);
     if (res.data.length > 0) state.selectItem = res.data;
   });
 };
@@ -632,6 +632,7 @@ const sendEmail = () => {
       apiFun.template.sendInvite(resumeId,2).then(res=>{
         console.log(res)
          open();
+         getLogs();
       })
     })
     .catch(() => {});

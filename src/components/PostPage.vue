@@ -102,7 +102,7 @@ const sexStatus = {0: '男', 1:'女'}
 .container {
   box-sizing: border-box;
   padding: 20px;
-  min-height: 30vh;
+  min-height: 40vh;
 }
 .container div div > span:first-child {
   font-weight: bold;
