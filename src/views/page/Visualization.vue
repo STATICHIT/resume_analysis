@@ -2,12 +2,13 @@
  * @Author: STATICHIT
  * @Date: 2023-06-14 22:04:36
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-12 21:41:04
+ * @LastEditTime: 2023-08-16 03:12:15
  * @FilePath: \resume_analysis\src\views\page\Visualization.vue
  * @Description: 可视化数据大屏
 -->
 <template>
-  <div class="box cur" style="position: relative">
+  <div class="box cur father" style="position: relative">
+    <Loading class="load" v-show="Loadings"></Loading>
     <div @click="router.go(-1)" class="back">⬅ 返回</div>
     <div class="bigTitle">人才库招聘数据分析</div>
     <div class="board">
@@ -77,30 +78,36 @@ import router from "../../router";
 import * as echarts from "echarts"; //引入echarts
 import theme from "../../utils/echarts"; //引入主题
 import apiFun from "../../utils/api";
+import Loading from "../../components/Loading.vue";
+const Loadings = ref(false);
 let data = ref({
-  num1: 225, //人才库简历总数
-  num2: 11, //现有岗位总数
-  num3: 176, //公司需求数
-  num4: "42.5%", //完成率
+  num1: "——", //人才库简历总数
+  num2: "——", //现有岗位总数
+  num3: "——", //公司需求数
+  num4: "——", //完成率
   num5: 195, //男性人数
   num6: 132, //女性人数
   stages: [
     //状态结点
-    { value: 17, name: "入职数" },
-    { value: 39, name: "offer数" },
-    { value: 63, name: "进面数" },
-    { value: 74, name: "筛选通过数" },
-    { value: 175, name: "投递数" },
+    { value: "——", name: "入职数" },
+    { value: "——", name: "offer数" },
+    { value: "——", name: "进面数" },
+    { value: "——", name: "筛选通过数" },
+    { value: "——", name: "投递数" },
   ],
   //按照后面条件的年龄分布["26以下", "26-30", "30-34", "34-38", "38-42", "42以上"]
   ages: [12, 24, 18, 18, 8, 3],
-  //按照后面条件顺序的学历分布情况 ["博士","硕士","本科","大专"]
-  educations: [11, 20, 43, 3],
+  //按照后面条件顺序的学历分布情况 ["博士","硕士","本科","大专","高中"]
+  educations: [11, 20, 43, 3, 0],
   //按照后面条件的工作经验时长分布["0经验", "(0,3]年", "(3,5]年经验", "(5,10]年经验", "(10,~]年经验"]
   experiences: [42, 74, 63, 39, 7],
 });
 onMounted(() => {
-  initEcharts();
+  Loadings.value = true;
+  apiFun.resume.view().then((res) => {
+    console.log(res);
+    initEcharts(res.data);
+  });
 });
 const tableData2 = [
   {
@@ -135,7 +142,10 @@ const tableData2 = [
   },
 ];
 // 初始化表格
-const initEcharts = () => {
+const initEcharts = (datas) => {
+  data.value = datas;
+  let namesArray = datas.stages.map((stage) => stage.name).reverse();
+  console.log(namesArray);
   const echarts2 = {
     tooltip: {
       trigger: "item",
@@ -151,7 +161,8 @@ const initEcharts = () => {
       orient: "vertical",
       right: 10,
       top: 60,
-      data: ["投递数", "筛选通过数", "进面数", "offer数", "入职数"],
+      // data: ["投递数", "筛选通过数", "进面数", "offer数", "入职数"],
+      data: namesArray,
     },
     series: [
       {
@@ -184,7 +195,7 @@ const initEcharts = () => {
             fontSize: 20,
           },
         },
-        data: data.value.stages,
+        data: datas.stages,
       },
     ],
   };
@@ -224,7 +235,7 @@ const initEcharts = () => {
         emphasis: {
           focus: "series",
         },
-        data: data.value.ages,
+        data: datas.ages,
       },
     ],
   };
@@ -238,8 +249,8 @@ const initEcharts = () => {
         type: "pie",
         radius: ["40%", "70%"],
         data: [
-          { value: data.value.num5, name: "男" },
-          { value: data.value.num6, name: "女" },
+          { value: datas.num5, name: "男" },
+          { value: datas.num6, name: "女" },
         ],
       },
     ],
@@ -254,10 +265,11 @@ const initEcharts = () => {
         type: "pie",
         radius: ["40%", "70%"],
         data: [
-          { value: data.value.educations[0], name: "博士" },
-          { value: data.value.educations[1], name: "硕士" },
-          { value: data.value.educations[2], name: "本科" },
-          { value: data.value.educations[3], name: "大专" },
+          { value: datas.educations[0], name: "博士" },
+          { value: datas.educations[1], name: "硕士" },
+          { value: datas.educations[2], name: "本科" },
+          { value: datas.educations[3], name: "大专" },
+          { value: datas.educations[3], name: "高中" },
         ],
       },
     ],
@@ -271,6 +283,7 @@ const initEcharts = () => {
   myChart3.setOption(echarts3);
   myChart4.setOption(echarts4);
   myChart5.setOption(echarts5);
+  Loadings.value = false;
 };
 </script>
 
@@ -340,5 +353,13 @@ const initEcharts = () => {
 #mychart5 {
   width: 100%;
   height: 250px;
+}
+.father {
+  position: relative;
+}
+.load {
+  position: absolute;
+  top: -100px;
+  left: 0;
 }
 </style>

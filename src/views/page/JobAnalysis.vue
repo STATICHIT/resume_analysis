@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 18:09:13
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-15 17:36:30
+ * @LastEditTime: 2023-08-16 00:30:32
  * @FilePath: \resume_analysis\src\views\page\JobAnalysis.vue
  * @Description: 岗位分析入口
 -->
@@ -57,8 +57,8 @@ const fullscreenLoading2 = ref(false); //loading效果
 let analysis = () => {
   fullscreenLoading2.value = true;
   console.log(concent.value);
-  apiFun.job.jobAnalysis(concent.value).then((res) => {
-    console.log(res);
+  apiFun.job.upload(concent.value).then((res) => {
+    console.log("###",res);
     if (res.code === 200) {
       fullscreenLoading2.value = false;
       open();

@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-29 22:10:18
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-15 17:40:51
+ * @LastEditTime: 2023-08-16 01:50:51
  * @FilePath: \resume_analysis\src\views\page\JobPool.vue
  * @Description: 岗位库
 -->

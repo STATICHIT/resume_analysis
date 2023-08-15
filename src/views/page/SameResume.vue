@@ -1,9 +1,9 @@
 <!--
  * @Author: STATICHIT
  * @Date: 2023-06-07 20:06:01
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-12 11:45:01
- * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-08-15 23:31:30
+ * @FilePath: \resume_analysis\src\views\page\SameResume.vue
  * @Description: 查看相似简历详细页面
 -->
 <!-- 查看相似简历页面 -->
@@ -18,7 +18,7 @@
           class="mx-1"
           effect="dark"
     >
-      {{ currentSame.score }}
+      {{ currentSame.score/3*100 }}
     </el-tag>
       </div>
       <ul>
@@ -73,7 +73,7 @@
         type="danger"
         class="goBack"
         @click="deleteResume"
-        style="position: absolute; right: 40px; top: 60px"
+        style="position: absolute; right: 10px; top: 60px"
         >删除该简历
       </el-button>
       <div class="avatar">
@@ -126,51 +126,52 @@ import { useRoute } from "vue-router";
 import { ArrowDown } from "@element-plus/icons-vue";
 import { ElMessageBox } from "element-plus";
 import apiFun from "@/utils/api";
+import { FixedDir } from "element-plus/es/components/table-v2/src/constants";
 
 const route = useRoute();
-const params = route.params;
+const query = route.query;
 const same = 
-// params.same;
- [ //相似度较高的简历对数组
-             {
-                 resume1: {
-                     id: 23,
-                     fullName: "", //z
-                     processStage:66 //流程状态
-                 },
-                 resume2: {
-                     id: 28,
-                     fullName: "", //z
-                     processStage: 67 //流程状态
-                 },
-                 label: [
-                     "项目经历相似",
-                     "工作经历相似",
-                 ],
-                 score: 6.7
-             },
-             {
-                 resume1: {
-                     id: 23,
-                     fullName: "", //z
-                     processStage:66 //流程状态
-                 },
-                 resume2: {
-                     id: 28,
-                     fullName: "", //z
-                     processStage: 67 //流程状态
-                 },
-                 label: [
-                     "工作经历相似",
-                 ],
-                 score: 6.5
-             }
-         ]
+JSON.parse(query.sameResume);
+//  [ //相似度较高的简历对数组
+//              {
+//                  resume1: {
+//                      id: 23,
+//                      fullName: "", //z
+//                      processStage:66 //流程状态
+//                  },
+//                  resume2: {
+//                      id: 28,
+//                      fullName: "", //z
+//                      processStage: 67 //流程状态
+//                  },
+//                  label: [
+//                      "项目经历相似",
+//                      "工作经历相似",
+//                  ],
+//                  score: 6.7
+//              },
+//              {
+//                  resume1: {
+//                      id: 23,
+//                      fullName: "", //z
+//                      processStage:66 //流程状态
+//                  },
+//                  resume2: {
+//                      id: 28,
+//                      fullName: "", //z
+//                      processStage: 67 //流程状态
+//                  },
+//                  label: [
+//                      "工作经历相似",
+//                  ],
+//                  score: 6.5
+//              }
+//          ]
 const index = 
-// params.index;
-0
+query.index;
+// 0
 
-console.log(route.params)
+console.log(route.query)
 const getUp = computed(()=>{
   if(index===0) return true
   else false
@@ -183,7 +184,8 @@ const getNext = computed(()=>{
 })
 
 
-const currentSame = same[index];
+const currentSame = ref(same[index])
+console.log(currentSame.value)
 
 /* 返回json数据 */
 const state = reactive({
@@ -250,7 +252,7 @@ function handleCommand(command) {
 const returnResume = (num) => {
   router.push({
     path: "/sameResume",
-    params: { sameResume: same, index: index+num },
+    query: { sameResume: same, index: index+num },
   });
 };
 
@@ -402,12 +404,13 @@ onMounted(()=>{
 })
 
 const getResume = () => {
-  apiFun.resume.analysis(currentSame.resume1.id).then((res) => {
-    console.log(currentSame.resume1.id)
+  console.log(currentSame.value)
+  apiFun.resume.analysis(currentSame.value.resume1.id).then((res) => {
+    console.log(currentSame.value.resume1.id)
     userMsg.value = JSON.parse(res.data.content);
   });
-  apiFun.resume.analysis(currentSame.resume2.id).then((res) => {
-    console.log(currentSame.resume2.id)
+  apiFun.resume.analysis(currentSame.value.resume2.id).then((res) => {
+    console.log(currentSame.value.resume2.id)
     userMsg1.value = JSON.parse(res.data.content);
   });
 }
