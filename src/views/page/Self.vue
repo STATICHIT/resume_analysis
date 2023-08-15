@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-14 10:54:05
+ * @LastEditTime: 2023-08-14 12:08:35
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -189,7 +189,7 @@ const loading = reactive({
 const getLogs = () => {
   apiFun.log.getLogByUser().then((res) => {
     logs.value = res.data;
-    loading.loading1.value = false;
+    loading.loading1 = false;
   });
 };
 

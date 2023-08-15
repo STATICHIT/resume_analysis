@@ -155,7 +155,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .cur {
   background: url("../../assets/imgs/波纹背景.png") no-repeat;
   background-size: 100%;

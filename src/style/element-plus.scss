@@ -17,17 +17,17 @@
 }
 
 .el-tabs__item.is-active {
-  color: $primary-color; // 修改当前激活的标签文字颜色
+  color: #6873E3; // 修改当前激活的标签文字颜色
 
 }
 .el-tabs__item:hover{
-    color: $primary-color;
+    color: #6873E3;
 }
 .el-tabs__item{
     font-size: 15px;
 }
 .el-tabs__active-bar {
-    background-color: $primary-color; // 修改横线颜色为红色
+    background-color: #6873E3; // 修改横线颜色为红色
     height: 5px;
 }
   /* CSS */

@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 21:10:51
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-14 09:30:47
+ * @LastEditTime: 2023-08-15 15:33:18
  * @FilePath: \resume_analysis\src\components\PostCard.vue
  * @Description: 岗位展示列表
 -->
@@ -158,7 +158,7 @@ const props = defineProps({
 })
 
 const education = {
- 1:'大专',2:'本科',3:'硕士' ,4:'博士'
+ 1:'高中',2:'大专',3:'本科' ,4:'硕士',4:'博士'
 }
 const sexStatus = {0: '男', 1:'女'}
 

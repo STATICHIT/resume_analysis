@@ -2,7 +2,7 @@
  * @Author: sunsan 2390864551@qq.com
  * @Date: 2023-07-11 20:44:31
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-14 10:15:20
+ * @LastEditTime: 2023-08-15 15:34:24
  * @FilePath: \resume_analysis\src\views\page\AnalysisPosts.vue
  * @Description: 职位解析页面
 -->
@@ -54,12 +54,12 @@
       <span class="title">任职要求</span>
       <div class="ask">
         <ul>
-          <li><span>学历要求：</span>{{ education[jobContent.educationalRequirements] }}</li>
+          <li><span>学历要求：</span>{{ education[jobContent.educationalRequirements] ||'无要求'}}</li>
           <!-- <li><span>学校要求：</span>不限</li> -->
           <li><span>专业要求：</span>{{jobContent.professionalRequirements}}</li>
           <!-- <li><span>职位等级：</span>2(普通)</li> -->
           <!-- <li><span>年龄要求：</span>不限</li> -->
-          <li><span>性别要求：</span>{{ sexStatus[jobContent.sexRequirements] }}</li>
+          <li><span>性别要求：</span>{{ sexStatus[jobContent.sexRequirements]||'无要求' }}</li>
           <li><span>工作年限要求：</span>{{ jobContent.workExperienceRequirements }}年</li>
           <!-- <li><span></span>3、熟练掌握图像处理算法原理 精通OpenCV 熟悉Halcon等视觉算法库及工具 4、精通C++/C#编程语言 5、对图像识别算法有深刻理解及应用经验优先 熟悉主流的机器学习算法 能够熟练使用深度学习TensorFlow、Caffe等深度学习框架</li>   -->
           <!-- <li><span>软性技能要求：</span>沟通能力、团队合作</li> -->
@@ -165,8 +165,11 @@ console.log(route.query.job)
 
 const isVisited = ref(true)
 
+// const education = {
+//  1:'大专',2:'本科',3:'硕士' ,4:'博士'
+// }
 const education = {
- 1:'大专',2:'本科',3:'硕士' ,4:'博士'
+ 1:'高中',2:'大专',3:'本科' ,4:'硕士',4:'博士'
 }
 const sexStatus = {0: '男', 1:'女'}
 

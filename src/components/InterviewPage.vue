@@ -2,12 +2,12 @@
  * @Author: sunsan 2390864551@qq.com
  * @Date: 2023-08-09 15:26:50
  * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-12 17:47:28
+ * @LastEditTime: 2023-08-15 16:50:15
  * @FilePath: \resume_analysis\src\components\InterviewPage.vue
  * @Description: 面评
 -->
 <template>
-  <div>
+  <div class="box3">
     <div class="interviewLabel"
       v-for="(item, index) in interviewList"
       :key="index"
@@ -26,9 +26,9 @@
 </div>
       
       <ul>
-        <li v-show="item.skill!=='undefined'"><span>技能评估：</span>{{ item.skill }}</li>
-        <li v-show="item.composite!=='undefined'"><span>综合评价：</span>{{ item.composite }}</li>
-        <li v-show="item.summarize!=='undefined'"><span>总结与建议：</span>{{ item.summarize }}</li>
+        <li v-show="item.skill!=='undefined'&&item.skill!==''"><span>技能评估：</span>{{ item.skill }}</li>
+        <li v-show="item.composite!=='undefined'&&item.composite!==''"><span>综合评价：</span>{{ item.composite }}</li>
+        <li v-show="item.summarize!=='undefined'&&item.summarize!==''"><span>总结与建议：</span>{{ item.summarize }}</li>
       </ul>
     </div>
   </div>
@@ -49,13 +49,17 @@ const isPass = ref(false);
 </script>
 
 <style lang="scss" scoped>
+.box3{
+  min-height: 40vh;
+  background-color: #fff;
+}
 .interviewLabel {
   display: flex;
   flex-direction: column;
   gap: 15px;
   padding: 20px;
   margin-bottom: 20px;
-  min-height: 30vh;
+  // min-height: 30vh;
 }
 .status-style{
     display: flex;

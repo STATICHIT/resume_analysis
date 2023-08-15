@@ -2,7 +2,7 @@
 <template>
   <div class="container" v-show="isVisited">
     <el-button type="success" class="return" @click="lookJson">查看返回数据</el-button>
-    <!-- <div>
+    <div>
       <span class="lights">简历亮点</span>
       <div class="light-contain">
         <div class="labels">
@@ -10,7 +10,7 @@
           <span>简历亮点</span>
         </div>
         <ul>
-          <li v-for="item in state.lights" :key="item">{{ item }}</li>
+          <li v-for="item in content.resumeHighlights" :key="item">{{ item }}</li>
         </ul>
       </div>
       <div class="predict-contain">
@@ -19,7 +19,7 @@
           <span>智能预测</span>
         </div>
         <ul>
-          <li v-for="item in state.predict" :key="item">{{ item }}</li>
+          <li v-for="item in content.intelligentPrediction" :key="item">{{ item }}</li>
         </ul>
       </div>
       <div class="warn-contain">
@@ -28,10 +28,10 @@
           <span>风险提示</span>
         </div>
         <ul>
-          <li v-for="item in state.warns" :key="item">{{ item }}</li>
+          <li v-for="item in content.riskWarning" :key="item">{{ item }}</li>
         </ul>
       </div>
-    </div> -->
+    </div>
     <div class="tags">
       <span class="title">候选人标签</span>
       <!-- <div>
@@ -48,24 +48,24 @@
         </div>
       </div> -->
       <div>
-        <span>教育背景标签</span>
+        <span v-show="getFilteredItems.length!==0">教育背景标签</span>
         <div>
           <el-button
             type="success"
-            v-for="item in labelProcessing.educationTags"
+            v-for="item in getFilteredItems"
             :key="item"
             class="btn"
             plain
-            >{{ item }}</el-button
+            >{{ item||'本科' }}</el-button
           >
         </div>
       </div>
       <div>
-        <span>职业标签</span>
+        <span v-show="getFilteredItemsJob.length!==0">职业标签</span>
         <div>
           <el-button
             type="danger"
-            v-for="item in labelProcessing.jobTags"
+            v-for="item in getFilteredItemsJob"
             :key="item"
             class="btn"
             plain
@@ -87,11 +87,11 @@
         </div>
       </div> -->
       <div>
-        <span>专业技能标签</span>
+        <span v-show="getFilteredItemsSkill.length!==0">专业技能标签</span>
         <div>
           <el-button
             type="warning"
-            v-for="item in labelProcessing.skillTags"
+            v-for="item in getFilteredItemsSkill"
             :key="item"
             class="btn"
             plain
@@ -134,15 +134,20 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import * as echarts from "echarts";
 
 const prop = defineProps({
   labelProcessing:{
     type:Object,
     default:()=>{}
+  },
+  content:{
+    type:Object,
+    default:()=>{}
   }
 })
+
 
 const talent = ref(null);
 const isVisited = ref(true)
@@ -198,8 +203,25 @@ const state = reactive({
   },
 });
 
+const getFilteredItems = computed(()=>{
+  let arr = prop.labelProcessing.educationTags.filter(item => item !== '')
+  return arr
+})
+
+const getFilteredItemsJob = computed(()=>{
+  let arr = prop.labelProcessing.jobTags.filter(item => item !== '')
+  return arr
+})
+const getFilteredItemsSkill = computed(()=>{
+  let arr = prop.labelProcessing.skillTags.filter(item => item !== '')
+  return arr
+})
+
+
 onMounted(()=>{
   console.log(prop.labelProcessing.comprehensiveAbility.leadership)
+  let arr = prop.labelProcessing.educationTags.filter(item => item !== '')
+  console.log(arr)
 })
 const option = reactive({
     
