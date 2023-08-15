@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-07-03 21:52:10
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-15 03:07:48
+ * @LastEditTime: 2023-08-15 17:56:16
  * @FilePath: \resume_analysis\src\components\Invitation.vue
  * @Description: 自定义
 -->
@@ -202,7 +202,6 @@
       <template #default>
         <div>
           <el-table
-            ref="singleTableRef"
             :data="tableData"
             highlight-current-row
             style="width: 100%"
@@ -228,6 +227,7 @@
 <script setup>
 import { ref } from "vue";
 import { ElNotification } from "element-plus";
+import { ElTable } from 'element-plus'
 import apiFun from "@/utils/api";
 const activeName = ref("1");
 const fullscreenLoading1 = ref(false);
@@ -246,17 +246,19 @@ const form2 = ref({
 });
 
 function getTable() {
-  apiFun.template.getAll().then((res) => {
-    tableData.value = [];
-    res.data.forEach((t) => {
-      tableData.value.push({
-        name: t.templateName,
-        concent: t.template.slice(0, 100),
-        time: t.createTime,
-        trueConcent: t.template,
-      });
-    });
-  });
+  console.log("RRF")
+  // apiFun.template.getAll().then((res) => {
+  //   console.log(res)
+  //   tableData.value = [];
+  //   res.data.forEach((t) => {
+  //     tableData.value.push({
+  //       name: t.templateName,
+  //       concent: t.template.slice(0, 100),
+  //       time: t.createTime,
+  //       trueConcent: t.template,
+  //     });
+  //   });
+  // });
 }
 const open = (title, message, type) => {
   ElNotification({
@@ -271,6 +273,7 @@ function addTemplate() {
 }
 let templateName = ref();
 let templateContnet = ref("");
+//添加自定义模板
 function confirmClick() {
   diyTemplate.value = false;
   console.log("模板内容：", templateContnet.value.toString());
@@ -295,6 +298,7 @@ function changeTemplate() {
   checkTemplate.value = true;
   getTable();
 }
+//切换模板
 function cancelClick2() {
   checkTemplate.value = false;
 }
@@ -304,7 +308,6 @@ function confirmClick2() {
   setTimeout(() => {
     fullscreenLoading1.value = false;
   }, 1000);
-  // apiFun.template.getAll().then((res) => {});
 }
 const currentTem = ref();
 const handleCurrentChange = (val) => {
@@ -312,30 +315,30 @@ const handleCurrentChange = (val) => {
   console.log(currentTem.value);
 };
 const tableData = ref([
-  // {
-  //   name: "通用面试邀约模板",
-  //   concent:
-  //     "${name}，你好!我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
-  //   time: "2016-05-03",
-  // },
-  // {
-  //   name: "基础面试邀约模板",
-  //   concent:
-  //     "亲爱的${name}，你好！我们公司的人力资源部已经对您的简历进行了初审，经过我们内部的初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
-  //   time: "2016-05-02",
-  // },
-  // {
-  //   name: "财务岗位面试邀约模板",
-  //   concent:
-  //     "${name}，你好我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
-  //   time: "2016-05-04",
-  // },
-  // {
-  //   name: "高级面试邀约模板",
-  //   concent:
-  //     "${name}，你好我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
-  //   time: "2016-05-01",
-  // },
+  {
+    name: "通用面试邀约模板",
+    concent:
+      "${name}，你好!我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
+    time: "2016-05-03",
+  },
+  {
+    name: "基础面试邀约模板",
+    concent:
+      "亲爱的${name}，你好！我们公司的人力资源部已经对您的简历进行了初审，经过我们内部的初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
+    time: "2016-05-02",
+  },
+  {
+    name: "财务岗位面试邀约模板",
+    concent:
+      "${name}，你好我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
+    time: "2016-05-04",
+  },
+  {
+    name: "高级面试邀约模板",
+    concent:
+      "${name}，你好我司人力资源部已初审您的简历，经过初步沟通，认为您基本具备${job}岗位的任职资格，因此正式通知您来我公司参加面试。",
+    time: "2016-05-01",
+  },
 ]);
 function confirmTemplate() {
   open("保存成功", "已保存当前模板", "success");
