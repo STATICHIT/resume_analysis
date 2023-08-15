@@ -53,7 +53,7 @@
 import { ref } from "vue";
 import DropDown from "../../components/DropDown.vue";
 import router from "../../router";
-const username = "STATICHIT";
+const username = "云科技有限公司";
 const tops = [
   { title: "简历分析", path: "/resumeAnalysis" },
   { title: "人岗匹配", path: "/matching" },

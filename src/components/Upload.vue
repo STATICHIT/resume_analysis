@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 20:45:43
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-12 17:55:19
+ * @LastEditTime: 2023-08-15 22:41:23
  * @FilePath: \resume_analysis\src\components\Upload.vue
  * @Description: 简历分析上传组件
 -->
@@ -289,7 +289,6 @@ let uploadFile = async (file) => {
     const formData = new FormData();
     console.log(file)
     formData.append("file", file);
-    console.log("2",file)
     axios
       .post("http://192.168.50.159:5555/resume/upload", formData, {
         headers: header,

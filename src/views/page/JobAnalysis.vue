@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 18:09:13
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-11 20:04:34
+ * @LastEditTime: 2023-08-15 17:36:30
  * @FilePath: \resume_analysis\src\views\page\JobAnalysis.vue
  * @Description: 岗位分析入口
 -->
@@ -17,10 +17,11 @@
           <Upload></Upload>
         </el-tab-pane>
         <el-tab-pane label="手动录入" name="second">
-          <div style="padding: 20px">
+          <div style="padding: 20px" v-loading.lock="fullscreenLoading2">
             <label for="bio" style="text-align: left">岗位描述:</label>
             <textarea
               id="bio"
+              v-model="concent"
               name="user_bio"
               class="text"
               placeholder="产品运营
@@ -46,11 +47,41 @@
 <script setup>
 import Upload from "../../components/Upload2.vue";
 import Loading from "../../components/Loading.vue";
+import { ElNotification } from "element-plus";
 import { ref } from "vue";
+import apiFun from "../../utils/api";
 import router from "../../router";
 const activeName = ref("first");
+let concent = ref("");
+const fullscreenLoading2 = ref(false); //loading效果
 let analysis = () => {
-  router.push({ path: "/analysisPosts" });
+  fullscreenLoading2.value = true;
+  console.log(concent.value);
+  apiFun.job.jobAnalysis(concent.value).then((res) => {
+    console.log(res);
+    if (res.code === 200) {
+      fullscreenLoading2.value = false;
+      open();
+    } else {
+      ElNotification({
+        title: "分析失败",
+        message: "分析失败，请刷新后重试",
+        type: "error",
+      });
+      setTimeout(() => {
+        fullscreenLoading2.value = false;
+      }, 1000);
+    }
+  });
+};
+const open = () => {
+  ElNotification({
+    title: "分析成功",
+    dangerouslyUseHTMLString: true,
+    message:
+      '<strong>录入岗位均已分析完成并纳入岗位库，您可前往<a href="/jobPool"><b>岗位库</b></a>查看最新岗位</strong>',
+    type: "success",
+  });
 };
 </script>
 

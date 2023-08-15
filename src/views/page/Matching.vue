@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-06-10 11:18:26
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-14 09:53:56
+ * @LastEditTime: 2023-08-15 20:57:40
  * @FilePath: \resume_analysis\src\views\page\Matching.vue
  * @Description: 人岗匹配
 -->
@@ -57,6 +57,7 @@
           alt=""
           class="searchImg"
         />
+        <empty-data v-if="isEmptys === true" msg="暂无匹配简历"></empty-data>
         <div class="selectBox selectBox2">
           <div
             v-for="(item, i) in talents"
@@ -66,7 +67,7 @@
             class="TalentCard"
           >
             <div>
-              <div class="title">{{ item.title }}</div>
+              <div class="title">{{ item.title || "暂无专业数据" }}</div>
               <div>
                 匹配度：
                 <el-rate
@@ -77,7 +78,9 @@
                 />
               </div>
               <div class="littleTitle">
-                {{ item.name }} | {{ item.score }} | {{ item.expr }}年工作经验
+                {{ item.name || "暂无姓名数据" }} |
+                {{ item.score || "暂无学历数据" }} |
+                {{ item.expr + "年工作经验" || "暂无工作经验年限数据" }}
               </div>
               <div v-for="(x, ii) in item.tags" :key="ii" class="tags">
                 <el-tag>{{ x }}</el-tag>
@@ -94,7 +97,9 @@
 import { ref, onMounted } from "vue";
 import apiFun from "../../utils/api";
 import router from "../../router";
+import EmptyData from "@/components/EmptyData.vue";
 const activeName = ref("first");
+const isEmptys = ref(false);
 onMounted(() => {
   Per();
 });
@@ -102,10 +107,12 @@ function Per() {
   //获取现有岗位
   apiFun.job.getAll().then((res) => {
     console.log(res.data);
-    jobs.value = [];
-    res.data.forEach((j) => {
-      jobs.value.push({ name: j.name, id: j.id });
-    });
+    if (res.data) {
+      jobs.value = [];
+      res.data.forEach((j) => {
+        jobs.value.push({ name: j.name, id: j.id });
+      });
+    }
   });
 }
 
@@ -133,23 +140,27 @@ const initialImg = ref(true);
 const lastMatching = () => {
   Loading.value = true;
   apiFun.job.PJMatch(selectId.value).then((res) => {
-     console.log(res);
-     let list = res.data.list;
-     talents.value = [];
-     list.forEach((j) => {
-       let content = JSON.parse(j.resume.content);
-       talents.value.push({
-       id: j.resume.id,
-       name: j.resume.fullName,
-       score: content.education,
-       expr: content.workYears,
-       value: (j.score * 5).toFixed(2),
-       title: content.major,
-       tags: j.skills.slice(0, 8),
-       });
-     });
-     Loading.value = false;
-   initialImg.value = false;
+    console.log("匹配结果:", res);
+    talents.value = [];
+    if (res.data.list === null || res.data.list.length === 0) {
+      isEmptys.value = true; //空
+    } else {
+      isEmptys.value = false; //非空
+      res.data.list.forEach(function (j) {
+        let content = JSON.parse(j.resume.content);
+        talents.value.push({
+          id: j.resume.id,
+          name: j.resume.fullName,
+          score: content.education,
+          expr: content.workYears,
+          value: (j.score * 5).toFixed(2),
+          title: content.major,
+          tags: j.skills.slice(0, 8),
+        });
+      });
+    }
+    Loading.value = false;
+    initialImg.value = false;
   });
 };
 //手动输入岗位匹配
@@ -162,138 +173,142 @@ const curMatching = () => {
   let jobContent = "岗位名：" + moreText1.value + ";" + moreText2.value;
   console.log("拼接字符串:", jobContent);
   apiFun.job.jobAnalysis(jobContent).then((res) => {
-    console.log(res);
-    let list = res.data.list;
+    console.log("字段匹配结果", res);
     talents.value = [];
-    list.forEach((j) => {
-      let content = JSON.parse(j.resume.content);
-      talents.value.push({
-        id: j.resume.id,
-        name: j.resume.fullName,
-        score: content.education,
-        expr: content.workYears,
-        value: (j.score * 5).toFixed(2),
-        title: content.major,
-        tags: j.skills.slice(0, 8),
+    if (res.data.list === null || res.data.list.length === 0) {
+      isEmptys.value = true; //空
+    } else {
+      res.data.list.forEach((j) => {
+        let content = JSON.parse(j.resume.content);
+        console.log(j.score);
+        talents.value.push({
+          id: j.resume.id,
+          name: j.resume.fullName,
+          score: content.education,
+          expr: content.workYears,
+          value: (j.score * 5).toFixed(2),
+          title: content.major,
+          tags: j.skills.slice(0, 8),
+        });
       });
-    });
+    }
     Loading.value = false;
     initialImg.value = false;
   });
 };
 
 const talents = ref([
-// {
-//     name: "李明",
-//     score: "本科",
-//     expr: "3",
-//     value: 5.0,
-//     title: "后端开发",
-//     tags: [
-//       "数据库管理",
-//       "网络安全",
-//       "敏捷开发",
-//       "后端开发",
-//       "系统架构",
-//       "Flutter",
-//       "Rust",
-//       "React",
-//       "Angular",
-//     ],
-//   },
-//   {
-//     name: "张旭",
-//     score: "硕士",
-//     expr: "5",
-//     value: 4.7,
-//     title: "数据工程",
-//     tags: [
-//       "软件调试",
-//       "性能优化",
-//       "多线程编程",
-//       "安全漏洞分析",
-//       "自动化测试",
-//       "后端框架",
-//       "Spring",
-//       "Django",
-//     ],
-//   },
-//   {
-//     name: "王乐洋",
-//     score: "博士",
-//     expr: "2",
-//     value: 4.2,
-//     title: "项目开发",
-//     tags: [
-//       "Java",
-//       "Python",
-//       "C++",
-//       "前端框架",
-//       "安全防护",
-//       "性能调优",
-//       "Keras",
-//       "scikit-learn",
-//       "内部工具开发",
-//     ],
-//   },
-//   {
-//     name: "刘芳语",
-//     score: "硕士",
-//     expr: "2",
-//     value: 3.9,
-//     title: "软件质量保证",
-//     tags: [
-//       "备份策略",
-//       "系统管理员",
-//       "日志分级",
-//       "缓存技术",
-//       "性能监测",
-//       "数据可视化",
-//       "虚拟化技术",
-//       "容错设计",
-//     ],
-//   },
-//   {
-//     name: "陈宇",
-//     score: "硕士",
-//     expr: "2",
-//     value: 3.2,
-//     title: "数据工程",
-//     tags: [
-//       "Python",
-//       "Git",
-//       "SVN",
-//       "敏捷开发",
-//       "面向服务架构",
-//       "软件安全",
-//       "大数据处理",
-//       "容器技术",
-//       "Docker",
-//     ],
-//   },
-//   {
-//     name: "杨洋",
-//     score: "本科",
-//     expr: "4",
-//     value: 2.6,
-//     title: "网络安全",
-//     tags: [
-//       "Java",
-//       "Python",
-//       "C++",
-//       "PHP",
-//       "软件开发流程",
-//       "网络拓扑设计",
-//       "数据库备份恢复",
-//       "软件故障处理",
-//     ],
-//   },
+  // {
+  //     name: "李明",
+  //     score: "本科",
+  //     expr: "3",
+  //     value: 5.0,
+  //     title: "后端开发",
+  //     tags: [
+  //       "数据库管理",
+  //       "网络安全",
+  //       "敏捷开发",
+  //       "后端开发",
+  //       "系统架构",
+  //       "Flutter",
+  //       "Rust",
+  //       "React",
+  //       "Angular",
+  //     ],
+  //   },
+  //   {
+  //     name: "张旭",
+  //     score: "硕士",
+  //     expr: "5",
+  //     value: 4.7,
+  //     title: "数据工程",
+  //     tags: [
+  //       "软件调试",
+  //       "性能优化",
+  //       "多线程编程",
+  //       "安全漏洞分析",
+  //       "自动化测试",
+  //       "后端框架",
+  //       "Spring",
+  //       "Django",
+  //     ],
+  //   },
+  //   {
+  //     name: "王乐洋",
+  //     score: "博士",
+  //     expr: "2",
+  //     value: 4.2,
+  //     title: "项目开发",
+  //     tags: [
+  //       "Java",
+  //       "Python",
+  //       "C++",
+  //       "前端框架",
+  //       "安全防护",
+  //       "性能调优",
+  //       "Keras",
+  //       "scikit-learn",
+  //       "内部工具开发",
+  //     ],
+  //   },
+  //   {
+  //     name: "刘芳语",
+  //     score: "硕士",
+  //     expr: "2",
+  //     value: 3.9,
+  //     title: "软件质量保证",
+  //     tags: [
+  //       "备份策略",
+  //       "系统管理员",
+  //       "日志分级",
+  //       "缓存技术",
+  //       "性能监测",
+  //       "数据可视化",
+  //       "虚拟化技术",
+  //       "容错设计",
+  //     ],
+  //   },
+  //   {
+  //     name: "陈宇",
+  //     score: "硕士",
+  //     expr: "2",
+  //     value: 3.2,
+  //     title: "数据工程",
+  //     tags: [
+  //       "Python",
+  //       "Git",
+  //       "SVN",
+  //       "敏捷开发",
+  //       "面向服务架构",
+  //       "软件安全",
+  //       "大数据处理",
+  //       "容器技术",
+  //       "Docker",
+  //     ],
+  //   },
+  //   {
+  //     name: "杨洋",
+  //     score: "本科",
+  //     expr: "4",
+  //     value: 2.6,
+  //     title: "网络安全",
+  //     tags: [
+  //       "Java",
+  //       "Python",
+  //       "C++",
+  //       "PHP",
+  //       "软件开发流程",
+  //       "网络拓扑设计",
+  //       "数据库备份恢复",
+  //       "软件故障处理",
+  //     ],
+  //   },
 ]);
 
 //查看人文详细跳转
 let selectTalent = ref();
 let intoTalent = (item) => {
-  window.open(`/analysisPage?id=${item.id}`,'_blank');//另外起新页面进行跳转
+  window.open(`/analysisPage?id=${item.id}`, "_blank"); //另外起新页面进行跳转
 };
 </script>
 

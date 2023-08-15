@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-24 22:26:39
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-12 16:59:46
+ * @LastEditTime: 2023-08-15 22:32:15
  * @FilePath: \resume_analysis\src\views\page\TalentPool.vue
  * @Description: 人才库
 -->
@@ -374,35 +374,19 @@ import router from "../../router";
 onMounted(() => {
   Pre();
 });
-
-//加载搜索列表数据
-function getAll() {
-  apiFun.search.getResumeList(1, 5).then((res) => {
-    state.total = res.data.total;
-    state.currentPage = res.data.pageNum;
-    state.pageSize = res.data.pageSize;
-    res.data.list.forEach((r) => {
-      list.value.push({
-        content: JSON.parse(r.content),
-        email: r.email,
-        tags: JSON.parse(r.content).labelProcessing.skillTags.slice(0, 6),
-      });
-    });
-  });
-}
 function Pre() {
-  //state状态选项导入
   //全部候选人导入
   search();
 }
-/**
- * 流程管理
- */
+
 function reLoading() {
   // 在这里处理事件逻辑
   Pre(); //重新加载
 }
+
+//选择状态结点后，直接进行一次搜索
 function changeStage(id) {
+  //设置状态
   condition.value.processStage = id;
   search();
 }
@@ -466,9 +450,9 @@ function moreCheck() {
 
 //条件搜索
 function search() {
-  console.log(condition.value);
+  console.log("条件搜索请求携带数据",condition.value);
   apiFun.search.conditionSearch(condition.value).then((res) => {
-    console.log("数据：", res);
+    console.log("条件搜索结果数据：", res);
     state.total = res.data.total;
     state.currentPage = res.data.pageNum;
     state.pageSize = res.data.pageSize;
