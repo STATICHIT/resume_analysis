@@ -26,15 +26,15 @@
         <div class="ask">
           <ul>
             <li>
-              <span>学历要求：</span>{{education[ item.job.educationalRequirements ]}}
+              <span>学历要求：</span>{{education[ item.job.educationalRequirements ]||'无要求'}}
             </li>
             <li>
               <span>专业要求：</span>{{ item.job.professionalRequirements }}
             </li>
-            <li><span>性别要求：</span>{{sexStatus[ item.job.sexRequirements ]}}</li>
+            <li><span>性别要求：</span>{{sexStatus[ item.job.sexRequirements ]||'无要求'}}</li>
             <li>
               <span>工作年限要求：</span
-              >{{ item.job.workExperienceRequirements }}年工作经验
+              >{{ jobContent.workExperienceRequirements===-1?'无要求': jobContent.workExperienceRequirements+'年' }}年工作经验
             </li>
             <li
               style="
@@ -79,7 +79,7 @@ const props = defineProps({
 });
 
 const education = {
- 1:'大专',2:'本科',3:'硕士' ,4:'博士'
+ 1:'高中',2:'大专',3:'本科' ,4:'硕士',4:'博士'
 }
 const sexStatus = {0: '男', 1:'女'}
 </script>
@@ -102,6 +102,7 @@ const sexStatus = {0: '男', 1:'女'}
 .container {
   box-sizing: border-box;
   padding: 20px;
+  min-height: 30vh;
 }
 .container div div > span:first-child {
   font-weight: bold;

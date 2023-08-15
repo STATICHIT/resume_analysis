@@ -33,7 +33,7 @@ export default {
   methods: {},
 };
 </script>
-<style>
+<style scoped>
 .area {
   cursor: pointer;
   outline: none;

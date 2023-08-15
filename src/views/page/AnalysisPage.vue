@@ -136,13 +136,13 @@
           </div>
           <div class="user-msg">
             <el-icon><Iphone /></el-icon>
-            <span>{{ resume.phone }}</span>
+            <span>{{ resume.phone||'12562429522' }}</span>
             <el-icon><Message /></el-icon>
-            <span>{{ resume.email }}</span>
+            <span>{{ resume.email||'2390864552@qq.com' }}</span>
             <el-icon><Briefcase /></el-icon>
-            <span> {{ userMsg.workYears }}年工作经验</span>
+            <span> {{ userMsg.workYears||'5' }}年工作经验</span>
             <img src="..\..\assets\student-icon.png" />
-            <span>{{ userMsg.education }}</span>
+            <span>{{ userMsg.education||'本科' }}</span>
           </div>
         </div>
       </div>
@@ -171,6 +171,7 @@
         >
           <ResumePortraitVue
             :labelProcessing="labelProcessing"
+            :content="userMsg"
           ></ResumePortraitVue>
         </el-tab-pane>
         <el-tab-pane
@@ -179,7 +180,8 @@
           label="推荐岗位"
           name="third"
         >
-          <postPage v-loading=loading.loading2 :jobList="jobList"></postPage>
+        <empty-data v-if="jobList.length===0" msg="暂无推荐岗位"></empty-data>
+          <postPage v-else v-loading=loading.loading2 :jobList="jobList"></postPage>
         </el-tab-pane>
         <el-tab-pane
           class="animate__animated animate__slideInRight"
@@ -205,13 +207,13 @@
         </el-tab-pane>
       </el-tabs>
     </div>
-    <el-button
+    <!-- <el-button
       color="#626aef"
       size="large"
       class="goBack"
       style="font-weight: bold"
       >返回文件上传页面</el-button
-    >
+    > -->
   </div>
 </template>
 
@@ -461,56 +463,7 @@ const labelProcessing = ref({
     "协调",
   ],
 });
-const jobList = ref([
-  {
-    job: {
-      //岗位
-      id: 0, //岗位ID
-      userId: 0, //用户ID
-      name: "市场营销专员", //岗位名
-      responsibility:
-        "进行市场调研和竞争分析，提供市场情报和洞察；\n制定和执行市场推广计划，包括线上和线下渠道；\n策划和组织市场活动，提高品牌知名度和产品销售量；\n维护客户关系，提供优质的客户服务；\n分析市场数据和结果，对市场策略进行调整和优化。", //岗位职责
-      jobRequire:
-        "具备市场营销或相关领域的学士学位；\n具备良好的沟通和协调能力；\n熟悉市场调研和分析方法；\n具备创新思维和问题解决能力；\n具备团队合作精神和自我驱动力。", //岗位要求
-      professionalLabel: "", //岗位要求标签集合
-      educationalRequirements: "无要求", //学历要求
-      professionalRequirements: "市场营销", //专业要求
-      sexRequirements: "无要求", //性别要求
-      workExperienceRequirements: 3, //工作经验要求
-      createTime: "", //创建时间
-      updateTime: "", //更新时间
-    },
-    skills: [
-      //岗位要求技能标签
-      "",
-    ],
-    score: 88.0, //得分
-  },
-  {
-    job: {
-      //岗位
-      id: 0, //岗位ID
-      userId: 0, //用户ID
-      name: "运营经理", //岗位名
-      responsibility:
-        "管理和协调日常运营活动，确保业务顺利运行；\n设计和优化业务流程，提高效率和质量；\n监控和分析运营数据，提供运营报告和建议；\n管理团队，进行绩效评估和培训；\n协调各部门合作，实现运营目标。", //岗位职责
-      jobRequire:
-        "具备管理或相关领域的学士学位；\n具备团队管理和领导能力；\n熟悉业务运营和流程管理；\n具备数据分析和决策能力；\n具备协调和解决问题的能力。", //岗位要求
-      professionalLabel: "", //岗位要求标签集合
-      educationalRequirements: "无要求", //学历要求
-      professionalRequirements: "无要求", //专业要求
-      sexRequirements: "无要求", //性别要求
-      workExperienceRequirements: 3, //工作经验要求
-      createTime: "", //创建时间
-      updateTime: "", //更新时间
-    },
-    skills: [
-      //岗位要求技能标签
-      "",
-    ],
-    score: 75.0, //得分
-  },
-]);
+const jobList = ref([]);
 
 const comments = reactive({
   skill:'',
@@ -529,10 +482,16 @@ onMounted(() => {
       if (labelProcessing.value.backgroundIndustry[key] < 8) {
         labelProcessing.value.backgroundIndustry[key] = 8;
       }
+      if (labelProcessing.value.backgroundIndustry[key] > 20) {
+        labelProcessing.value.backgroundIndustry[key] = 20;
+      }
     }
     userMsg.value = JSON.parse(resume.value.content);
-
-  });
+    console.log(userMsg.value)
+    userMsg.value.resumeHighlights = JSON.parse(userMsg.value.resumeHighlights);
+    userMsg.value.riskWarning = JSON.parse(userMsg.value.riskWarning);
+    userMsg.value.intelligentPrediction = JSON.parse(userMsg.value.intelligentPrediction);
+      });
   apiFun.resume.graph(resumeId).then((res) => {
     console.log(res.data);
     list.value = res.data.schoolVoList;
@@ -556,6 +515,11 @@ const getComment = () => {
     console.log(res)
     loading.loading3=false
     evaluate.value=res.data
+    evaluate.value = evaluate.value.filter(item => {
+  return !(item.skill === 'undefined' || item.skill === '') ||
+         !(item.composite === 'undefined' || item.composite === '') ||
+         !(item.summarize === 'undefined' || item.summarize === '');
+})
   })
 }
 const getLogs = () => {
@@ -574,25 +538,24 @@ const getStatus = computed(() => {
   return selectedStatus ? selectedStatus.name : "";
 });
 const isInterview = computed(()=>{
-  let selectedInterview = state.selectItem.find(
-    (item) => item.name.includes("面试")
-  );
-  console.log(selectedInterview)
-  // if(selectedInterview.id===resume.value.processStage){
-  //   return true
-  // }
-  return false
+  let id=0
+  state.selectItem.forEach((item)=>{
+    if(item.name.includes("面试")){
+      id=item.id
+    }
+  })
+  console.log(id)
+  return id===resume.value.processStage 
 })
 const isGet = computed(()=>{
-  let selectedInterview = state.selectItem.find(
-    (item) => item.name === "入职"
-  );
-  console.log(selectedInterview)
-  // console.log(selectedInterview.value.id)
-  //  if(selectedInterview.id===resume.value.processStage){
-  //    return true
-  //  }
-  return false
+  let id=0
+  state.selectItem.forEach((item)=>{
+    if(item.name.includes("入职")){
+      id=item.id
+    }
+  })
+  console.log(id)
+  return id===resume.value.processStage 
 })
 const updateResumeStatus = (value) => {
   dialogVisible.value = true;
@@ -606,7 +569,7 @@ const updateStatus = () => {
     console.log(res);
     if (res.code === 200) {
       dialogVisible.value = false;
-      resume.value.resumeStatus = currentState.value;
+      resume.value.processStage = currentState.value;
         open1()
         getLogs()
       }
@@ -677,9 +640,38 @@ const sendEmail = () => {
 const handleClick = (tab, event) => {};
 </script>
 
-<style lang="scss">
-@import "../../style/base.scss";
-@import "../../style/element-plus.scss";
+<style lang="scss" scoped>
+// @import "../../style/element-plus.scss";
+// 自定义 el-tabs 的主题样式
+.el-tabs__nav {
+//   background-color: #ffffff; // 修改标签栏的背景色
+    color: #333;
+}
+
+.el-tabs__item.is-active {
+  color: #6873E3; // 修改当前激活的标签文字颜色
+
+}
+.el-tabs__item:hover{
+    color: #6873E3;
+}
+.el-tabs__item{
+    font-size: 15px;
+}
+.el-tabs__active-bar {
+    background-color: #6873E3; // 修改横线颜色为红色
+    height: 5px;
+}
+  /* CSS */
+  .el-dropdown-menu .el-dropdown-menu__item:hover {
+    background-color: #EFEDFD;
+    color: #7061E5;
+  }
+  
+  //修改loading加载时的颜色
+  .el-loading-spinner .path{
+    stroke: #8E95F8;
+  }
 
 .box {
   padding: 60px;
@@ -690,7 +682,7 @@ const handleClick = (tab, event) => {};
 }
 
 .demo-tabs el-tab-pane {
-  color: $primary-color;
+  color: #6873E3;
 }
 .goBack {
   font-weight: bold;
