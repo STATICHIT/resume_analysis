@@ -1,8 +1,8 @@
 <!--
  * @Author: sunsan 2390864551@qq.com
  * @Date: 2023-07-11 20:44:31
- * @LastEditors: sunsan 2390864551@qq.com
- * @LastEditTime: 2023-08-15 22:10:39
+ * @LastEditors: STATICHIT 2394412110@qq.com
+ * @LastEditTime: 2023-08-18 13:58:34
  * @FilePath: \resume_analysis\src\views\page\AnalysisPosts.vue
  * @Description: 职位解析页面
 -->
@@ -17,11 +17,11 @@
             </div>
             <div class="user-msg">
               <el-icon><Avatar /></el-icon>
-              <span>性别&nbsp;{{sexStatus[ jobContent.sexRequirements ]}}</span>
+              <span>性别&nbsp;{{ sexStatus[jobContent.sexRequirements]||'无要求' }}</span>
               <el-icon><Briefcase /></el-icon>
               <span>工作经验&nbsp;{{ jobContent.workExperienceRequirements }}年</span>
               <img src="..\..\assets\student-icon.png" />
-              <span>学历&nbsp;{{education[ jobContent.educationalRequirements ]}}</span>
+              <span>学历&nbsp;{{ education[jobContent.educationalRequirements] ||'无要求'}}</span>
             </div>
           </div>
         </div>
@@ -209,150 +209,7 @@ function syntaxHighlight(json) {
   <style lang="scss" scoped>
   @import '/src/style/base.scss';
   
-  .box {
-    padding: 60px;
-    background-color: #f3fcfa;
-  }
-
-  .goBack{
-    font-weight: bold;
-    margin-left: 48%;
-    margin-top: 20px;
-  }
-  .page {
-    width: 57%;
-    padding: 30px 20px;
-    margin-left: 25%;
-    height: auto;
-    box-shadow: 14px 12px 24px -6px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    min-height: 60vh;
-  }
-
-  .avatar {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    padding: 20px;
-  }
-  .avatar > img {
-    height: 60px;
-  }
-  .avatar>div{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-  }
-  
-  .user-tip {
-    display: flex;
-    flex-direction: row;
-  }
-  .user-tip>h2{
-      margin-right: 30px;
-  }
-  .user-msg{
-      color: #848484;
-      font-size: 14px;
-  }
-  .btn {
-  border-radius: 2rem;
-  margin: 0;
-  margin-right: 20px;
-  // margin-top: 20px;
-  margin-bottom: 20px;
-}
-  .user-msg img{
-      height: 10px;
-  }
-  .user-msg :deep(.el-icon) {
-    color: #929292;
-  }
-  .user-msg span{
-      margin-right: 20px;
-  }
-  
-.container{
-    box-sizing: border-box;
-    padding: 20px;
-}
-
-.container>div>span{
-    font-size: 25px;
-    background: linear-gradient(to right, #6873E3, rgb(39, 49, 158));
-    -webkit-background-clip: text;
-    font-weight: bold;
-    color: transparent;
-    margin-left: -15px;
-    margin-bottom: 15px;
-    display: block;
-}
-.tags div > span {
-  color: #333;
-  margin-top: 20px;
-}
-
-.codeBox{
-    background: #32325d;
-    color: #e6ebf1;
-    border-radius: 13px;
-    padding: 30px 20px;
-    font-size: 12px;
-    margin-top: 30px;
-    line-height: 1.5;
-    min-height: 60vh;
-}
-.return{
-  float: right;
-  font-weight: bold;
-}
-ul li{
-  margin-bottom: 15px;
-  font-size: 15px;
-  color: #232323;
-}
-ul li::marker{                          
-  color: $primary-color;
-}
-
-.ul-list{
-  display: flex;
-  flex-wrap: wrap;
-  width: 600px;
-}
-.ul-list li{
-  width: 50%;
-}
-
-ul li>span:first-child{
-  color: #7d7d7d;
-  font-size: 15px
-};
-
-
-ul{
-  padding: 10px;
-}
-.project{
-  padding: 10px;
-}
-.container div div>span:first-child{
-  font-weight: bold;
-  font-size: 16px;
-  margin-left: -10px;
-}
-.container div div > span:nth-child(2) {
-  color: #626262;
-  float: right;
-  font-size: 13px;
-}
-
-pre {
-    font-family: monospace;
-    white-space: pre;
-}
+.box{padding:60px;background-color:#f3fcfa}.goBack{font-weight:bold;margin-left:48%;margin-top:20px}.page{width:57%;padding:30px 20px;margin-left:25%;height:auto;box-shadow:14px 12px 24px-6px rgba(0,0,0,0.1);background-color:#fff;border-radius:10px;display:flex;flex-direction:column;min-height:60vh}.avatar{display:flex;flex-direction:row;gap:30px;padding:20px}.avatar>img{height:60px}.avatar>div{display:flex;flex-direction:column;gap:10px}.user-tip{display:flex;flex-direction:row}.user-tip>h2{margin-right:30px}.user-msg{color:#848484;font-size:14px}.btn{border-radius:2rem;margin:0;margin-right:20px;//margin-top:20px;
+margin-bottom:20px}.user-msg img{height:10px}.user-msg:deep(.el-icon){color:#929292}.user-msg span{margin-right:20px}.container{box-sizing:border-box;padding:20px}.container>div>span{font-size:25px;background:linear-gradient(to right,#6873E3,rgb(39,49,158));-webkit-background-clip:text;font-weight:bold;color:transparent;margin-left:-15px;margin-bottom:15px;display:block}.tags div>span{color:#333;margin-top:20px}.codeBox{background:#32325d;color:#e6ebf1;border-radius:13px;padding:30px 20px;font-size:12px;margin-top:30px;line-height:1.5;min-height:60vh}.return{float:right;font-weight:bold}ul li{margin-bottom:15px;font-size:15px;color:#232323}ul li::marker{color:$primary-color}.ul-list{display:flex;flex-wrap:wrap;width:600px}.ul-list li{width:50%}ul li>span:first-child{color:#7d7d7d;font-size:15px};ul{padding:10px}.project{padding:10px}.container div div>span:first-child{font-weight:bold;font-size:16px;margin-left:-10px}.container div div>span:nth-child(2){color:#626262;float:right;font-size:13px}pre{font-family:monospace;white-space:pre}
   </style>
   

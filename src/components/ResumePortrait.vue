@@ -56,7 +56,7 @@
             :key="item"
             class="btn"
             plain
-            >{{ item||'本科' }}</el-button
+            >{{ item }}</el-button
           >
         </div>
       </div>

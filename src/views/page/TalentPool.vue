@@ -395,12 +395,13 @@ function changeStage(id) {
 //查看简历详细分析页面
 function intoTalentDetial(id) {
   console.log("ASSSSSS",id)
-  router.push({
-    path: "/analysisPage",
-    query: {
-      id: id,
-    },
-  });
+  window.open(`/analysisPage?id=${id}`, "_blank"); //另外起新页面进行跳转
+  // router.push({
+  //   path: "/analysisPage",
+  //   query: {
+  //     id: id,
+  //   },
+  // });
 }
 
 /**

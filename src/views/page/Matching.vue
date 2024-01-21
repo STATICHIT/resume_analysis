@@ -17,7 +17,7 @@
           @tab-click="handleClick"
         >
           <el-tab-pane label="选择现有岗位" name="first">
-            <div style="padding: 20px 0 20px 20px">
+            <div v-loading="loading" style="padding: 20px 0 20px 20px">
               <div class="selectBox1">
                 <div
                   v-for="(item, i) in jobs"
@@ -100,6 +100,7 @@ import router from "../../router";
 import EmptyData from "@/components/EmptyData.vue";
 const activeName = ref("first");
 const isEmptys = ref(false);
+const loading = ref(true)
 onMounted(() => {
   Per();
 });
@@ -112,6 +113,7 @@ function Per() {
       res.data.forEach((j) => {
         jobs.value.push({ name: j.name, id: j.id });
       });
+      loading.value=false
     }
   });
 }

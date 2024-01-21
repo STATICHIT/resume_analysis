@@ -3,7 +3,7 @@
  * @Date: 2023-06-07 20:06:01
 
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-15 12:03:53
+ * @LastEditTime: 2023-08-17 15:58:00
  * @FilePath: \resume_analysis\src\views\page\AnalysisPage.vue
  * @Description: 简历分析页面
 -->
@@ -11,7 +11,7 @@
 <template>
   <div class="box">
     <div class="selector">
-      <el-dropdown v-loading="state.selectItem.length===0">
+      <el-dropdown v-loading="state.selectItem.length === 0">
         <el-button
           type="primary"
           color="#8e95f8"
@@ -30,7 +30,7 @@
           <el-dropdown-menu @command="handleCommand">
             <el-dropdown-item
               @click="updateResumeStatus(item.id)"
-              :disabled="resume.processStage===item.id"
+              :disabled="resume.processStage === item.id"
               v-for="item in state.selectItem"
               :key="item.id"
               :command="item.name"
@@ -62,12 +62,7 @@
           </el-button>
         </template>
       </el-popover>
-      <el-dialog
-        v-model="dialogVisible"
-        title="评价"
-        width="30%"
-        align-center
-      >
+      <el-dialog v-model="dialogVisible" title="评价" width="30%" align-center>
         <div class="form">
           <!-- <div class="warn-text"> <img src="../assets/write.png">
         <span class="warn">面试官请依据面试填写客观正确的评价！</span></div> -->
@@ -116,7 +111,10 @@
         ><el-icon><Position /></el-icon>发送面试邀约</el-button
       >
     </div>
-    <div class="page animate__animated animate__fadeIn" v-loading="loading.loading1">
+    <div
+      class="page animate__animated animate__fadeIn"
+      v-loading="loading.loading1"
+    >
       <div class="avatar">
         <img src="../../assets/avatar.png" />
         <div>
@@ -137,13 +135,13 @@
           </div>
           <div class="user-msg">
             <el-icon><Iphone /></el-icon>
-            <span>{{ resume.phone||'12562429522' }}</span>
+            <span>{{ resume.phone || "无" }}</span>
             <el-icon><Message /></el-icon>
-            <span>{{ resume.email||'2390864552@qq.com' }}</span>
+            <span>{{ resume.email || "无" }}</span>
             <el-icon><Briefcase /></el-icon>
-            <span> {{ userMsg.workYears||'5' }}年工作经验</span>
+            <span> {{ userMsg.workYears || "无" }}年工作经验</span>
             <img src="..\..\assets\student-icon.png" />
-            <span>{{ userMsg.education||'本科' }}</span>
+            <span>{{ userMsg.education || "无" }}</span>
           </div>
         </div>
       </div>
@@ -182,8 +180,15 @@
           label="推荐岗位"
           name="third"
         >
-        <empty-data v-if="jobList.length===0" msg="暂无推荐岗位"></empty-data>
-          <postPage v-else v-loading=loading.loading2 :jobList="jobList"></postPage>
+          <empty-data
+            v-if="jobList.length === 0"
+            msg="暂无推荐岗位"
+          ></empty-data>
+          <postPage
+            v-else
+            v-loading="loading.loading2"
+            :jobList="jobList"
+          ></postPage>
         </el-tab-pane>
         <el-tab-pane
           class="animate__animated animate__slideInRight"
@@ -191,12 +196,15 @@
           label="评价"
           name="forth"
         >
-        <empty-data v-if="evaluate.length===0" msg="暂无评价信息"></empty-data>
+          <empty-data
+            v-if="evaluate.length === 0"
+            msg="暂无评价信息"
+          ></empty-data>
           <InterviewPage
-          v-else
-          v-loading="loading.loading3"
+            v-else
+            v-loading="loading.loading3"
             :interviewList="evaluate"
-                    ></InterviewPage>
+          ></InterviewPage>
         </el-tab-pane>
         <el-tab-pane
           class="animate__animated animate__slideInRight"
@@ -204,7 +212,7 @@
           label="操作日志"
           name="fifth"
         >
-          <empty-data v-if="logs.length===0" msg="暂无日志信息"></empty-data>
+          <empty-data v-if="logs.length === 0" msg="暂无日志信息"></empty-data>
           <Log v-else :logs="logs" v-loading="loading.loading4"></Log>
         </el-tab-pane>
       </el-tabs>
@@ -243,19 +251,19 @@ const query = route.query;
 const resumeId = query["id"];
 const dialogVisible = ref(false);
 
-const showGraph = ref(true)
+const showGraph = ref(true);
 
 /* 当前要修改的状态值 */
 const currentState = ref(1);
-const evaluate = ref([])
+const evaluate = ref([]);
 
 const loading = reactive({
-  loading1:true,
-  loading2:true,
-  loading3:true,
-  loading4:true,
-  loading5:true,
-})
+  loading1: true,
+  loading2: true,
+  loading3: true,
+  loading4: true,
+  loading5: true,
+});
 
 /* 返回json数据 */
 const state = reactive({
@@ -264,6 +272,9 @@ const state = reactive({
   isVisit: "first",
   selectItem: [],
   resumeState: 0,
+  skill:'',
+  summarize:'',
+  composite:''
 });
 
 let resume = ref({
@@ -470,69 +481,108 @@ const labelProcessing = ref({
 const jobList = ref([]);
 
 const comments = reactive({
-  skill:'',
-  summarize:'',
-  composite:''
-})
+  skill: "",
+  summarize: "",
+  composite: "",
+});
 
 const logs = ref([]);
 onMounted(() => {
   apiFun.resume.analysis(resumeId).then((res) => {
-    resume.value = res.data;    
-    loading.loading1=false
+    resume.value = res.data;
+    loading.loading1 = false;
     labelProcessing.value = JSON.parse(resume.value.labelProcessing);
+    let allValuesLessThan5 = true;
+    let maxVal = 0;
     for (let key in labelProcessing.value.backgroundIndustry) {
-      if (labelProcessing.value.backgroundIndustry[key] < 8) {
-        labelProcessing.value.backgroundIndustry[key] = 8;
+      let value = labelProcessing.value.backgroundIndustry[key];
+      if (value > maxVal) {
+        maxVal = value;
       }
+
+      if (value > 5) {
+        allValuesLessThan5 = false;
+      }
+
       if (labelProcessing.value.backgroundIndustry[key] > 20) {
         labelProcessing.value.backgroundIndustry[key] = 20;
       }
     }
+    console.log(222)
+    console.log(allValuesLessThan5
+    )
+    console.log(maxVal)
+    if (allValuesLessThan5) {
+      console.log(111)
+      for (let key in labelProcessing.value.backgroundIndustry) {
+        if(labelProcessing.value.backgroundIndustry[key]==maxVal)
+        labelProcessing.value.backgroundIndustry[key] = 8;
+        if ( labelProcessing.value.backgroundIndustry[key]< 5) {
+        labelProcessing.value.backgroundIndustry[key] = 5;
+      } 
+      }
+    }else{
+      for (let key in labelProcessing.value.backgroundIndustry) {
+
+        if ( labelProcessing.value.backgroundIndustry[key]< 5) {
+        labelProcessing.value.backgroundIndustry[key] = 5;
+      } 
+    }
+    }
+
     userMsg.value = JSON.parse(resume.value.content);
     userMsg.value.resumeHighlights = JSON.parse(userMsg.value.resumeHighlights);
     /**
      * 修改json
      */
+    var jsonString = userMsg.value.intelligentPrediction.trim();
+    var cleanedString = jsonString.replace(/[\u200B-\u200D\uFEFF]/g, ""); // 移除不可见字符
+
+    try {
+      userMsg.value.intelligentPrediction = JSON.parse(cleanedString);
+      console.log(userMsg.value.intelligentPrediction);
+    } catch (error) {
+      console.error(error);
+    }
     userMsg.value.riskWarning = JSON.parse(userMsg.value.riskWarning);
-     userMsg.value.intelligentPrediction = JSON.parse(userMsg.value.intelligentPrediction);
-      });
+  });
   apiFun.resume.graph(resumeId).then((res) => {
     list.value = res.data.schoolVoList[0].universityNode;
-    console.log(list.value)
+    console.log(list.value);
     // if(list.value[0].cityNode===0)
     // showGraph=false
   });
   getNode();
 
-   //给简历推荐岗位
-    apiFun.job.matchJob(resumeId).then((res)=>{
-      if(res.data.list.length>0)
-      jobList.value = res.data.list;
-      loading.loading2=false
-    })
+  //给简历推荐岗位
+  apiFun.job.matchJob(resumeId).then((res) => {
+    if (res.data.list.length > 0) jobList.value = res.data.list;
+    loading.loading2 = false;
+  });
   //获取一个简历的操作日志
-  getLogs()
-  getComment()
+  getLogs();
+  getComment();
 });
 //获取评价
 const getComment = () => {
-  apiFun.evaluate.get(resumeId).then(res=>{
-    loading.loading3=false
-    evaluate.value=res.data
-    evaluate.value = evaluate.value.filter(item => {
-  return !(item.skill === 'undefined' || item.skill === '') ||
-         !(item.composite === 'undefined' || item.composite === '') ||
-         !(item.summarize === 'undefined' || item.summarize === '');
-})
-  })
-}
+  apiFun.evaluate.get(resumeId).then((res) => {
+    loading.loading3 = false;
+    evaluate.value = res.data;
+    evaluate.value = evaluate.value.filter((item) => {
+      return (
+        !(item.skill === "undefined" || item.skill === "") ||
+        !(item.composite === "undefined" || item.composite === "") ||
+        !(item.summarize === "undefined" || item.summarize === "")
+      );
+    });
+  });
+};
 const getLogs = () => {
   apiFun.log.getLogById(resumeId).then((res) => {
     if (res.data.length > 0) logs.value = res.data;
-    loading.loading4=false
+    loading.loading4 = false;
   });
-}
+};
 
 const getStatus = computed(() => {
   const selectedStatus = state.selectItem.find(
@@ -540,26 +590,26 @@ const getStatus = computed(() => {
   );
   return selectedStatus ? selectedStatus.name : "";
 });
-const isInterview = computed(()=>{
-  let id=0
-  state.selectItem.forEach((item)=>{
-    if(item.name.includes("面试")){
-      id=item.id
+const isInterview = computed(() => {
+  let id = 0;
+  state.selectItem.forEach((item) => {
+    if (item.name.includes("面试")) {
+      id = item.id;
     }
-  })
-  console.log(id)
-  return id===resume.value.processStage 
-})
-const isGet = computed(()=>{
-  let id=0
-  state.selectItem.forEach((item)=>{
-    if(item.name.includes("入职")){
-      id=item.id
+  });
+  console.log(id);
+  return id === resume.value.processStage;
+});
+const isGet = computed(() => {
+  let id = 0;
+  state.selectItem.forEach((item) => {
+    if (item.name.includes("入职")) {
+      id = item.id;
     }
-  })
-  console.log(id)
-  return id===resume.value.processStage 
-})
+  });
+  console.log(id);
+  return id === resume.value.processStage;
+});
 const updateResumeStatus = (value) => {
   dialogVisible.value = true;
   if (value > state.selectItem[state.selectItem.length - 1].id)
@@ -572,14 +622,23 @@ const updateStatus = () => {
     if (res.code === 200) {
       dialogVisible.value = false;
       resume.value.processStage = currentState.value;
-        open1()
-        getLogs()
-      }
+      open1();
+      getLogs();
+    }
   });
-  apiFun.evaluate.add(resumeId, state.skill,state.summarize,state.composite).then(res=>{
-    getComment()
-  })
+  apiFun.evaluate
+    .add(resumeId, state.skill, state.summarize, state.composite)
+    .then((res) => {
+      getComment();
+      getNull()
+    });
 };
+
+const getNull = () => {
+  state.skill='',
+  state.composite='',
+  state.summarize=''
+}
 
 function handleCommand(command) {
   state.selectItem = command;
@@ -629,11 +688,11 @@ const sendEmail = () => {
   ElMessageBox.confirm("确定对该候选人发送邀约吗？")
     .then(() => {
       // const templateId = localStorage.getItem('templateId')
-      apiFun.template.sendInvite(resumeId,2).then(res=>{
-        console.log(res)
-         open();
-         getLogs();
-      })
+      apiFun.template.sendInvite(resumeId, 2).then((res) => {
+        console.log(res);
+        open();
+        getLogs();
+      });
     })
     .catch(() => {});
 };
@@ -645,34 +704,33 @@ const handleClick = (tab, event) => {};
 // @import "../../style/element-plus.scss";
 // 自定义 el-tabs 的主题样式
 .el-tabs__nav {
-//   background-color: #ffffff; // 修改标签栏的背景色
-    color: #333;
+  //   background-color: #ffffff; // 修改标签栏的背景色
+  color: #333;
 }
 
 .el-tabs__item.is-active {
-  color: #6873E3; // 修改当前激活的标签文字颜色
-
+  color: #6873e3; // 修改当前激活的标签文字颜色
 }
-.el-tabs__item:hover{
-    color: #6873E3;
+.el-tabs__item:hover {
+  color: #6873e3;
 }
-.el-tabs__item{
-    font-size: 15px;
+.el-tabs__item {
+  font-size: 15px;
 }
 .el-tabs__active-bar {
-    background-color: #6873E3; // 修改横线颜色为红色
-    height: 5px;
+  background-color: #6873e3; // 修改横线颜色为红色
+  height: 5px;
 }
-  /* CSS */
-  .el-dropdown-menu .el-dropdown-menu__item:hover {
-    background-color: #EFEDFD;
-    color: #7061E5;
-  }
-  
-  //修改loading加载时的颜色
-  .el-loading-spinner .path{
-    stroke: #8E95F8;
-  }
+/* CSS */
+.el-dropdown-menu .el-dropdown-menu__item:hover {
+  background-color: #efedfd;
+  color: #7061e5;
+}
+
+//修改loading加载时的颜色
+.el-loading-spinner .path {
+  stroke: #8e95f8;
+}
 
 .box {
   padding: 60px;
@@ -683,7 +741,7 @@ const handleClick = (tab, event) => {};
 }
 
 .demo-tabs el-tab-pane {
-  color: #6873E3;
+  color: #6873e3;
 }
 .goBack {
   font-weight: bold;
@@ -814,5 +872,4 @@ label {
   flex-direction: row;
   gap: 5px;
 }
-
 </style>

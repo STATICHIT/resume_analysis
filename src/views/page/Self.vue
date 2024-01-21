@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-31 22:30:09
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-15 23:17:29
+ * @LastEditTime: 2023-08-17 23:53:03
  * @FilePath: \resume_analysis\src\views\page\Self.vue
  * @Description: 账号个体主页，包含三个模块（数据大屏，操作日志，简历去重）
 -->
@@ -69,7 +69,7 @@
         <el-tab-pane label="操作日志" name="second">
           <log :logs="logs" v-loading="loading.loading1"></log>
         </el-tab-pane>
-        <el-tab-pane label="简历去重" name="third">
+        <el-tab-pane label="简历查重" name="third">
           <div style="height: 100%; min-height: 800px; padding: 20px" v-loading="loading.loading2">
             <h2>
               已检测到
@@ -81,7 +81,7 @@
                 <span class="text"
                   ><h3>
                     第{{ index + 1 }}组 &nbsp;&nbsp;<span style="color: #617eec"
-                      >相似度：{{ resume.score }}</span
+                      >相似度：{{ (resume.score/3).toFixed(2) }}</span
                     >
                   </h3></span
                 >
@@ -160,7 +160,7 @@ import log from "../../components/Log.vue";
 import apiFun from "../../utils/api";
 import router from "../../router";
 const activeName = ref("first");
-let num = ref(4);
+let num = ref(0);
 
 const logs = ref([]);
 
@@ -201,76 +201,7 @@ function Per() {
   });
 }
 const resumedemo = ref([
-  {
-    resume1: {
-      id: 1,
-      fullName: "黎芸贵",
-      processStage: "投递人选", //流程状态
-    },
-    resume2: {
-      id: 2,
-      fullName: "江奕云",
-      processStage: "笔试阶段", //流程状态
-    },
-    label: ["项目经历相似", "工作经历相似"],
-    score: 9.2,
-  },
-  {
-    resume1: {
-      id: 3,
-      fullName: "吉茹定",
-      processStage: "笔试阶段", //流程状态
-    },
-    resume2: {
-      id: 4,
-      fullName: "张子航",
-      processStage: "面试阶段", //流程状态
-    },
-    label: ["教育经历相似", "项目经历相似", "工作经历相似"],
-    score: 8.5,
-  },
-  {
-    resume1: {
-      id: 5,
-      fullName: "黄乙轩",
-      processStage: "offer阶段", //流程状态
-    },
-    resume2: {
-      id: 6,
-      fullName: "黄乙轩",
-      processStage: "候选人阶段", //流程状态
-    },
-    label: ["姓名相同", "工作经历相似"],
-    score: 7.3,
-  },
-  {
-    resume1: {
-      id: 7,
-      fullName: "陈翔",
-      processStage: "offer阶段", //流程状态
-    },
-    resume2: {
-      id: 8,
-      fullName: "陈翔",
-      processStage: "候选人阶段", //流程状态
-    },
-    label: ["姓名相同", "项目经历相似", "工作经历相似"],
-    score: 7.3,
-  },
-  {
-    resume1: {
-      id: 9,
-      fullName: "李珊",
-      processStage: "offer阶段", //流程状态
-    },
-    resume2: {
-      id: 10,
-      fullName: "李珊",
-      processStage: "候选人阶段", //流程状态
-    },
-    label: ["姓名相同", "项目经历相似"],
-    score: 7.3,
-  },
+  
 ]);
 
 //跳转到详细页
