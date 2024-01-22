@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-30 20:45:43
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-16 00:13:45
+ * @LastEditTime: 2023-08-18 14:19:58
  * @FilePath: \resume_analysis\src\components\Upload.vue
  * @Description: 简历分析上传组件
 -->
@@ -290,7 +290,7 @@ let uploadFile = async (file) => {
     console.log(file);
     formData.append("file", file);
     axios
-      .post("http://192.168.50.237:5555/resume/upload", formData, {
+      .post("http://10.100.167.8:5555/resume/upload", formData, {
         headers: header,
       })
       .then((res) => {
@@ -341,10 +341,10 @@ let analysis = async () => {
 
 const open = () => {
   ElNotification({
-    title: "分析成功",
+    title: "上传成功",
     dangerouslyUseHTMLString: true,
     message:
-      '<strong>所有简历文件均已分析完成并纳入人才库，您可前往<a href="/talentPool"><b>人才库</b></a>查看最新简历</strong>',
+      '<strong>所有简历文件均已上传成功，您可自行进行其他操作，后台对简历分析完毕后将把简历并纳入人才库中，您可前往<a href="/talentPool"><b>人才库</b></a>查看最新简历</strong>',
     type: "success",
   });
 };

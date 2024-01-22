@@ -13,14 +13,14 @@
         >查看返回数据</el-button
       >
         <ul class="ul-list">
-          <li><span>姓名：</span>{{ userMsg.name||'张晓鹏' }}</li>
-          <li><span>邮箱：</span>{{ userMsg.mailBox||'2390864552@qq.com' }}</li>
+          <li><span>姓名：</span>{{ userMsg.name||'无' }}</li>
+          <li><span>邮箱：</span>{{ userMsg.mailBox||'无' }}</li>
           <li><span>性别：</span>{{userMsg.sex ? userMsg.sex: '男'}}</li>
-          <li><span>求职方向：</span>{{ userMsg.expectedJob||'软件开发工程师' }}</li>
-          <li><span>手机：</span>{{ userMsg.phone||'12562429522' }}</li>
-          <li><span>学历：</span>{{ userMsg.education||'本科' }}</li>
+          <li><span>求职方向：</span>{{ userMsg.expectedJob||'无' }}</li>
+          <li><span>手机：</span>{{ userMsg.phone||'无' }}</li>
+          <li><span>学历：</span>{{ userMsg.education||'无' }}</li>
           <li><span>年龄：</span>{{ userMsg.age ? userMsg.age:24||'26' }}</li>
-          <li><span>出生年月：</span>{{ userMsg.dateOfBirth||'1990.12.8' }}</li>
+          <li><span>出生年月：</span>{{ userMsg.dateOfBirth||'无' }}</li>
         </ul>
         <div v-show="showTags&label4" class="same-tags">姓名相同</div>
       </div>
@@ -28,10 +28,11 @@
         <span class="title">教育背景</span>
         <div class="education">
           <div style="display: flex; flex-direction: row">
-            <span class="m-2" v-if="!label1">{{ userMsg.graduationInstitution||'中国科学院大学' }}</span>
-            <span class="m-2" v-else style="color: red;">{{ userMsg.graduationInstitution||'中国科学院大学' }}</span>
+            <span class="m-2" v-if="!label1">{{ userMsg.graduationInstitution||'无' }}</span>
+            <span class="m-2" v-else style="color: red;">{{ userMsg.graduationInstitution||'无' }}</span>
             <div v-show="showReturn">
               <el-popover
+              v-if="!showText"
                 ref="popover"
                 placement="right"
                 class="popup"
@@ -41,29 +42,29 @@
                 <div>
                   <div class="graph-view" v-if="schoolList.length!==0">
                     <h2 style="margin-left: -10px">
-                      {{ userMsg.graduationInstitution||'中国科学院大学' }}
+                      {{ userMsg.graduationInstitution||'无' }}
                     </h2>
                     <ul>
                       <li>
                         <span>学校名：</span
-                        >{{ schoolList.chineseName||'中国科学院大学' }}
+                        >{{ schoolList[0].chineseName||'无' }}
                       </li>
                       <li>
                         <span>缩写：</span
-                        >{{ schoolList.simpleName||'国科大（UCAS）' }}
+                        >{{ schoolList[0].simpleName||'无' }}
                       </li>
                       <li>
                         <span>英文名：</span
-                        >{{ schoolList.foreignName||'University of Chinese Academy of Sciences' }}
+                        >{{ schoolList[0].foreignName||'无' }}
                       </li>
-                      <li><span>校训：</span>{{ schoolList.schoolMotto||'厚德载物，自强不息' }}</li>
-                      <li><span>奖项：</span>{{ schoolList.awards||'SCI收录6707篇，EI收录1384篇（2014年）国家三大奖32项（2014年）ESI排名全国第一（2019年1月）' }}</li>
-                      <li><span>水平：</span>{{ schoolList.level||'公办大学' }}</li>
-                      <li><span>地址：</span>{{ schoolList.address||'中国北京市石景山区玉泉路19号（甲）' }}</li>
-                      <li><span>学校类型：</span>{{ schoolList.schoolType||'综合类 本科' }} {{ schoolList[0].type }}</li>
+                      <li><span>校训：</span>{{ schoolList[0].schoolMotto||'无' }}</li>
+                      <li><span>奖项：</span>{{ schoolList[0].awards||'无' }}</li>
+                      <li><span>水平：</span>{{ schoolList[0].level||'无' }}</li>
+                      <li><span>地址：</span>{{ schoolList[0].address||'无' }}</li>
+                      <li><span>学校类型：</span>{{ schoolList[0].schoolType||'无' }} {{ schoolList[0].type }}</li>
                       <!-- <li><span>学校类型：</span>{{  schoolList[0].schoolType }} {{  schoolList.type }}</li> -->
-                      <li><span>详细介绍：</span>{{ schoolList.desc||'中国科学院大学（University of Chinese Academy of Sciences），简称“国科大”，主校区位于北京市，是一所以科教融合为办学模式、研究生教育为办学主体的创新型大学，入选国家“双一流”建设高校、“基础学科拔尖学生培养试验计划”，环太平洋大学联盟、京港大学联盟、中国高校行星科学联盟、中欧商校联盟成员，首批学位授权自主审核单位。[1-4]' }}</li>
-                    </ul>
+                      <li><span>详细介绍：</span>{{ schoolList[0].desc||'无' }}</li>
+                    </ul> 
                   </div>
                   <div v-else>
                     <!-- 当 userMsg.replaceName 不可用时显示的内容 -->
@@ -77,9 +78,9 @@
             </div>
           </div>
           <ul>
-            <li><span>学位：</span>{{ userMsg.education||'本科' }}</li>
-            <li><span>专业：</span>{{ userMsg.major||'软件工程' }}</li>
-            <li><span>学校名：</span>{{ userMsg.graduationInstitution||'中国科学院大学' }}</li>
+            <li><span>学位：</span>{{ userMsg.education||'无' }}</li>
+            <li><span>专业：</span>{{ userMsg.major||'无' }}</li>
+            <li><span>学校名：</span>{{ userMsg.graduationInstitution||'无' }}</li>
           </ul>
         </div>
         <div v-show="showTags&label1" class="same-tags">教育背景相似</div>
@@ -87,13 +88,13 @@
       <div v-if="!label2">
         <span class="title">工作经历</span>
         <div v-for="(item, index) in userMsg.workExperiences" :key="index">
-          <span class="m-2">{{ item.companyName||'建龙设计网科技公司' }}</span>
+          <span class="m-2">{{ item.companyName||'未识别公司名' }}</span>
           <ul>
-            <li><span>开始时间：</span>{{ item.startTime||'2018.05.12' }}</li>
-            <li><span>结束时间：</span>{{ item.endTime||'至今' }}</li>
+            <li><span>开始时间：</span>{{ item.startTime||'无' }}</li>
+            <li><span>结束时间：</span>{{ item.endTime||'无' }}</li>
             <!-- <li><span>地点：</span>湘西土家族苗族自治州</li> -->
-            <li><span>公司名：</span>{{ item.companyName||'建龙设计网科技公司' }}</li>
-            <li><span>职位名称：</span>{{ item.jobName||"开发工程师" }}</li>
+            <li><span>公司名：</span>{{ item.companyName||'无' }}</li>
+            <li><span>职位名称：</span>{{ item.jobName||"无" }}</li>
             <li style="white-space: pre-line;text-indent: -5em; padding-left: 5em;">
               <span>工作描述：</span>
               {{ item.description }}

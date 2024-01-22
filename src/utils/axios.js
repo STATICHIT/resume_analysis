@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-04-26 19:13:07
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-15 22:29:24
+ * @LastEditTime: 2023-08-18 08:54:23
  * @FilePath: \resume_analysis\src\utils\axios.js
  * @Description: 封装请求
  */
@@ -12,7 +12,7 @@ import qs from 'qs';//转json数据工具包
 import { ElMessage } from 'element-plus'
 import router from '../router/index'
 
-let baseURL = 'http://192.168.50.237:5555/'
+let baseURL = 'http://10.100.167.8:5555/'
 
 let config = {
   baseURL: baseURL,

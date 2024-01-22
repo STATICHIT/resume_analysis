@@ -2,7 +2,7 @@
  * @Author: STATICHIT
  * @Date: 2023-05-29 22:10:18
  * @LastEditors: STATICHIT 2394412110@qq.com
- * @LastEditTime: 2023-08-16 01:50:51
+ * @LastEditTime: 2023-08-17 17:42:33
  * @FilePath: \resume_analysis\src\views\page\JobPool.vue
  * @Description: 岗位库
 -->
@@ -18,7 +18,7 @@
       </p>
     </div>
     <div class="postBoard">
-      <PostCard :jobList="jobList" :intoJob="gotoJob"></PostCard>
+      <PostCard v-loading="loading" :jobList="jobList" :intoJob="gotoJob"></PostCard>
     </div>
     <div class="bigTitle">录入更多岗位</div>
     <div class="board1">
@@ -58,12 +58,15 @@
 <script setup>
 import PostCard from "../../components/PostCard.vue";
 import Upload from "../../components/Upload2.vue";
+import { ElNotification } from "element-plus";
 import { ref, onMounted } from "vue";
 import apiFun from "../../utils/api";
 import router from "@/router";
 const activeName = ref("first");
 
 const jobList = ref([]);
+
+const loading = ref(true)
 
 onMounted(() => {
   getJob();
@@ -78,6 +81,7 @@ const getJob = async () => {
   apiFun.job.getAll().then((res) => {
     console.log(res);
     jobList.value = res.data;
+    loading.value=false
   });
 };
 
@@ -86,11 +90,12 @@ const fullscreenLoading2 = ref(false); //loading效果
 let analysis = () => {
   fullscreenLoading2.value = true;
   console.log(concent.value);
-  apiFun.job.jobAnalysis(concent.value).then((res) => {
+  apiFun.job.upload(concent.value).then((res) => {
     console.log(res);
     if (res.code === 200) {
       fullscreenLoading2.value = false;
       open();
+      getJob();
     } else {
       ElNotification({
         title: "分析失败",
@@ -167,7 +172,7 @@ textarea {
   padding: 15px;
   width: 100%;
   background-color: #f6f9fc;
-  color: #8a97a0;
+  color: #454749;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
   margin-bottom: 30px;
 }
